@@ -1,10 +1,5 @@
 package com.vn.backend.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.vn.auth.model.Role;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +9,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserDto {
+public class ContactDto {
 	private Long id;
-	private String username;
+	private String name;
 	private String email;
-	private String password;
-	private List<Role> roles = new ArrayList<>();
+	private String phone;
+	private String subject;
+	private String message;
+	private String googelMap;
+	private String address;
 }

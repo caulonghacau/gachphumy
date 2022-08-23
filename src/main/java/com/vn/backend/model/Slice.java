@@ -1,7 +1,5 @@
 package com.vn.backend.model;
 
-import java.math.BigDecimal;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,37 +13,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "product")
+@Table(name = "slice")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-public class Product {
+public class Slice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@Column(name = "produc_code")
-	private String producCode;
-
-	@Column(name = "name")
-	private String name;
-
-	private int amount;
-
-	@Column(name = "price", precision = 10, scale = 2)
-	private BigDecimal price;
-
-	private String ingredient;
-	private String standard;
-	private String specifications;
-	private String size;
-	private String weight;
-	@Column(name = "new_product")
-	private String newProduct;
-	private String description1;
-	private String description2;
-
+	private String title;
+	private String description;
+	private String image;
+	// Slice: set = 0 display left, set = 1 display right
+	private int type = 0;
 	@Column(name = "delete_flag")
 	private int deleteFlag;
 }

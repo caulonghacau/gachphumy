@@ -22,6 +22,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vn.auth.service.UserDetailsServiceImpl;
+import com.vn.backend.model.Contact;
+import com.vn.backend.model.Menu;
+import com.vn.backend.model.Slice;
+import com.vn.backend.repository.ContactRepository;
+import com.vn.backend.repository.MenuRepository;
+import com.vn.backend.repository.SliceRepository;
+import com.vn.utils.Constant;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
 	@Autowired
@@ -31,7 +38,16 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	private UserDetailsServiceImpl userDetailsService;
 
 	@Autowired
-	ObjectFactory<HttpSession> httpSessionFactory;
+	private ObjectFactory<HttpSession> httpSessionFactory;
+
+	@Autowired
+	private MenuRepository menuRepository;
+
+	@Autowired
+	private ContactRepository contactRepository;
+
+	@Autowired
+	private SliceRepository sliceRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
@@ -51,12 +67,18 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 			String getRequestURI = request.getRequestURI();
 			String getServletPath = request.getServletPath();
 
+			if (!getServletPath.contains("/admin")) {
+				setMenuSession(request);
+				setContactSession(request);
+				setSliceSession(request);
+			}
+
 			String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request).replacePath(null).build()
 					.toUriString();
 
-			if (getServletPath.contains("/admin/product") && jwt == null && !jwtUtils.validateJwtToken(jwt)) {
-				response.sendRedirect("/login");
-			}
+//			if (getServletPath.contains("/admin") && jwt == null && !jwtUtils.validateJwtToken(jwt)) {
+//				response.sendRedirect("/login");
+//			}
 
 			// String jwt = parseJwt(request);
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
@@ -92,5 +114,32 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		}
 
 		return null;
+	}
+
+	private void setMenuSession(HttpServletRequest request) {
+		@SuppressWarnings("unchecked")
+		List<Menu> sessions = (List<Menu>) request.getSession().getAttribute(Constant.MENU_SESSION);
+		if (sessions == null) {
+			sessions = menuRepository.findAll();
+			request.getSession().setAttribute(Constant.MENU_SESSION, sessions);
+		}
+	}
+
+	private void setContactSession(HttpServletRequest request) {
+		@SuppressWarnings("unchecked")
+		Contact sessions = (Contact) request.getSession().getAttribute(Constant.CONTACT_SESSION);
+		if (sessions == null) {
+			sessions = contactRepository.findAll().get(0);
+			request.getSession().setAttribute(Constant.CONTACT_SESSION, sessions);
+		}
+	}
+
+	private void setSliceSession(HttpServletRequest request) {
+		@SuppressWarnings("unchecked")
+		List<Slice> sessions = (List<Slice>) request.getSession().getAttribute(Constant.SLICE_SESSION);
+		if (sessions == null) {
+			sessions = sliceRepository.findByType(0);
+			request.getSession().setAttribute(Constant.SLICE_SESSION, sessions);
+		}
 	}
 }
