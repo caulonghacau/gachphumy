@@ -46,11 +46,11 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent arg0) {
 		// Roles
-//		addRole();
-//		addUser();
-//		addMenu();
-//		addContact();
-//		addSlice();
+		addRole();
+		addUser();
+		addMenu();
+		addContact();
+		addSlice();
 	}
 
 	private void addRole() {

@@ -125,7 +125,7 @@ public class HomeController {
 		return "/error/403";
 	}
 
-	@GetMapping("/product/view")
+	@GetMapping("/product")
 	public String view() {
 		return "/frontend/product/view";
 	}
