@@ -7,8 +7,6 @@
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="Free HTML Templates" name="keywords">
 	<meta content="Free HTML Templates" name="description">
-
-	<!-- Favicon -->
 	<link th:href="@{../img/favicon.ico}" rel="icon">
 	<div th:replace="fragments/header :: header-css" />
 </head>
@@ -41,29 +39,29 @@
 					<div id="success"></div>
 					<form name="sentMessage" id="contactForm" novalidate="novalidate">
 						<div class="control-group">
-							<input type="text" class="form-control" id="name" placeholder="Your Name"
-								required="required" data-validation-required-message="Please enter your name" />
+							<input type="text" class="form-control" id="name" placeholder="Họ Và Tên"
+								required="required" data-validation-required-message="Nhập tên bạn" />
 							<p class="help-block text-danger"></p>
 						</div>
 						<div class="control-group">
-							<input type="email" class="form-control" id="email" placeholder="Your Email"
-								required="required" data-validation-required-message="Please enter your email" />
+							<input type="text" class="form-control" id="subject" placeholder="Số Điện Thoại"
+								required="required" data-validation-required-message="Nhập số điện thoại" />
 							<p class="help-block text-danger"></p>
 						</div>
 						<div class="control-group">
-							<input type="text" class="form-control" id="subject" placeholder="Subject"
-								required="required" data-validation-required-message="Please enter a subject" />
+							<input type="email" class="form-control" id="email" placeholder="Email"
+								required="required" data-validation-required-message="Nhập email" />
 							<p class="help-block text-danger"></p>
 						</div>
+						
 						<div class="control-group">
-							<textarea class="form-control" rows="8" id="message" placeholder="Message"
+							<textarea class="form-control" rows="8" id="message" placeholder="Nội dung"
 								required="required"
-								data-validation-required-message="Please enter your message"></textarea>
+								data-validation-required-message="Nhập nội dung"></textarea>
 							<p class="help-block text-danger"></p>
 						</div>
 						<div>
-							<button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Send
-								Message</button>
+							<button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Gửi</button>
 						</div>
 					</form>
 				</div>
@@ -91,9 +89,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- Contact End -->
-	<!-- /.container -->
-
 	<div th:replace="fragments/footer :: footer" />
 	<div th:replace="fragments/footer :: footer-js" />
 </body>
