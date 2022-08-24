@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,8 +16,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.vn.auth.jwt.JwtUtils;
 import com.vn.auth.repository.RoleRepository;
@@ -25,6 +27,10 @@ import com.vn.auth.request.LoginRequest;
 import com.vn.auth.response.JwtResponse;
 import com.vn.auth.service.SecurityService;
 import com.vn.auth.service.UserDetailsImpl;
+import com.vn.backend.dto.AdvantageDto;
+import com.vn.backend.dto.ProductDto;
+import com.vn.backend.service.AdvantageService;
+import com.vn.backend.service.ProductService;
 
 @Controller
 public class HomeController {
@@ -47,14 +53,56 @@ public class HomeController {
 	@Autowired
 	SecurityService securityService;
 
-	@RequestMapping("/")
-	public String home() {
+	@Autowired
+	private ProductService productService;
+
+	@Autowired
+	private AdvantageService advantageService;
+
+	@GetMapping(value = { "/", "/home" })
+	public String home1(Model model) {
+
+		List<ProductDto> products = productService.getListProduct();
+		model.addAttribute("products", products);
+
+		List<AdvantageDto> advantages = advantageService.getListAdvantage();
+		model.addAttribute("advantages", advantages);
+
 		return "/frontend/home";
 	}
 
-	@GetMapping("/home")
-	public String home1() {
-		return "/frontend/home";
+	@GetMapping("/product")
+	public String view(Model model) {
+		List<ProductDto> products = productService.getListProduct();
+		model.addAttribute("products", products);
+		return "/frontend/product/view";
+	}
+
+	@GetMapping("/product/{id}")
+	public String detail(@PathVariable("id") Long id, Model model) {
+
+		List<ProductDto> products = productService.getListProduct();
+
+		ProductDto product = new ProductDto();
+		for (ProductDto dto : products) {
+			if (dto.getId().compareTo(id) == 0) {
+				BeanUtils.copyProperties(dto, product);
+			}
+		}
+		model.addAttribute("product", product);
+		model.addAttribute("products", products);
+		
+		return "/frontend/product/detail";
+	}
+
+	@GetMapping("/about")
+	public String about() {
+		return "/frontend/about";
+	}
+
+	@GetMapping("/contact")
+	public String contact() {
+		return "/frontend/contact";
 	}
 
 	@GetMapping("/admin")
@@ -70,16 +118,6 @@ public class HomeController {
 	@GetMapping("/user")
 	public String user() {
 		return "/user";
-	}
-
-	@GetMapping("/about")
-	public String about() {
-		return "/frontend/about";
-	}
-
-	@GetMapping("/contact")
-	public String contact() {
-		return "/frontend/contact";
 	}
 
 	@GetMapping("/token")
@@ -123,16 +161,6 @@ public class HomeController {
 	@GetMapping("/403")
 	public String error403() {
 		return "/error/403";
-	}
-
-	@GetMapping("/product")
-	public String view() {
-		return "/frontend/product/view";
-	}
-
-	@GetMapping("/product/detail")
-	public String detail() {
-		return "/frontend/product/detail";
 	}
 
 }

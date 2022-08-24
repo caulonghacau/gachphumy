@@ -7,24 +7,23 @@
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="Free HTML Templates" name="keywords">
 	<meta content="Free HTML Templates" name="description">
-
-	<!-- Favicon -->
 	<link th:href="@{../img/favicon.ico}" rel="icon">
 	<div th:replace="fragments/header :: header-css" />
 </head>
 
 <body>
-
 	<div th:replace="fragments/header :: header" />
 	<div th:replace="fragments/slice :: slice" />
 	<div class="container-fluid pt-5 pb-3">
 		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Sản phẩm
 				mới</span></h2>
 		<div class="row px-xl-5">
-			<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+			<div th:each="product : ${products}" class="col-lg-3 col-md-4 col-sm-6 pb-1">
 				<div class="product-item bg-light mb-4">
 					<div class="product-img position-relative overflow-hidden">
-						<img class="img-fluid w-100" src="../upload/product01.jpg" alt=""  style="height: 326px" />
+						<a th:href="@{/product/{id}(id=${product.id})}">
+							<img class="img-fluid w-100" th:src="${product.image}" alt="" style="height: 326px" />
+						</a>
 						<!--<div class="product-action">
                              <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -33,293 +32,38 @@
                         </div>-->
 					</div>
 					<div class="text-center py-4">
-						<a class="h6 text-decoration-none text-truncate" href="">Gạch Không Nung Đặc 2 Lỗ Nhỏ</a>
+						<a class="h6 text-decoration-none text-truncate" th:text="${product.name}"
+							th:href="@{/product/{id}(id=${product.id})}">Gạch Không
+							Nung Đặc 2 Lỗ Nhỏ</a>
 						<div class="d-flex align-items-center justify-content-center mt-2">
-							<h5>5.000 đ/Viên</h5>
+							<h5 th:text="${product.price}">5.000 đ/Viên</h5>
 							<!-- <h6 class="text-muted ml-2"><del>5.000</del></h6> -->
 						</div>
 						<div class="d-flex align-items-center justify-content-center mb-1">
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small>(99)</small>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-				<div class="product-item bg-light mb-4">
-					<div class="product-img position-relative overflow-hidden">
-						<img class="img-fluid w-100" src="../upload/product02.jpg" alt="" style="height: 326px">
-						<!--<div class="product-action">
-                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a> 
-                        </div>-->
-					</div>
-					<div class="text-center py-4">
-						<a class="h6 text-decoration-none text-truncate" href="">Gạch Không Nung Đặc 2 Lỗ Nhỏ</a>
-						<div class="d-flex align-items-center justify-content-center mt-2">
-							<h5>5.000 đ/Viên</h5>
-							<!-- <h6 class="text-muted ml-2"><del>5.000</del></h6> -->
-						</div>
-						<div class="d-flex align-items-center justify-content-center mb-1">
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small>(99)</small>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-				<div class="product-item bg-light mb-4">
-					<div class="product-img position-relative overflow-hidden">
-						<img class="img-fluid w-100" src="../upload/product03.jpg" alt="" style="height: 326px" />
-						<!--<div class="product-action">
-                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a> 
-                        </div>-->
-					</div>
-					<div class="text-center py-4">
-						<a class="h6 text-decoration-none text-truncate" href="">Gạch Không Nung Đặc 2 Lỗ Nhỏ</a>
-						<div class="d-flex align-items-center justify-content-center mt-2">
-							<h5>5.000 đ/Viên</h5>
-							<!-- <h6 class="text-muted ml-2"><del>5.000</del></h6> -->
-						</div>
-						<div class="d-flex align-items-center justify-content-center mb-1">
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small>(99)</small>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-				<div class="product-item bg-light mb-4">
-					<div class="product-img position-relative overflow-hidden">
-						<img class="img-fluid w-100" src="../upload/product04.jpg" alt="" style="height: 326px" />
-						<!--<div class="product-action">
-                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a> 
-                        </div>-->
-					</div>
-					<div class="text-center py-4">
-						<a class="h6 text-decoration-none text-truncate" href="">Gạch Không Nung Đặc 2 Lỗ Nhỏ</a>
-						<div class="d-flex align-items-center justify-content-center mt-2">
-							<h5>5.000 đ/Viên</h5>
-							<!-- <h6 class="text-muted ml-2"><del>5.000</del></h6> -->
-						</div>
-						<div class="d-flex align-items-center justify-content-center mb-1">
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small>(99)</small>
+							<a class="btn btn-primary" href="/contact">Liên hệ mua</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-	<div class="container-fluid pt-5 pb-3">
-		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">SẢN PHẨM LIÊN QUAN</span></h2>
-		<div class="row px-xl-5">
-			<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-				<div class="product-item bg-light mb-4">
-					<div class="product-img position-relative overflow-hidden">
-						<img class="img-fluid w-100" src="../upload/product01.jpg" alt=""  style="height: 326px" />
-						<!--<div class="product-action">
-                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a> 
-                        </div>-->
-					</div>
-					<div class="text-center py-4">
-						<a class="h6 text-decoration-none text-truncate" href="">Gạch Không Nung Đặc 2 Lỗ Nhỏ</a>
-						<div class="d-flex align-items-center justify-content-center mt-2">
-							<h5>5.000 đ/Viên</h5>
-							<!-- <h6 class="text-muted ml-2"><del>5.000</del></h6> -->
-						</div>
-						<div class="d-flex align-items-center justify-content-center mb-1">
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small>(99)</small>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-				<div class="product-item bg-light mb-4">
-					<div class="product-img position-relative overflow-hidden">
-						<img class="img-fluid w-100" src="../upload/product02.jpg" alt="" style="height: 326px">
-						<!--<div class="product-action">
-                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a> 
-                        </div>-->
-					</div>
-					<div class="text-center py-4">
-						<a class="h6 text-decoration-none text-truncate" href="">Gạch Không Nung Đặc 2 Lỗ Nhỏ</a>
-						<div class="d-flex align-items-center justify-content-center mt-2">
-							<h5>5.000 đ/Viên</h5>
-							<!-- <h6 class="text-muted ml-2"><del>5.000</del></h6> -->
-						</div>
-						<div class="d-flex align-items-center justify-content-center mb-1">
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small>(99)</small>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-				<div class="product-item bg-light mb-4">
-					<div class="product-img position-relative overflow-hidden">
-						<img class="img-fluid w-100" src="../upload/product03.jpg" alt="" style="height: 326px" />
-						<!--<div class="product-action">
-                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a> 
-                        </div>-->
-					</div>
-					<div class="text-center py-4">
-						<a class="h6 text-decoration-none text-truncate" href="">Gạch Không Nung Đặc 2 Lỗ Nhỏ</a>
-						<div class="d-flex align-items-center justify-content-center mt-2">
-							<h5>5.000 đ/Viên</h5>
-							<!-- <h6 class="text-muted ml-2"><del>5.000</del></h6> -->
-						</div>
-						<div class="d-flex align-items-center justify-content-center mb-1">
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small>(99)</small>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-				<div class="product-item bg-light mb-4">
-					<div class="product-img position-relative overflow-hidden">
-						<img class="img-fluid w-100" src="../upload/product04.jpg" alt="" style="height: 326px" />
-						<!--<div class="product-action">
-                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a> 
-                        </div>-->
-					</div>
-					<div class="text-center py-4">
-						<a class="h6 text-decoration-none text-truncate" href="">Gạch Không Nung Đặc 2 Lỗ Nhỏ</a>
-						<div class="d-flex align-items-center justify-content-center mt-2">
-							<h5>5.000 đ/Viên</h5>
-							<!-- <h6 class="text-muted ml-2"><del>5.000</del></h6> -->
-						</div>
-						<div class="d-flex align-items-center justify-content-center mb-1">
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small class="fa fa-star text-primary mr-1"></small>
-							<small>(99)</small>
-						</div>
-					</div>
+	<!-- Featured Start -->
+	<div class="container-fluid pt-5">
+		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">ƯU
+				ĐIỂM VƯỢT TRỘI CỦA GẠCH KHÔNG NUNG</span></h2>
+		<div class="row px-xl-5 pb-3">
+			<div th:each="advantage : ${advantages}" class="col-lg-3 col-md-6 col-sm-12 pb-1">
+				<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+					<h2 class="fa fa-check text-primary m-0 mr-3"></h2>
+					<h5 th:text="${advantage.name}" class="font-weight-semi-bold m-0">SIÊU CÁCH ÂM</h5>
 				</div>
 			</div>
 		</div>
 	</div>
-		<!-- Products End -->
-		<!-- Featured Start -->
-		<div class="container-fluid pt-5">
-			<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">ƯU
-					ĐIỂM VƯỢT TRỘI CỦA GẠCH KHÔNG NUNG</span></h2>
-			<div class="row px-xl-5 pb-3">
-				<div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-					<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-						<h2 class="fa fa-check text-primary m-0 mr-3"></h2>
-						<h5 class="font-weight-semi-bold m-0">SIÊU CÁCH ÂM</h5>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-					<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-						<h2 class="fa fa-check text-primary m-0 mr-3"></h2>
-						<h5 class="font-weight-semi-bold m-0">SIÊU CÁCH NHIỆT </h5>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-					<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-						<h2 class="fa fa-check text-primary m-0 mr-3"></h2>
-						<h5 class="font-weight-semi-bold m-0">TỶ TRỌNG NHẸ</h5>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-					<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-						<h2 class="fa fa-check text-primary m-0 mr-3"></h2>
-						<h5 class="font-weight-semi-bold m-0">CHỐNG CHÁY HIỆU QUẢ</h5>
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-					<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-						<h2 class="fa fa-check text-primary m-0 mr-3"></h2>
-						<h5 class="font-weight-semi-bold m-0">CHỐNG CHẤN ĐỘNG</h5>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-					<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-						<h2 class="fa fa-check text-primary m-0 mr-3"></h2>
-						<h5 class="font-weight-semi-bold m-0">THI CÔNG NHANH</h5>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-					<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-						<h2 class="fa fa-check text-primary m-0 mr-3"></h2>
-						<h5 class="font-weight-semi-bold m-0">THÂN THIỆN MÔI TRƯỜNG</h5>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-					<div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-						<h2 class="fa fa-check text-primary m-0 mr-3"></h2>
-						<h5 class="font-weight-semi-bold m-0">KÍCH THƯỚC LINH HOẠT</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Featured End -->
-		<!-- Vendor Start -->
-		<div th:replace="fragments/vendor :: vendor" />
-		<div th:replace="fragments/footer :: footer" />
-		<div th:replace="fragments/footer :: footer-js" />
+	<!-- Vendor Start -->
+	<div th:replace="fragments/vendor :: vendor" />
+	<div th:replace="fragments/footer :: footer" />
+	<div th:replace="fragments/footer :: footer-js" />
 
 </body>
 

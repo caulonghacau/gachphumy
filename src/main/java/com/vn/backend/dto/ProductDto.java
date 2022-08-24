@@ -2,9 +2,6 @@ package com.vn.backend.dto;
 
 import java.math.BigDecimal;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +14,11 @@ import lombok.Setter;
 public class ProductDto {
 	private Long id;
 	private String producCode;
+
+	private Long categoryId;
 	private String name;
+	private String image;
+	private int amount;
 	private int status;
 	private BigDecimal price;
 	private String ingredient;

@@ -25,6 +25,12 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column(name = "category_id")
+	private Long categoryId;
+
+	@Column(name = "image")
+	private String image;
+
 	@Column(name = "produc_code")
 	private String producCode;
 
@@ -37,15 +43,24 @@ public class Product {
 	private BigDecimal price;
 
 	private String ingredient;
+
 	private String standard;
+
 	private String specifications;
+
 	private String size;
+
 	private String weight;
+
 	@Column(name = "new_product")
 	private String newProduct;
+
+	@Column(name = "description1", columnDefinition = "TEXT")
 	private String description1;
+
+	@Column(name = "description2", columnDefinition = "TEXT")
 	private String description2;
 
 	@Column(name = "delete_flag")
-	private int deleteFlag;
+	private int deleteFlag = 0;
 }

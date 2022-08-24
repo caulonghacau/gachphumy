@@ -23,6 +23,7 @@ public class ServiceInfo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	@Column(name = "description", columnDefinition = "TEXT")
 	private String description;
 	@Column(name = "delete_flag")
 	private int deleteFlag;

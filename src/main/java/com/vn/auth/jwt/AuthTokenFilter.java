@@ -22,12 +22,16 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vn.auth.service.UserDetailsServiceImpl;
+import com.vn.backend.model.Category;
 import com.vn.backend.model.Contact;
 import com.vn.backend.model.Menu;
 import com.vn.backend.model.Slice;
+import com.vn.backend.model.Vendor;
+import com.vn.backend.repository.CategoryRepository;
 import com.vn.backend.repository.ContactRepository;
 import com.vn.backend.repository.MenuRepository;
 import com.vn.backend.repository.SliceRepository;
+import com.vn.backend.repository.VendorRepository;
 import com.vn.utils.Constant;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
@@ -48,6 +52,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private SliceRepository sliceRepository;
+
+	@Autowired
+	private CategoryRepository categoryRepository;
+
+	@Autowired
+	private VendorRepository vendorRepository;
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
@@ -71,6 +81,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 				setMenuSession(request);
 				setContactSession(request);
 				setSliceSession(request);
+				setCategorySession(request);
+				setVendorSession(request);
 			}
 
 			String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request).replacePath(null).build()
@@ -142,4 +154,23 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 			request.getSession().setAttribute(Constant.SLICE_SESSION, sessions);
 		}
 	}
+
+	private void setCategorySession(HttpServletRequest request) {
+		@SuppressWarnings("unchecked")
+		List<Category> sessions = (List<Category>) request.getSession().getAttribute(Constant.CATEGORY_SESSION);
+		if (sessions == null) {
+			sessions = categoryRepository.findAll();
+			request.getSession().setAttribute(Constant.CATEGORY_SESSION, sessions);
+		}
+	}
+
+	private void setVendorSession(HttpServletRequest request) {
+		@SuppressWarnings("unchecked")
+		List<Vendor> sessions = (List<Vendor>) request.getSession().getAttribute(Constant.VENDOR_SESSION);
+		if (sessions == null) {
+			sessions = vendorRepository.findAll();
+			request.getSession().setAttribute(Constant.VENDOR_SESSION, sessions);
+		}
+	}
+
 }
