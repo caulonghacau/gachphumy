@@ -32,13 +32,12 @@
 					</button>
 
 				</div>
-
 				<div>
 					<a class="navbar-brand brand-logo" th:href="@{/home}">
-						<img src="../backend/images/logo.svg" alt="logo" />
+						<img th:src="@{/img/logo-full.jpg}" alt="logo" />
 					</a>
 					<a class="navbar-brand brand-logo-mini" th:href="@{/home}">
-						<img src="../backend/images/logo-mini.svg" alt="logo" />
+						<img th:src="@{/img/logo-full.jpg}" alt="logo" />
 					</a>
 				</div>
 			</div>
@@ -175,6 +174,36 @@
 						<span class="menu-title" style="font-size: 12pt;">Sản Phẩm</span>
 					</a>
 				</li>
+          		<li class="nav-item">
+		            <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+		               <i class="menu-icon mdi mdi-table"></i>
+		              <span class="menu-title">Quản Lý Trang</span>
+		              <i class="menu-arrow"></i>
+		            </a>
+		            <div class="collapse" id="form-elements">
+		              <ul class="nav flex-column sub-menu">
+		               		<li class="nav-item"> <a class="nav-link" th:href="@{/admin/user}">Tài khoản</a></li>
+		                <li class="nav-item"> <a class="nav-link" th:href="@{/admin/category}">Danh mục</a></li>
+		                <li class="nav-item"> <a class="nav-link" th:href="@{/admin/contact}">Liên hệ</a></li>
+		                <li class="nav-item"> <a class="nav-link" th:href="@{/admin/about}">Về chúng tôi</a></li>
+		              </ul>
+            		</div>
+          		</li>
+          		<li class="nav-item">
+		            <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+		              <i class="menu-icon mdi mdi-card-text-outline"></i>
+		              <span class="menu-title">Quản Lý Chung</span>
+		              <i class="menu-arrow"></i>
+		            </a>
+		            <div class="collapse" id="form-elements">
+		              <ul class="nav flex-column sub-menu">
+		               		<li class="nav-item"> <a class="nav-link" th:href="@{/admin/slice}">Slice</a></li>
+		               		<li class="nav-item"> <a class="nav-link" th:href="@{/admin/advantage}">Tính năng</a></li>
+		               		<li class="nav-item"> <a class="nav-link" th:href="@{/admin/vendor}">Đối tác</a></li>
+		               		<li class="nav-item"> <a class="nav-link" th:href="@{/admin/logo}">Logo</a></li>
+		              </ul>
+            		</div>
+          		</li>
 			</ul>
 		</nav>
 	</div>
