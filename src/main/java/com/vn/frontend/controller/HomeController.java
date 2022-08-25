@@ -91,7 +91,7 @@ public class HomeController {
 		}
 		model.addAttribute("product", product);
 		model.addAttribute("products", products);
-		
+
 		return "/frontend/product/detail";
 	}
 
@@ -123,7 +123,7 @@ public class HomeController {
 	@GetMapping("/token")
 	public String token(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		LoginRequest loginRequest = new LoginRequest();
-		loginRequest.setUsername("admin1");
+		loginRequest.setUsername("gachphumy");
 		loginRequest.setPassword("123456");
 
 		Authentication authentication = authenticationManager.authenticate(
