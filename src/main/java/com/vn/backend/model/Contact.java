@@ -26,7 +26,7 @@ public class Contact {
 	private String name;
 	private String email;
 	private String phone;
-	@Column(name = "googel_map", columnDefinition = "TEXT")
+	@Column(name = "google_map", columnDefinition = "TEXT")
 	private String googleMap;
 	private String address;
 	@Column(name = "delete_flag")
