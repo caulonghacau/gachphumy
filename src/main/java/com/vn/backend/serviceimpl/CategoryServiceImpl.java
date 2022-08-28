@@ -6,12 +6,15 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.vn.backend.dto.CategoryDto;
 import com.vn.backend.model.Category;
 import com.vn.backend.repository.CategoryRepository;
+import com.vn.backend.response.CategoryResponse;
 import com.vn.backend.service.CategoryService;
 
 @Service
@@ -21,14 +24,34 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryRepository categoryRepository;
 
 	@Override
-	public List<CategoryDto> getListAll(int deleteFlag) {
-		List<Category> categories = categoryRepository.findByDeleteFlag(deleteFlag);
+	public List<CategoryDto> getListAll(int deleteFlag, Pageable pagging) {
+		List<Category> categories = categoryRepository.findByDeleteFlag(deleteFlag, pagging);
 		List<CategoryDto> results = new ArrayList<>();
 		for (Category cate : categories) {
 			CategoryDto dto = new CategoryDto();
 			BeanUtils.copyProperties(cate, dto);
 			results.add(dto);
 		}
+		return results;
+	}
+
+	@Override
+	public CategoryResponse getPaggingCategory(int deleteFlag, Pageable pagging) {
+		CategoryResponse results = new CategoryResponse();
+
+		Page<Category> pages = categoryRepository.findAll(pagging);
+		List<Category> categories = pages.getContent();
+		List<CategoryDto> results1 = new ArrayList<>();
+		for (Category cate : categories) {
+			CategoryDto dto = new CategoryDto();
+			BeanUtils.copyProperties(cate, dto);
+			results1.add(dto);
+		}
+		results.setCategories(results1);
+		results.setPage(pages.getPageable().getPageNumber());
+		results.setSize(pages.getSize());
+		results.setTotalPages(pages.getTotalPages());
+		results.setTotalElement(pages.getTotalElements());
 		return results;
 	}
 
@@ -58,6 +81,7 @@ public class CategoryServiceImpl implements CategoryService {
 			if (!StringUtils.isEmpty(categoryDto.getName())) {
 				category.setName(categoryDto.getName());
 			}
+			
 			Category result = categoryRepository.save(category);
 			BeanUtils.copyProperties(categoryDto, result);
 			return categoryDto;

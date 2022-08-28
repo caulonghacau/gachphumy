@@ -1,8 +1,9 @@
 package com.vn.backend.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.vn.backend.dto.CategoryDto;
+import com.vn.backend.response.CategoryResponse;
 import com.vn.backend.service.CategoryService;
 
 @Controller
@@ -23,9 +25,10 @@ public class CategoryController {
 	@RequestMapping("/category")
 	public String view(Model model) {
 
-		List<CategoryDto> categories = categoryService.getListAll(0);
+		Pageable paging = PageRequest.of(0, 20, Sort.by("name").ascending());
+		CategoryResponse categoryResponse = categoryService.getPaggingCategory(0, paging);
 
-		model.addAttribute("categories", categories);
+		model.addAttribute("categories", categoryResponse);
 		return "/backend/category/viewCategory";
 
 	}
@@ -46,7 +49,7 @@ public class CategoryController {
 
 	@RequestMapping(value = "/category/add", method = RequestMethod.POST)
 	public String doAdd(CategoryDto categoryDto, Model model, RedirectAttributes redirect) {
-		CategoryDto dto = categoryService.add(categoryDto);
+		categoryService.add(categoryDto);
 		redirect.addFlashAttribute("successMessage", "Thêm mới danh mục thành công!");
 		return "redirect:/admin/category/";
 
@@ -65,7 +68,7 @@ public class CategoryController {
 	public String doUpdate(CategoryDto categoryDto, Model model, RedirectAttributes redirect) {
 
 		try {
-			CategoryDto t = categoryService.update(categoryDto);
+			categoryService.update(categoryDto);
 			redirect.addFlashAttribute("successMessage", "Cập nhật danh mục thành công!");
 			return "redirect:/admin/category/";
 		} catch (Exception e) {
@@ -77,11 +80,10 @@ public class CategoryController {
 	@RequestMapping(value = "/category/delete/{id}", method = RequestMethod.GET)
 	public String delete(@PathVariable("id") Long id, Model model, RedirectAttributes redirect) {
 		try {
-			boolean categoryDto = categoryService.delete(id);
+			categoryService.delete(id);
 			redirect.addFlashAttribute("successMessage", "Xóa danh mục thành công!");
 			return "redirect:/admin/category/";
 		} catch (Exception e) {
-
 			return "/backend/category/editCategory";
 		}
 	}

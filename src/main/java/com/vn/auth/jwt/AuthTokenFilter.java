@@ -156,21 +156,25 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	}
 
 	private void setCategorySession(HttpServletRequest request) {
-		@SuppressWarnings("unchecked")
-		List<Category> sessions = (List<Category>) request.getSession().getAttribute(Constant.CATEGORY_SESSION);
-		if (sessions == null) {
-			sessions = categoryRepository.findAll();
-			request.getSession().setAttribute(Constant.CATEGORY_SESSION, sessions);
-		}
+//		@SuppressWarnings("unchecked")
+//		List<Category> sessions = (List<Category>) request.getSession().getAttribute(Constant.CATEGORY_SESSION);
+//		if (sessions == null) {
+//			sessions = categoryRepository.findAll();
+//			request.getSession().setAttribute(Constant.CATEGORY_SESSION, sessions);
+//		}
+		List<Category> sessions = categoryRepository.findAll();
+		request.getSession().setAttribute(Constant.CATEGORY_SESSION, sessions);
 	}
 
 	private void setVendorSession(HttpServletRequest request) {
 		@SuppressWarnings("unchecked")
 		List<Vendor> sessions = (List<Vendor>) request.getSession().getAttribute(Constant.VENDOR_SESSION);
-		if (sessions == null) {
-			sessions = vendorRepository.findAll();
-			request.getSession().setAttribute(Constant.VENDOR_SESSION, sessions);
-		}
+//		if (sessions == null) {
+//			sessions = vendorRepository.findAll();
+//			request.getSession().setAttribute(Constant.VENDOR_SESSION, sessions);
+//		}
+		sessions = vendorRepository.findAll();
+		request.getSession().setAttribute(Constant.VENDOR_SESSION, sessions);
 	}
 
 }

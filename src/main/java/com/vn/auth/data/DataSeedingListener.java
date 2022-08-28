@@ -157,7 +157,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			contact.setName("Công Ty Cổ Phần Đầu Tư Gạch Phú Mỹ");
 			contact.setEmail("ctydtgachphumy@gmail.com");
 			contact.setPhone("0978 414 433");
-			contact.setGoogelMap("");
+			contact.setGoogleMap("");
 //			"https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d7843.73143489679!2d107.14137119728865!3d10.589670397755814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1zVGjDtG4gVMOibiBDaMOidSwgWMOjIENow6J1IFBoYSwgVGjhu4sgeMOjIFBow7ogTeG7uSwgVOG7iW5oIELDoCBS4buLYSAtIFbFqW5nIFTDoHUsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1661224233538!5m2!1svi!2s"
 			contact.setAddress("Thôn Tân Châu, Xã Châu Pha, Thị xã Phú Mỹ, Tỉnh Bà Rịa - Vũng Tàu, Việt Nam");
 			contact.setDeleteFlag(0);

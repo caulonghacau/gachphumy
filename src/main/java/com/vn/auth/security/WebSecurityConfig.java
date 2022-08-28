@@ -56,39 +56,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and().authorizeRequests()
-				.antMatchers("/api/auth/**").permitAll()
-				.antMatchers("/resources/**").permitAll()
-				.antMatchers("/api/auth/signin").permitAll()
-				.antMatchers("/static/frontend/**").permitAll()
-				.antMatchers("/img/**").permitAll()
-				.antMatchers("/upload/**").permitAll()
-				.antMatchers("/frontend/**").permitAll()
-				
-				
-				.antMatchers("/", "/home").permitAll()
-				
-				.antMatchers("/about").permitAll()
-				.antMatchers("/about").permitAll()
-				.antMatchers("/contact").permitAll()
-				.antMatchers( "/product/**").permitAll()
-				.antMatchers("/403").permitAll()
-				.antMatchers("/token").permitAll()
-				.antMatchers("/backend/**").permitAll()
-				.antMatchers("/admin/**").hasAnyRole("ADMIN")
-				.anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").loginProcessingUrl("/login")
-				.defaultSuccessUrl("/admin.html", true).permitAll()
-				.and().logout().permitAll();
+		http.cors().and().csrf().disable();
+//		http.exceptionHandling().authenticationEntryPoint(unauthorizedHandler);
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER);
+
+		http.authorizeRequests().antMatchers("/", "/home").permitAll();
+		http.authorizeRequests().antMatchers("/about").permitAll();
+		http.authorizeRequests().antMatchers("/about").permitAll();
+		http.authorizeRequests().antMatchers("/contact").permitAll();
+		http.authorizeRequests().antMatchers("/product/**").permitAll();
+
+		http.authorizeRequests().antMatchers("/token").permitAll();
+		http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ADMIN");
+
+		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login")
+				.loginProcessingUrl("/login").defaultSuccessUrl("/admin", true).permitAll();
 		
+		http.authorizeRequests().and().logout().permitAll();
+
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
-//	@Override
-//	public void configure(WebSecurity web) throws Exception {
-//		web.ignoring().antMatchers("/resources/**", "/static/**", "/admin/css/**", "/admin/js/**", "/admin/images/**",
-//				"/admin/img/**", "/admin/lib/**", "/admin/fonts/**", "/admin/vendor/**");
-//	}
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/resources/**");
+		web.ignoring().antMatchers("/static/frontend/**");
+		web.ignoring().antMatchers("/frontend/**");
+		web.ignoring().antMatchers("/img/**");
+		web.ignoring().antMatchers("/upload/**");
+
+		web.ignoring().antMatchers("/backend/**");
+		web.ignoring().antMatchers("/resources/**");
+		web.ignoring().antMatchers("/resources/**");
+		web.ignoring().antMatchers("/resources/**");
+		web.ignoring().antMatchers("/resources/**");
+	}
 
 }

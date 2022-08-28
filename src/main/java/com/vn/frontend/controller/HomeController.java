@@ -123,7 +123,7 @@ public class HomeController {
 	@GetMapping("/token")
 	public String token(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		LoginRequest loginRequest = new LoginRequest();
-		loginRequest.setUsername("gachphumy");
+		loginRequest.setUsername("admin1");
 		loginRequest.setPassword("123456");
 
 		Authentication authentication = authenticationManager.authenticate(

@@ -2,11 +2,16 @@ package com.vn.backend.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.vn.backend.dto.CategoryDto;
+import com.vn.backend.response.CategoryResponse;
 
 public interface CategoryService {
 
-	List<CategoryDto> getListAll(int deleteFlag);
+	List<CategoryDto> getListAll(int deleteFlag, Pageable pagging);
+
+	CategoryResponse getPaggingCategory(int deleteFlag, Pageable pagging);
 
 	CategoryDto getDetail(Long id, int deleteFlag);
 

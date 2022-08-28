@@ -16,6 +16,6 @@ public class ContactDto {
 	private String phone;
 	private String subject;
 	private String message;
-	private String googelMap;
+	private String googleMap;
 	private String address;
 }
