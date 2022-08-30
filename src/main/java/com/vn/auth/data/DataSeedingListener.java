@@ -368,7 +368,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			product.setName("Gạch xi măng cốt liệu");
 			product.setImage("../upload/product01.jpg");
 			product.setCategoryId(1L);
-			product.setProducCode("SKU01");
+			product.setProductCode("SKU01");
 			product.setAmount(80000);
 			product.setPrice(BIG_5);
 			product.setNewProduct("1");
@@ -386,7 +386,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			product1.setName("Gạch babanh");
 			product1.setImage("../upload/product02.jpg");
 			product1.setCategoryId(1L);
-			product1.setProducCode("SKU02");
+			product1.setProductCode("SKU02");
 			product1.setAmount(80000);
 			product1.setPrice(BIG_5);
 			product1.setNewProduct("1");
@@ -404,7 +404,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			product2.setName("Gạch không nung tự nhiên");
 			product2.setImage("../upload/product03.jpg");
 			product2.setCategoryId(1L);
-			product2.setProducCode("SKU03");
+			product2.setProductCode("SKU03");
 			product2.setAmount(80000);
 			product2.setPrice(BIG_5);
 			product2.setNewProduct("1");
@@ -422,7 +422,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			product3.setName("Gạch bê tông nhẹ");
 			product3.setImage("../upload/product04.jpg");
 			product3.setCategoryId(1L);
-			product3.setProducCode("SKU04");
+			product3.setProductCode("SKU04");
 			product3.setAmount(80000);
 			product3.setPrice(BIG_5);
 			product3.setNewProduct("1");
@@ -440,7 +440,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			product4.setName("Gạch không nung rỗng 3 thành vách MT-KM100V3S");
 			product4.setImage("../upload/product05.jpg");
 			product4.setCategoryId(2L);
-			product4.setProducCode("SKU05");
+			product4.setProductCode("SKU05");
 			product4.setAmount(80000);
 			product4.setPrice(BIG_5);
 			product4.setNewProduct("1");
@@ -458,7 +458,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			product5.setName("Gạch đặc không nung MT-KM95DA");
 			product5.setImage("../upload/product06.jpg");
 			product5.setCategoryId(2L);
-			product5.setProducCode("SKU06");
+			product5.setProductCode("SKU06");
 			product5.setAmount(80000);
 			product5.setPrice(BIG_5);
 			product5.setNewProduct("1");
@@ -476,7 +476,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			product6.setName("Gạch không nung tự nhiên");
 			product6.setImage("../upload/product07.jpg");
 			product6.setCategoryId(2L);
-			product6.setProducCode("SKU07");
+			product6.setProductCode("SKU07");
 			product6.setAmount(80000);
 			product6.setPrice(BIG_5);
 			product6.setNewProduct("1");
@@ -494,7 +494,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			product7.setName("Gạch bê tông nhẹ");
 			product7.setImage("../upload/product08.jpg");
 			product7.setCategoryId(2L);
-			product7.setProducCode("SKU08");
+			product7.setProductCode("SKU08");
 			product7.setAmount(80000);
 			product7.setPrice(BIG_5);
 			product7.setNewProduct("1");

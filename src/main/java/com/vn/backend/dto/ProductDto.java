@@ -13,13 +13,12 @@ import lombok.Setter;
 @Setter
 public class ProductDto {
 	private Long id;
-	private String producCode;
-
+	private String productCode;
 	private Long categoryId;
+	private Long categoryName;
 	private String name;
 	private String image;
-	private int amount;
-	private int status;
+	private Integer amount;
 	private BigDecimal price;
 	private String ingredient;
 	private String standard;
@@ -29,4 +28,6 @@ public class ProductDto {
 	private String newProduct;
 	private String description1;
 	private String description2;
+	private String sizeUnit;
+	private String weightUnit;
 }

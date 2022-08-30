@@ -49,12 +49,9 @@
 				<!--					</li>-->
 				<!--				</ul>-->
 				<ul class="navbar-nav ms-auto">
-					<li class="nav-item">
-						<form class="search-form" action="#">
-							<i class="icon-search"></i>
-							<input type="search" class="form-control" placeholder="Search Here" title="Search here">
-						</form>
-					</li>
+					<!--					<li class="nav-item">-->
+					<!--						<a th:href="@{admin/remove/session}">Load dữ liệu trang chủ </a>-->
+					<!--					</li>-->
 					<li class="nav-item dropdown">
 						<a class="nav-link count-indicator" id="notificationDropdown" href="#"
 							data-bs-toggle="dropdown">
@@ -114,19 +111,14 @@
 								<p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
 							</div>
 							<a class="dropdown-item"><i
-									class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> My Profile
+									class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> Thông tin
+								tài khoản
 								<span class="badge badge-pill badge-danger">1</span></a>
-							<a class="dropdown-item"><i
-									class="dropdown-item-icon mdi mdi-message-text-outline text-primary me-2"></i>
-								Messages</a>
-							<a class="dropdown-item"><i
-									class="dropdown-item-icon mdi mdi-calendar-check-outline text-primary me-2"></i>
-								Activity</a>
-							<a class="dropdown-item"><i
-									class="dropdown-item-icon mdi mdi-help-circle-outline text-primary me-2"></i>
-								FAQ</a>
+
 							<a class="dropdown-item" th:href="@{/logout}"><i
-									class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Sign Out</a>
+									class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Đăng xuất</a>
+							<a class="dropdown-item" th:href="@{/admin/remove/session}">Load dữ liệu trang
+								chủ</a>
 						</div>
 					</li>
 				</ul>
@@ -174,36 +166,38 @@
 						<span class="menu-title" style="font-size: 12pt;">Sản Phẩm</span>
 					</a>
 				</li>
-          		<li class="nav-item">
-		            <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-		               <i class="menu-icon mdi mdi-table"></i>
-		              <span class="menu-title">Quản Lý Trang</span>
-		              <i class="menu-arrow"></i>
-		            </a>
-		            <div class="collapse" id="form-elements">
-		              <ul class="nav flex-column sub-menu">
-		               		<li class="nav-item"> <a class="nav-link" th:href="@{/admin/user}">Tài khoản</a></li>
-		                <li class="nav-item"> <a class="nav-link" th:href="@{/admin/category}">Danh mục</a></li>
-		                <li class="nav-item"> <a class="nav-link" th:href="@{/admin/contact}">Liên hệ</a></li>
-		                <li class="nav-item"> <a class="nav-link" th:href="@{/admin/about}">Về chúng tôi</a></li>
-		              </ul>
-            		</div>
-          		</li>
-          		<li class="nav-item">
-		            <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-		              <i class="menu-icon mdi mdi-card-text-outline"></i>
-		              <span class="menu-title">Quản Lý Chung</span>
-		              <i class="menu-arrow"></i>
-		            </a>
-		            <div class="collapse" id="form-elements">
-		              <ul class="nav flex-column sub-menu">
-		               		<li class="nav-item"> <a class="nav-link" th:href="@{/admin/slice}">Slice</a></li>
-		               		<li class="nav-item"> <a class="nav-link" th:href="@{/admin/advantage}">Tính năng</a></li>
-		               		<li class="nav-item"> <a class="nav-link" th:href="@{/admin/vendor}">Đối tác</a></li>
-		               		<li class="nav-item"> <a class="nav-link" th:href="@{/admin/logo}">Logo</a></li>
-		              </ul>
-            		</div>
-          		</li>
+				<li class="nav-item">
+					<a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
+						aria-controls="form-elements">
+						<i class="menu-icon mdi mdi-table"></i>
+						<span class="menu-title">Quản Lý Trang</span>
+						<i class="menu-arrow"></i>
+					</a>
+					<div class="collapse" id="form-elements">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"> <a class="nav-link" th:href="@{/admin/user}">Tài khoản</a></li>
+							<li class="nav-item"> <a class="nav-link" th:href="@{/admin/category}">Danh mục</a></li>
+							<li class="nav-item"> <a class="nav-link" th:href="@{/admin/contact}">Liên hệ</a></li>
+							<li class="nav-item"> <a class="nav-link" th:href="@{/admin/about}">Về chúng tôi</a></li>
+						</ul>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false"
+						aria-controls="form-elements">
+						<i class="menu-icon mdi mdi-card-text-outline"></i>
+						<span class="menu-title">Quản Lý Chung</span>
+						<i class="menu-arrow"></i>
+					</a>
+					<div class="collapse" id="form-elements">
+						<ul class="nav flex-column sub-menu">
+							<li class="nav-item"> <a class="nav-link" th:href="@{/admin/slice}">Slice</a></li>
+							<li class="nav-item"> <a class="nav-link" th:href="@{/admin/advantage}">Tính năng</a></li>
+							<li class="nav-item"> <a class="nav-link" th:href="@{/admin/vendor}">Đối tác</a></li>
+							<li class="nav-item"> <a class="nav-link" th:href="@{/admin/logo}">Logo</a></li>
+						</ul>
+					</div>
+				</li>
 			</ul>
 		</nav>
 	</div>

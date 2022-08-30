@@ -105,21 +105,6 @@ public class HomeController {
 		return "/frontend/contact";
 	}
 
-	@GetMapping("/admin")
-	public String admin() {
-		return "backend/admin";
-	}
-
-	@GetMapping("/admin/product")
-	public String product() {
-		return "backend/product/view";
-	}
-
-	@GetMapping("/user")
-	public String user() {
-		return "/user";
-	}
-
 	@GetMapping("/token")
 	public String token(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		LoginRequest loginRequest = new LoginRequest();

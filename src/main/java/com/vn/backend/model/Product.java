@@ -31,8 +31,8 @@ public class Product {
 	@Column(name = "image")
 	private String image;
 
-	@Column(name = "produc_code")
-	private String producCode;
+	@Column(name = "product_code")
+	private String productCode;
 
 	@Column(name = "name")
 	private String name;
@@ -60,6 +60,12 @@ public class Product {
 
 	@Column(name = "description2", columnDefinition = "TEXT")
 	private String description2;
+
+	@Column(name = "size_unit")
+	private String sizeUnit;
+
+	@Column(name = "weight_unit")
+	private String weightUnit;
 
 	@Column(name = "delete_flag")
 	private int deleteFlag = 0;
