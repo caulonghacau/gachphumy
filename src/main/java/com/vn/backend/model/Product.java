@@ -37,7 +37,7 @@ public class Product {
 	@Column(name = "name")
 	private String name;
 
-	private int amount;
+	private Integer amount;
 
 	@Column(name = "price", precision = 10, scale = 2)
 	private BigDecimal price;

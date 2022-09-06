@@ -18,6 +18,7 @@
 		<link rel="stylesheet" th:href="@{/backend/js/select.dataTables.min.css}">
 		<link rel="stylesheet" th:href="@{/backend/css/vertical-layout-light/style.css}">
 		<link rel="stylesheet" th:href="@{/backend/css/style.css}">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	</div>
 </head>
 
@@ -107,8 +108,7 @@
 							<div class="dropdown-header text-center">
 								<img class="img-md rounded-circle" src="../backend/images/faces/face8.jpg"
 									alt="Profile image">
-								<p class="mb-1 mt-3 font-weight-semibold">Allen Moreno</p>
-								<p class="fw-light text-muted mb-0">allenmoreno@gmail.com</p>
+								<p class="mb-1 mt-3 font-weight-semibold"><span sec:authentication="name"></span></p>
 							</div>
 							<a class="dropdown-item"><i
 									class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> Thông tin

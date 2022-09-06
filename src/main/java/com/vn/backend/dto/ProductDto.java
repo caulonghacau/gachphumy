@@ -2,6 +2,8 @@ package com.vn.backend.dto;
 
 import java.math.BigDecimal;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +19,9 @@ public class ProductDto {
 	private Long categoryId;
 	private Long categoryName;
 	private String name;
+	
 	private String image;
+	private MultipartFile imageProduct;
 	private Integer amount;
 	private BigDecimal price;
 	private String ingredient;
