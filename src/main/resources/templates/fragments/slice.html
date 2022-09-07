@@ -18,7 +18,7 @@
 						</ol>
 						<div class="carousel-inner">
 							<div class="carousel-item position-relative active" style="height: 430px;" th:each="slice : ${#session.getAttribute('sliceSession')}">
-								<img class="position-absolute w-100 h-100" th:src="${slice.image}"
+								<img class="position-absolute w-100 h-100" th:src="@{${slice.image}}"
 									style="object-fit: cover;">
 								<div
 									class="carousel-caption d-flex flex-column align-items-center justify-content-center">
@@ -40,7 +40,7 @@
 				</div>
 				<div class="col-lg-4">
 					<div class="product-offer mb-30" style="height: 200px;">
-						<img class="img-fluid" src="../img/Slice05.jpg" alt="">
+						<img class="img-fluid" th:src="@{/img/Slice05.jpg}" alt="">
 						<div class="offer-text">
 							<h6 class="text-white text-uppercase">Luôn có sẵn số lượng lớn</h6>
 							<h3 class="text-white mb-3">Cam kết chiết khấu cao nhất</h3>
@@ -48,7 +48,7 @@
 						</div>
 					</div>
 					<div class="product-offer mb-30" style="height: 200px;">
-						<img class="img-fluid" src="../img/Slice06.jpg" alt="">
+						<img class="img-fluid" th:src="@{/img/Slice06.jpg}" alt="">
 						<div class="offer-text">
 							<h6 class="text-white text-uppercase">Tư vấn thi công miễn phí</h6>
 							<h3 class="text-white mb-3">Hỗ trợ gọi xe vận chuyển tận nơi</h3>
