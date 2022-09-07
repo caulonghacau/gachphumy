@@ -84,11 +84,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers("/static/frontend/**");
 		web.ignoring().antMatchers("/frontend/**");
 		web.ignoring().antMatchers("/img/**");
-		web.ignoring().antMatchers("/upload/**");
+		web.ignoring().antMatchers("/uploads/**");
 
 		web.ignoring().antMatchers("/backend/**");
-		web.ignoring().antMatchers("/resources/**");
-		web.ignoring().antMatchers("/resources/**");
 		web.ignoring().antMatchers("/resources/**");
 		web.ignoring().antMatchers("/resources/**");
 	}

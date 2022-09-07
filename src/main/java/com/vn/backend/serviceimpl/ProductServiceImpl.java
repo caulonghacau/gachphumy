@@ -1,14 +1,13 @@
 package com.vn.backend.serviceimpl;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,15 +22,16 @@ import com.vn.backend.model.Product;
 import com.vn.backend.repository.ProductRepository;
 import com.vn.backend.response.ProductResponse;
 import com.vn.backend.service.ProductService;
+import com.vn.utils.FileUploadUtil;
 import com.vn.utils.Message;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 	@Value("${upload.path}")
 	private String fileUpload;
-//	public static String UPLOAD_DIRECTORY = System.getProperty("user.dir") + "/src/main/resources/static/upload/";
 
-	public static String UPLOAD_DIRECTORY = "/upload/";
+	private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
+
 	@Autowired
 	private ProductRepository productRepository;
 
@@ -80,6 +80,8 @@ public class ProductServiceImpl implements ProductService {
 	public ProductDto getDetail(Long id, int deleteFlag) {
 		Product dataDetail = productRepository.findByIdAndDeleteFlag(id, deleteFlag);
 		ProductDto dto = new ProductDto();
+		MultipartFile multipartFile = dto.getImageProduct();
+		dto.setImageProduct(multipartFile);
 		BeanUtils.copyProperties(dataDetail, dto);
 		return dto;
 	}
@@ -90,34 +92,13 @@ public class ProductServiceImpl implements ProductService {
 
 		MultipartFile multipartFile = productDto.getImageProduct();
 		String fileName = multipartFile.getOriginalFilename();
-
-//		String uploadDirectory = "";
-//		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-//		if (requestAttributes instanceof ServletRequestAttributes) {
-//			HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-//			uploadDirectory = request.getServletContext().getRealPath(this.fileUpload);
-//		}
-
-		Path CURRENT_FOLDER = Paths.get(System.getProperty("user.dir"));
-		Path staticPath = Paths.get("static");
-		Path imagePath = Paths.get("upload");
-//		try {
-//			String tmp = this.fileUpload + fileName;
-//			FileCopyUtils.copy(productDto.getImageProduct().getBytes(), new File(this.fileUpload + fileName));
-
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
-		Path file = CURRENT_FOLDER.resolve(staticPath).resolve(imagePath).resolve(multipartFile.getOriginalFilename());
-		try (OutputStream os = Files.newOutputStream(file)) {
-			os.write(multipartFile.getBytes());
-		} catch (Exception e) {
-			e.printStackTrace();
+		try {
+			FileUploadUtil.saveFile(this.fileUpload, fileName, multipartFile);
+		} catch (IOException e) {
+			logger.error("Upload image has erro: " + productDto.getId());
+			logger.error("Message: " + e.getMessage());
 		}
-		String url = imagePath.resolve(multipartFile.getOriginalFilename()).toString();
-
-		productDto.setImage(this.fileUpload + fileName);
+		String url = File.separator + this.fileUpload + File.separator + fileName;
 		productDto.setImage(url);
 		BeanUtils.copyProperties(productDto, newObject);
 		Product result = productRepository.save(newObject);
@@ -135,9 +116,7 @@ public class ProductServiceImpl implements ProductService {
 			if (!StringUtils.isEmpty(productDto.getCategoryId())) {
 				dataDb.setCategoryId(productDto.getCategoryId());
 			}
-			if (StringUtils.hasText(productDto.getImage())) {
-				dataDb.setImage(productDto.getImage());
-			}
+
 			if (StringUtils.hasText(productDto.getProductCode())) {
 				dataDb.setProductCode(productDto.getProductCode());
 			}
@@ -181,6 +160,20 @@ public class ProductServiceImpl implements ProductService {
 
 			if (StringUtils.hasText(productDto.getDescription2())) {
 				dataDb.setDescription2(productDto.getDescription2());
+			}
+
+			MultipartFile multipartFile = productDto.getImageProduct();
+			String fileName = multipartFile.getOriginalFilename();
+			try {
+				FileUploadUtil.saveFile(this.fileUpload, fileName, multipartFile);
+			} catch (IOException e) {
+				logger.error("Upload image has erro: " + productDto.getId());
+				logger.error("Message: " + e.getMessage());
+			}
+			String url = File.separator + this.fileUpload + File.separator + fileName;
+			productDto.setImage(url);
+			if (StringUtils.hasText(url)) {
+				dataDb.setImage(url);
 			}
 
 			Product result = productRepository.save(dataDb);
