@@ -12,5 +12,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 	List<Category> findByDeleteFlag(int deleteFlag, Pageable pagging);
 
 	Category findByIdAndDeleteFlag(Long id, int deleteFlag);
+	
+	List<Category> findByNameAndDeleteFlag(String name, int deleteFlag);
 
 }

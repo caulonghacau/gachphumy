@@ -16,6 +16,8 @@ import com.vn.backend.model.Category;
 import com.vn.backend.repository.CategoryRepository;
 import com.vn.backend.response.CategoryResponse;
 import com.vn.backend.service.CategoryService;
+import com.vn.utils.Constant;
+import com.vn.utils.Message;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -73,6 +75,30 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	public CategoryResponse addCategory(CategoryDto categoryDto) {
+		CategoryResponse categoryResponse = new CategoryResponse();
+		List<Category> categories = categoryRepository.findByNameAndDeleteFlag(categoryDto.getName(),
+				Constant.DELETE_FLAG_ACTIVE);
+		if (categories != null && categories.size() > 0) {
+			categoryResponse.setStatus(Constant.DUPLICATE);
+			categoryResponse.setMessage(Message.NAME_CATEGORY_DUPLICATE);
+			categoryResponse.setCategoryDto(categoryDto);
+			return categoryResponse;
+		}
+
+		Category category = new Category();
+		BeanUtils.copyProperties(categoryDto, category);
+		Category result = categoryRepository.save(category);
+		BeanUtils.copyProperties(result, categoryDto);
+
+		categoryResponse.setStatus(Constant.STATUS_SUCCSESS);
+		categoryResponse.setMessage(Message.ADD_SUCCESS);
+		categoryResponse.setCategoryDto(categoryDto);
+
+		return categoryResponse;
+	}
+
+	@Override
 	public CategoryDto update(CategoryDto categoryDto) throws Exception {
 		Optional<Category> option = categoryRepository.findById(categoryDto.getId());
 
@@ -81,7 +107,7 @@ public class CategoryServiceImpl implements CategoryService {
 			if (!StringUtils.isEmpty(categoryDto.getName())) {
 				category.setName(categoryDto.getName());
 			}
-			
+
 			Category result = categoryRepository.save(category);
 			BeanUtils.copyProperties(categoryDto, result);
 			return categoryDto;

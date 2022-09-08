@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.vn.backend.dto.CategoryDto;
 import com.vn.backend.response.CategoryResponse;
 import com.vn.backend.service.CategoryService;
+import com.vn.utils.Constant;
 
 @Controller
 @RequestMapping("/admin")
@@ -49,9 +50,16 @@ public class CategoryController {
 
 	@RequestMapping(value = "/category/add", method = RequestMethod.POST)
 	public String doAdd(CategoryDto categoryDto, Model model, RedirectAttributes redirect) {
-		categoryService.add(categoryDto);
-		redirect.addFlashAttribute("successMessage", "Thêm mới danh mục thành công!");
-		return "redirect:/admin/category/";
+
+		CategoryResponse resutl = categoryService.addCategory(categoryDto);
+		if (Constant.STATUS_SUCCSESS == resutl.getStatus()) {
+			redirect.addFlashAttribute("successMessage", resutl.getMessage());
+			return "redirect:/admin/category/";
+		} else {
+			model.addAttribute("message", resutl.getMessage());
+			model.addAttribute("categoryDto", categoryDto);
+			return "/backend/category/addCategory";
+		}
 
 	}
 

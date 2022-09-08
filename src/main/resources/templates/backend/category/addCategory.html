@@ -27,12 +27,16 @@
 							<div class="card">
 								<div class="card-body">
 									<h4 class="card-title">Thêm Danh Mục</h4>
+									<div th:if="${message}">
+										<span class="text-danger" th:text=" ${message}"></span>
+									</div>
 									<form class="forms-sample" th:object="${categoryDto}"
 										th:action="@{/admin/category/add}" method="post">
 										<div class="form-group">
 											<label for="exampleInputUsername1">Tên Danh mục</label>
-											<input type="text" class="form-control" th:field="*{name}"
-												id="exampleInputUsername1" placeholder="Nhập Tên Danh mục">
+											<input type="text" id="demo" class="form-control" th:field="*{name}"
+												pattern="[a-z0-9]{1,100}" required placeholder="Nhập Tên Danh mục"
+												title="Tên danh mục không được trống hoặc chứa kí tự đặc biệt">
 										</div>
 										<button type="submit" class="btn btn-success me-2">Lưu</button>
 										<a class="btn btn-info me-2" th:href="@{/admin/category}">Hủy</a>
@@ -41,7 +45,6 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
 				<div th:replace="fragments/admin-footer :: admin-footer" />

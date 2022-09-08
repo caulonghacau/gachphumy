@@ -14,12 +14,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CategoryResponse {
-
-	private int page;
-	private int size;
-	private int totalPages;
-	private Long totalElement;
+public class CategoryResponse extends BaseResponse {
+	private CategoryDto categoryDto = new CategoryDto();
 	private List<CategoryDto> categories = new ArrayList<>();
-
 }
+

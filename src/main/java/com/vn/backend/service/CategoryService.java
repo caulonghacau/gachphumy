@@ -16,6 +16,8 @@ public interface CategoryService {
 	CategoryDto getDetail(Long id, int deleteFlag);
 
 	CategoryDto add(CategoryDto categoryDto);
+	
+	CategoryResponse addCategory(CategoryDto categoryDto);
 
 	CategoryDto update(CategoryDto categoryDto) throws Exception;
 
