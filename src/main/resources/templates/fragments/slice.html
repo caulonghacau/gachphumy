@@ -18,24 +18,24 @@
 						</ol>
 						<div class="carousel-inner">
 							<div class="carousel-item position-relative active" style="height: 430px;" th:each="slice : ${#session.getAttribute('sliceSession')}">
-								<img class="position-absolute w-100 h-100" th:src="@{${slice.image}}"
-									style="object-fit: cover;">
-								<div
-									class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-									<div class="p-3" style="max-width: 700px;">
-										<h2 class="display-4 text-white mb-3 animate__animated animate__fadeInDown"
-											th:text="${slice.title}">Gạch
-											Phú Mỹ</h2>
-										<p class="mx-md-5 px-5 animate__animated animate__bounceIn"
-											th:text="${slice.description}">Xây Vững niềm tin -
-											Dựng uy tín vàng</p>
-										<a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
-											th:href="@{/product}">Xem sản phẩm</a>
+									<img class="position-absolute w-100 h-100" th:src="@{${slice.image}}"
+										style="object-fit: cover;">
+								
+									<div
+										class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+										<div class="p-3" style="max-width: 700px;">
+											<h2 class="display-4 text-white mb-3 animate__animated animate__fadeInDown"
+												th:text="${slice.title}">Gạch
+												Phú Mỹ</h2>
+											<p class="mx-md-5 px-5 animate__animated animate__bounceIn"
+												th:text="${slice.description}">Xây Vững niềm tin -
+												Dựng uy tín vàng</p>
+											<a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+												th:href="@{/product}">Xem sản phẩm</a>
+										</div>
 									</div>
-								</div>
 							</div>
 						</div>
-						
 					</div>
 				</div>
 				<div class="col-lg-4">

@@ -33,15 +33,13 @@ public class Customer {
 	@Column(name = "phone")
 	private String phone;
 
-	@Column(name = "googel_map")
-	private String googelMap;
-
 	@Column(name = "address")
 	private String address;
-	
-	private String subject;
+
 	private String message;
-	
+
+	private Integer status;
+
 	@Column(name = "delete_flag")
 	private int deleteFlag;
 }

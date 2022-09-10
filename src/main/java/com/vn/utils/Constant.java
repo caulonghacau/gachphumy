@@ -16,5 +16,9 @@ public class Constant {
 	
 	public static int DEFAULT_PAGE = 0;
 	public static int DEFAULT_PAGE_SIZE = 25;
+	
+	public static int STATUS_SUCCSESS = 200;
+	public static int DUPLICATE = 600;
+	public static int NOT_FOUND = 800;
 
 }

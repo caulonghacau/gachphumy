@@ -19,6 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.vn.auth.jwt.JwtUtils;
 import com.vn.auth.repository.RoleRepository;
@@ -28,9 +31,12 @@ import com.vn.auth.response.JwtResponse;
 import com.vn.auth.service.SecurityService;
 import com.vn.auth.service.UserDetailsImpl;
 import com.vn.backend.dto.AdvantageDto;
+import com.vn.backend.dto.CustomerDto;
 import com.vn.backend.dto.ProductDto;
 import com.vn.backend.service.AdvantageService;
+import com.vn.backend.service.CustomerService;
 import com.vn.backend.service.ProductService;
+import com.vn.utils.Message;
 
 @Controller
 public class HomeController {
@@ -52,6 +58,9 @@ public class HomeController {
 
 	@Autowired
 	SecurityService securityService;
+
+	@Autowired
+	private CustomerService customerService;
 
 	@Autowired
 	private ProductService productService;
@@ -101,7 +110,18 @@ public class HomeController {
 	}
 
 	@GetMapping("/contact")
-	public String contact() {
+	public String contact(Model model) {
+		CustomerDto objectDto = new CustomerDto();
+		model.addAttribute("customer", objectDto);
+		return "/frontend/contact";
+	}
+
+	@RequestMapping(value = "/customer/add", method = RequestMethod.POST)
+	public String doAdd(CustomerDto dto, Model model) {
+		customerService.add(dto);
+		CustomerDto objectDto = new CustomerDto();
+		model.addAttribute("customer", objectDto);
+		model.addAttribute("message", "Thêm thành công");
 		return "/frontend/contact";
 	}
 
@@ -139,7 +159,6 @@ public class HomeController {
 
 	@GetMapping("/login")
 	public String login(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-
 		return "/login";
 	}
 

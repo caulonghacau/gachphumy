@@ -36,28 +36,35 @@
 		<div class="row px-xl-5">
 			<div class="col-lg-7 mb-5">
 				<div class="contact-form bg-light p-30">
-					<div id="success"></div>
-					<form name="sentMessage" id="contactForm" novalidate="novalidate">
+					<div id="success">
+						<div th:if="${message}">
+							<span class="text-success" th:text=" ${message}"></span>
+						</div>
+					</div>
+					<form name="sentMessage" id="contactForm" novalidate="novalidate" th:action="@{/customer/add}"
+						th:object="${customer}">
 						<div class="control-group">
 							<input type="text" class="form-control" id="name" placeholder="Họ Và Tên"
-								required="required" data-validation-required-message="Nhập tên bạn" />
+								required="required" data-validation-required-message="Nhập tên bạn"
+								th:field="*{name}" />
 							<p class="help-block text-danger"></p>
 						</div>
 						<div class="control-group">
 							<input type="text" class="form-control" id="subject" placeholder="Số Điện Thoại"
-								required="required" data-validation-required-message="Nhập số điện thoại" />
+								required="required" data-validation-required-message="Nhập số điện thoại"
+								th:field="*{phone}" />
 							<p class="help-block text-danger"></p>
 						</div>
 						<div class="control-group">
 							<input type="email" class="form-control" id="email" placeholder="Email"
-								required="required" data-validation-required-message="Nhập email" />
+								data-validation-required-message="Nhập email" th:field="*{email}" />
 							<p class="help-block text-danger"></p>
 						</div>
-						
+
 						<div class="control-group">
 							<textarea class="form-control" rows="8" id="message" placeholder="Nội dung"
-								required="required"
-								data-validation-required-message="Nhập nội dung"></textarea>
+								required="required" data-validation-required-message="Nhập nội dung"
+								th:field="*{message}"></textarea>
 							<p class="help-block text-danger"></p>
 						</div>
 						<div>

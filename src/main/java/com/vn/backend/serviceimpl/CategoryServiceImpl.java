@@ -104,7 +104,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 		if (option.isPresent()) {
 			Category category = option.get();
-			if (!StringUtils.isEmpty(categoryDto.getName())) {
+			if (!StringUtils.hasText(categoryDto.getName())) {
 				category.setName(categoryDto.getName());
 			}
 
