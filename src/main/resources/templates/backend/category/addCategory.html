@@ -34,8 +34,7 @@
 										th:action="@{/admin/category/add}" method="post">
 										<div class="form-group">
 											<label for="exampleInputUsername1">Tên Danh mục</label>
-											<input type="text" id="demo" class="form-control" th:field="*{name}"
-												pattern="[a-z0-9]{1,100}" required placeholder="Nhập Tên Danh mục"
+											<input type="text" id="demo" class="form-control" th:field="*{name}" required placeholder="Nhập Tên Danh mục"
 												title="Tên danh mục không được trống hoặc chứa kí tự đặc biệt">
 										</div>
 										<button type="submit" class="btn btn-success me-2">Lưu</button>
