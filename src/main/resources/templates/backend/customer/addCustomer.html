@@ -56,12 +56,15 @@
 										</div>
 										<div class="form-group">
 											<label>Nội dung</label>
-											<input type="text" id="message" class="form-control" th:field="*{message}"
-												placeholder="Nhập nội dung">
+											<!--<input type="text" id="message" class="form-control" th:field="*{message}"-->
+											<!--	placeholder="Nhập nội dung">-->
 											<!--<textarea class="form-control" rows="8" id="message" placeholder="Nội dung"-->
 											<!--required="required" data-validation-required-message="Nhập nội dung"-->
 											<!--aria-invalid="false"></textarea>-->
-											<!--<textarea rows="4" cols="200" th:field="*{message}" class="form-control">-->
+											<!--<textarea th:field="*{message}" id="message" class="form-control" />-->
+										</div>
+										<div class="control-group">
+											<textarea class="form-control" rows="8" id="message" placeholder="Nội dung" th:field="*{message}"></textarea>
 										</div>
 										<button type="submit" class="btn btn-success me-2">Lưu</button>
 										<a class="btn btn-info me-2" th:href="@{/admin/customer}">Hủy</a>
@@ -77,6 +80,14 @@
 		</div>
 	</div>
 	<div th:replace="fragments/admin-footer :: admin-footer-js" />
+	
+	<script>
+	$( document ).ready(function() {
+	    console.log( "ready!" );
+	    CKEDITOR.replace('message', {});
+	});
+	
+	</script>
 </body>
 
 </html>
