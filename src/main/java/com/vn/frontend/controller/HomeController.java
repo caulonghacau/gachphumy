@@ -117,12 +117,14 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/customer/add", method = RequestMethod.POST)
-	public String doAdd(CustomerDto dto, Model model) {
+	public String doAdd(CustomerDto dto, Model model, RedirectAttributes redirect) {
 		customerService.add(dto);
 		CustomerDto objectDto = new CustomerDto();
 		model.addAttribute("customer", objectDto);
-		model.addAttribute("message", "Thêm thành công");
-		return "/frontend/contact";
+//		model.addAttribute("message", "Thêm thành công");
+		redirect.addFlashAttribute("message",
+				"Cảm ơn quý khách đã liên hệ với chúng tôi. Chúng tôi sẽ phản hồi đến quý khách ngay sau khi chúng tôi tiếp nhận thông tin của quý khách");
+		return "redirect:/contact";
 	}
 
 	@GetMapping("/token")
