@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import com.vn.auth.jwt.AuthEntryPointJwt;
 import com.vn.auth.jwt.AuthTokenFilter;
@@ -73,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login")
 				.loginProcessingUrl("/login").defaultSuccessUrl("/admin", true).permitAll();
 		http.logout().logoutSuccessUrl("/login");
-		
+
 		http.authorizeRequests().and().logout().permitAll();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -92,4 +94,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers("/resources/**");
 	}
 
+//	Create service on ubuntu
+//	https://help.clouding.io/hc/en-us/articles/360010806999-How-to-Deploy-Spring-Boot-Application-with-Nginx-on-Ubuntu-18-04
+
+	@Bean
+	public ClassLoaderTemplateResolver secondaryTemplateResolver() {
+		ClassLoaderTemplateResolver secondaryTemplateResolver = new ClassLoaderTemplateResolver();
+		secondaryTemplateResolver.setPrefix("templates/");
+		secondaryTemplateResolver.setSuffix(".html");
+		secondaryTemplateResolver.setTemplateMode(TemplateMode.HTML);
+		secondaryTemplateResolver.setCharacterEncoding("UTF-8");
+		secondaryTemplateResolver.setOrder(1);
+		secondaryTemplateResolver.setCheckExistence(true);
+
+		return secondaryTemplateResolver;
+	}
 }

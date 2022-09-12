@@ -36,7 +36,6 @@ import com.vn.backend.dto.ProductDto;
 import com.vn.backend.service.AdvantageService;
 import com.vn.backend.service.CustomerService;
 import com.vn.backend.service.ProductService;
-import com.vn.utils.Message;
 
 @Controller
 public class HomeController {
@@ -77,7 +76,7 @@ public class HomeController {
 		List<AdvantageDto> advantages = advantageService.getListAdvantage();
 		model.addAttribute("advantages", advantages);
 
-		return "/frontend/home";
+		return "/frontend/index";
 	}
 
 	@GetMapping("/product")
