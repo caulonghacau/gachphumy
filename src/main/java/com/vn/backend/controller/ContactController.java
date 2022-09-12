@@ -80,7 +80,7 @@ public class ContactController {
 			redirect.addFlashAttribute("successMessage", "Xóa liên hệ thành công!");
 			return "redirect:/admin/contact/";
 		} catch (Exception e) {
-			return "/backend/category/editContact";
+			return "/backend/contact/editContact";
 		}
 	}
 }

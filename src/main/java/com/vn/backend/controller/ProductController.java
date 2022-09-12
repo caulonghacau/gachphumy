@@ -20,7 +20,7 @@ import com.vn.utils.Message;
 
 @Controller
 @RequestMapping("/admin")
-public class ProductBackendController {
+public class ProductController {
 
 	@Autowired
 	private ProductService productService;

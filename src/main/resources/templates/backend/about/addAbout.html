@@ -28,11 +28,11 @@
 								<div class="card-body">
 									<!--									<th:block th:if="${aboutDto.getId()} == '' >-->
 
-									<h4 th:if="${aboutDto.id == null}" class=" card-title">Thêm Mới Về Chúng Tôi
+									<h4 th:if="${about.id == null}" class=" card-title">Thêm Mới Về Chúng Tôi
 									</h4>
-									<h4 th:if="${aboutDto.id != null}" class=" card-title">Cập nhật Về Chúng Tôi
+									<h4 th:if="${about.id != null}" class=" card-title">Cập nhật Về Chúng Tôi
 									</h4>
-									<form class="forms-sample" th:object="${aboutDto}" th:action="@{/admin/about/add}"
+									<form class="forms-sample" th:object="${about}" th:action="@{/admin/about/add}"
 										method="post">
 										<div class="form-group">
 											<label for="exampleInputUsername1">Tiêu đề tab</label>
@@ -46,10 +46,8 @@
 											<input type="text" class="form-control" th:field="*{title}"
 												placeholder="Nhập tiêu đề">
 										</div>
-										<div class="form-group">
-											<label for="exampleInputUsername1">Nội Dung</label>
-											<input type="text" class="form-control" th:field="*{decription}"
-												placeholder="Nhập nội dung">
+										<div class="control-group">
+											<textarea class="form-control" rows="8" id="decription" placeholder="Nội dung" th:field="*{decription}"></textarea>
 										</div>
 										<button type="submit" class="btn btn-success me-2">Lưu</button>
 										<a class="btn btn-info me-2" th:href="@{/admin/about}">Hủy</a>
@@ -66,6 +64,13 @@
 		</div>
 	</div>
 	<div th:replace="fragments/admin-footer :: admin-footer-js" />
+	<script>
+	$( document ).ready(function() {
+	    console.log( "ready!" );
+	    CKEDITOR.replace('decription', {});
+	});
+	
+	</script>
 </body>
 
 </html>

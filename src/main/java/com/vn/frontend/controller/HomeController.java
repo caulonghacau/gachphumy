@@ -10,6 +10,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,9 +36,12 @@ import com.vn.auth.service.UserDetailsImpl;
 import com.vn.backend.dto.AdvantageDto;
 import com.vn.backend.dto.CustomerDto;
 import com.vn.backend.dto.ProductDto;
+import com.vn.backend.response.AboutResponse;
+import com.vn.backend.service.AboutService;
 import com.vn.backend.service.AdvantageService;
 import com.vn.backend.service.CustomerService;
 import com.vn.backend.service.ProductService;
+import com.vn.utils.Constant;
 
 @Controller
 public class HomeController {
@@ -66,6 +72,9 @@ public class HomeController {
 
 	@Autowired
 	private AdvantageService advantageService;
+
+	@Autowired
+	private AboutService aboutService;
 
 	@GetMapping(value = { "/", "/home" })
 	public String home1(Model model) {
@@ -104,7 +113,11 @@ public class HomeController {
 	}
 
 	@GetMapping("/about")
-	public String about() {
+	public String about(Model model) {
+		Pageable paging = PageRequest.of(Constant.DEFAULT_PAGE, Constant.DEFAULT_PAGE_SIZE,
+				Sort.by("nameTab").ascending());
+		AboutResponse abouts = aboutService.getPaggingAbout(Constant.DELETE_FLAG_ACTIVE, paging);
+		model.addAttribute("about", abouts.getAbouts().get(0));
 		return "/frontend/about";
 	}
 

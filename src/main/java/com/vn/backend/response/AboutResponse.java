@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -18,5 +19,6 @@ public class AboutResponse {
 	private int size;
 	private int totalPages;
 	private Long totalElement;
+	private AboutDto about;
 	private List<AboutDto> abouts = new ArrayList<>();
 }
