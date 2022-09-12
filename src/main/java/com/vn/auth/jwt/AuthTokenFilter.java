@@ -7,11 +7,9 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,9 +40,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	private UserDetailsServiceImpl userDetailsService;
 
 	@Autowired
-	private ObjectFactory<HttpSession> httpSessionFactory;
-
-	@Autowired
 	private MenuRepository menuRepository;
 
 	@Autowired
@@ -72,9 +67,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 			if (notes != null && notes.size() > 0) {
 				jwt = notes.get(0);
 			}
-			String getContextPath = request.getContextPath();
-			String getPathInfo = request.getPathInfo();
-			String getRequestURI = request.getRequestURI();
+//			String getContextPath = request.getContextPath();
+//			String getPathInfo = request.getPathInfo();
+//			String getRequestURI = request.getRequestURI();
 			String getServletPath = request.getServletPath();
 
 			if (!getServletPath.contains("/admin")) {

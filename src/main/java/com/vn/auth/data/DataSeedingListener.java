@@ -28,7 +28,6 @@ import com.vn.backend.repository.CategoryRepository;
 import com.vn.backend.repository.ContactRepository;
 import com.vn.backend.repository.MenuRepository;
 import com.vn.backend.repository.ProductRepository;
-import com.vn.backend.repository.ServiceInfoRepository;
 import com.vn.backend.repository.SliceRepository;
 import com.vn.backend.repository.VendorRepository;
 
@@ -61,9 +60,6 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 	@Autowired
 	private VendorRepository vendorRepository;
-
-	@Autowired
-	private ServiceInfoRepository serviceInfoRepository;
 
 	@Autowired
 	private ProductRepository productRepository;
@@ -180,7 +176,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			Slice slice1 = new Slice();
 			slice1.setTitle("Gạch Phú Mỹ");
 			slice1.setDescription("Xây Vững niềm tin - Dựng uy tín vàng");
-			slice1.setImage("../img/Slice02.jpg");
+			slice1.setImage("/img/Slice02.jpg");
 			slice1.setType(0);
 			slice1.setDeleteFlag(0);
 			sliceRepository.save(slice1);
@@ -188,7 +184,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			Slice slice2 = new Slice();
 			slice2.setTitle("Gạch Phú Mỹ");
 			slice2.setDescription("Xây Vững niềm tin - Dựng uy tín vàng");
-			slice2.setImage("../img/Slice03.jpg");
+			slice2.setImage("/img/Slice03.jpg");
 			slice2.setType(0);
 			slice2.setDeleteFlag(0);
 			sliceRepository.save(slice2);
@@ -196,7 +192,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			Slice slice3 = new Slice();
 			slice3.setTitle("LUÔN CÓ SẴN SỐ LƯỢNG LỚN");
 			slice3.setDescription("Cam kết chiết khấu cao nhất");
-			slice3.setImage("../img/Slice05.jpg");
+			slice3.setImage("/img/Slice05.jpg");
 			slice3.setType(1);
 			slice3.setDeleteFlag(0);
 			sliceRepository.save(slice2);
@@ -204,7 +200,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			Slice slice4 = new Slice();
 			slice4.setTitle("TƯ VẤN THI CÔNG MIỄN PHÍ");
 			slice4.setDescription("Hỗ trợ gọi xe vận chuyển tận nơi");
-			slice4.setImage("../img/Slice06.jpg");
+			slice4.setImage("/img/Slice06.jpg");
 			slice4.setType(1);
 			slice4.setDeleteFlag(0);
 			sliceRepository.save(slice4);
@@ -300,49 +296,49 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		if (list == null || (list != null && list.size() == 0)) {
 			Vendor vendor = new Vendor();
 			vendor.setName("Công Ty Xây Dựng Xuân Thành");
-			vendor.setImage("../frontend/img/vendor-1.jpg");
+			vendor.setImage("/frontend/img/vendor-1.jpg");
 			vendor.setDeleteFlag(0);
 			vendorRepository.save(vendor);
 
 			Vendor vendor1 = new Vendor();
 			vendor1.setName("Công Ty Xây Dựng Phương Nam");
-			vendor1.setImage("../frontend/img/vendor-2.jpg");
+			vendor1.setImage("/frontend/img/vendor-2.jpg");
 			vendor1.setDeleteFlag(0);
 			vendorRepository.save(vendor1);
 
 			Vendor vendor2 = new Vendor();
 			vendor2.setName("Công Ty Xây Dựng Thành Đạt");
-			vendor2.setImage("../frontend/img/vendor-3.jpg");
+			vendor2.setImage("/frontend/img/vendor-3.jpg");
 			vendor2.setDeleteFlag(0);
 			vendorRepository.save(vendor2);
 
 			Vendor vendor3 = new Vendor();
 			vendor3.setName("Công Ty Xây Dựng Bảo Tín");
-			vendor3.setImage("../frontend/img/vendor-4.jpg");
+			vendor3.setImage("/frontend/img/vendor-4.jpg");
 			vendor3.setDeleteFlag(0);
 			vendorRepository.save(vendor3);
 
 			Vendor vendor4 = new Vendor();
 			vendor4.setName("Công Ty Xây Dựng Xuân Thành");
-			vendor4.setImage("../frontend/img/vendor-5.jpg");
+			vendor4.setImage("/frontend/img/vendor-5.jpg");
 			vendor4.setDeleteFlag(0);
 			vendorRepository.save(vendor4);
 
 			Vendor vendor5 = new Vendor();
 			vendor5.setName("Công Ty Xây Dựng Phương Nam");
-			vendor5.setImage("../frontend/img/vendor-6.jpg");
+			vendor5.setImage("/frontend/img/vendor-6.jpg");
 			vendor5.setDeleteFlag(0);
 			vendorRepository.save(vendor5);
 
 			Vendor vendor6 = new Vendor();
 			vendor6.setName("Công Ty Xây Dựng Thành Đạt");
-			vendor6.setImage("../frontend/img/vendor-7.jpg");
+			vendor6.setImage("/frontend/img/vendor-7.jpg");
 			vendor6.setDeleteFlag(0);
 			vendorRepository.save(vendor6);
 
 			Vendor vendor7 = new Vendor();
 			vendor7.setName("Công Ty Xây Dựng Bảo Tín");
-			vendor7.setImage("../frontend/img/vendor-8.jpg");
+			vendor7.setImage("/frontend/img/vendor-8.jpg");
 			vendor7.setDeleteFlag(0);
 			vendorRepository.save(vendor7);
 
@@ -366,7 +362,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		if (list == null || (list != null && list.size() == 0)) {
 			Product product = new Product();
 			product.setName("Gạch xi măng cốt liệu");
-			product.setImage("../upload/product01.jpg");
+			product.setImage("/upload/product01.jpg");
 			product.setCategoryId(1L);
 			product.setProductCode("SKU01");
 			product.setAmount(80000);
@@ -384,7 +380,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product1 = new Product();
 			product1.setName("Gạch babanh");
-			product1.setImage("../upload/product02.jpg");
+			product1.setImage("/upload/product02.jpg");
 			product1.setCategoryId(1L);
 			product1.setProductCode("SKU02");
 			product1.setAmount(80000);
@@ -402,7 +398,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product2 = new Product();
 			product2.setName("Gạch không nung tự nhiên");
-			product2.setImage("../upload/product03.jpg");
+			product2.setImage("/upload/product03.jpg");
 			product2.setCategoryId(1L);
 			product2.setProductCode("SKU03");
 			product2.setAmount(80000);
@@ -420,7 +416,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product3 = new Product();
 			product3.setName("Gạch bê tông nhẹ");
-			product3.setImage("../upload/product04.jpg");
+			product3.setImage("/upload/product04.jpg");
 			product3.setCategoryId(1L);
 			product3.setProductCode("SKU04");
 			product3.setAmount(80000);
@@ -438,7 +434,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product4 = new Product();
 			product4.setName("Gạch không nung rỗng 3 thành vách MT-KM100V3S");
-			product4.setImage("../upload/product05.jpg");
+			product4.setImage("/upload/product05.jpg");
 			product4.setCategoryId(2L);
 			product4.setProductCode("SKU05");
 			product4.setAmount(80000);
@@ -456,7 +452,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product5 = new Product();
 			product5.setName("Gạch đặc không nung MT-KM95DA");
-			product5.setImage("../upload/product06.jpg");
+			product5.setImage("/upload/product06.jpg");
 			product5.setCategoryId(2L);
 			product5.setProductCode("SKU06");
 			product5.setAmount(80000);
@@ -474,7 +470,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product6 = new Product();
 			product6.setName("Gạch không nung tự nhiên");
-			product6.setImage("../upload/product07.jpg");
+			product6.setImage("/upload/product07.jpg");
 			product6.setCategoryId(2L);
 			product6.setProductCode("SKU07");
 			product6.setAmount(80000);
@@ -492,7 +488,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product7 = new Product();
 			product7.setName("Gạch bê tông nhẹ");
-			product7.setImage("../upload/product08.jpg");
+			product7.setImage("/upload/product08.jpg");
 			product7.setCategoryId(2L);
 			product7.setProductCode("SKU08");
 			product7.setAmount(80000);
