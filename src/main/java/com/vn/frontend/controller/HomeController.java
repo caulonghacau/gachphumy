@@ -33,6 +33,7 @@ import com.vn.auth.request.LoginRequest;
 import com.vn.auth.response.JwtResponse;
 import com.vn.auth.service.SecurityService;
 import com.vn.auth.service.UserDetailsImpl;
+import com.vn.backend.dto.AboutDto;
 import com.vn.backend.dto.AdvantageDto;
 import com.vn.backend.dto.CustomerDto;
 import com.vn.backend.dto.ProductDto;
@@ -117,7 +118,20 @@ public class HomeController {
 		Pageable paging = PageRequest.of(Constant.DEFAULT_PAGE, Constant.DEFAULT_PAGE_SIZE,
 				Sort.by("nameTab").ascending());
 		AboutResponse abouts = aboutService.getPaggingAbout(Constant.DELETE_FLAG_ACTIVE, paging);
-		model.addAttribute("about", abouts.getAbouts().get(0));
+		for (AboutDto about : abouts.getAbouts()) {
+			if (about.getPosition() == 1) {
+				model.addAttribute("introduce", about);
+			}
+
+			if (about.getPosition() == 2) {
+				model.addAttribute("history", about);
+			}
+
+			if (about.getPosition() == 3) {
+				model.addAttribute("vision", about);
+			}
+		}
+
 		return "/frontend/about";
 	}
 

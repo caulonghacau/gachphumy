@@ -15,4 +15,5 @@ public class AboutDto {
 	private String title;
 	private String header;
 	private String decription;
+	private Integer position;
 }

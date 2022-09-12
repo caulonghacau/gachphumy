@@ -28,6 +28,7 @@ public class About {
 	private String header;
 	@Column(columnDefinition = "TEXT")
 	private String decription;
+	private Integer position;
 	@Column(name = "delete_flag")
 	private int deleteFlag;
 }
