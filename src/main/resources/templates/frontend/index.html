@@ -37,7 +37,6 @@
 							Nung Đặc 2 Lỗ Nhỏ</a>
 						<div class="d-flex align-items-center justify-content-center mt-2">
 							<h5> <span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">5.000 </span> đ/Viên</h5>
-							<!-- <h6 class="text-muted ml-2"><del>5.000</del></h6> -->
 						</div>
 						<div class="d-flex align-items-center justify-content-center mb-1">
 							<a class="btn btn-primary" href="/contact">Liên hệ mua</a>
@@ -47,7 +46,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- Featured Start -->
 	<div class="container-fluid pt-5">
 		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">ƯU
 				ĐIỂM VƯỢT TRỘI CỦA GẠCH KHÔNG NUNG</span></h2>
@@ -60,7 +58,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- Vendor Start -->
 	<div th:replace="fragments/vendor :: vendor" />
 	<div th:replace="fragments/footer :: footer" />
 	<div th:replace="fragments/footer :: footer-js" />
