@@ -73,7 +73,7 @@
 																class="btn btn-primary btn-sm">Sửa</a>
 															<a th:href="@{/admin/category/delete/{id}(id=${category.id})}"
 																class="btn btn-danger btn-sm"
-																th:onclick="return onClickDelete(this)">Xóa
+																th:onclick="return onClickDelete(this)" id="delete">Xóa
 															</a>
 														</td>
 													</tr>
@@ -91,16 +91,6 @@
 		</div>
 	</div>
 	<div th:replace="fragments/admin-footer :: admin-footer-js" />
-	<script language="javascript">
-		function onClickDelete(obj) {
-			var result = confirm("Bạn có chắc chắn muốn xóa ????");
-			if (result) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	</script>
 </body>
 
 </html>
