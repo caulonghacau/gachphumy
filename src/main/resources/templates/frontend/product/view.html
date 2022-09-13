@@ -7,9 +7,7 @@
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="Free HTML Templates" name="keywords">
 	<meta content="Free HTML Templates" name="description">
-
-	<!-- Favicon -->
-	<link th:href="@{../upload/favicon.ico}" rel="icon">
+	<link th:href="@{/upload/favicon.ico}" rel="icon">
 	<div th:replace="fragments/header :: header-css" />
 </head>
 
@@ -19,8 +17,8 @@
 		<div class="row px-xl-5">
 			<div class="col-12">
 				<nav class="breadcrumb bg-light mb-30">
-					<a class="breadcrumb-item text-dark" href="#">Home</a>
-					<span class="breadcrumb-item active">Produc</span>
+					<a class="breadcrumb-item text-dark" th:href="@{/home}">Trang chủ</a>
+					<span class="breadcrumb-item active">Sản phẩm</span>
 				</nav>
 			</div>
 		</div>
@@ -40,12 +38,12 @@
 						th:href="@{/product/{id}(id=${product.id})}">Gạch Không Nung
 						Đặc 2 Lỗ Nhỏ</a>
 					<div class="d-flex align-items-center justify-content-center mt-2">
-						<h5><spanth:text="${product.price}">5.000 </span>đ/Viên</h5>
+						<h5><span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">5.000 </span>đ/Viên</h5>
 						<!-- <h6 class="text-muted ml-2"><del>5.000</del></h6> -->
 					</div>
 					<div class="d-flex align-items-center justify-content-center mb-1">
 						<a class="btn btn-primary" href="/contact">Liên hệ mua</a>
-					</div>
+					</div>s
 				</div>
 			</div>
 		</div>

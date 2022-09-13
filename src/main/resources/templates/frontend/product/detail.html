@@ -46,12 +46,12 @@
 
 			<div class="col-lg-7 h-auto mb-30" th:object="${product}">
 				<div class="h-100 bg-light p-30">
-					<p class="font-weight-semi-bold mb-4">Đơn giá: <span th:text="*{price}">4.000</span> vnđ</p>
+					<p class="font-weight-semi-bold mb-4">Đơn giá: <span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">4.000</span> vnđ</p>
 					<p>Tên sản phẩm: <span th:text="*{name}">Gạch không nung loại 1</span></p>
 					<p>Tình trạng: Còn hàng</p>
 					<!--					<div class="d-flex mb-3">-->
-					<!--						<div class="text-primary mr-2">-->
-					<!--							<small class="fas fa-star"></small>-->
+					<!--						<div class="text-primary mr-2">-->                    
+					<!--							<small class="fas fa-star"></small>--> 	
 					<!--							<small class="fas fa-star"></small>-->
 					<!--							<small class="fas fa-star"></small>-->
 					<!--							<small class="fas fa-star-half-alt"></small>-->
