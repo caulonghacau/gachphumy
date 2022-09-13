@@ -67,15 +67,19 @@ public class AboutServiceImpl implements AboutService {
 
 		if (option.isPresent()) {
 			About dataDb = option.get();
-			if (!StringUtils.isEmpty(aboutDto.getNameTab())) {
+			if (!StringUtils.hasText(aboutDto.getNameTab())) {
 				dataDb.setNameTab(aboutDto.getNameTab());
 			}
 
-			if (!StringUtils.isEmpty(aboutDto.getTitle())) {
+			if (!StringUtils.hasText(aboutDto.getTitle())) {
 				dataDb.setTitle(aboutDto.getTitle());
 			}
-			if (!StringUtils.isEmpty(aboutDto.getDecription())) {
+			if (!StringUtils.hasText(aboutDto.getDecription())) {
 				dataDb.setDecription(aboutDto.getDecription());
+			}
+
+			if (aboutDto.getPosition() != null) {
+				dataDb.setPosition(aboutDto.getPosition());
 			}
 
 			About result = aboutRepository.save(dataDb);
