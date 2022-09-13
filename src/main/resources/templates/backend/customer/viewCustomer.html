@@ -87,7 +87,7 @@
 															<a th:href="@{/admin/customer/update/{id}(id=${customer.id})}"
 																class="btn btn-primary btn-sm">Sửa</a>
 															<a th:href="@{/admin/customer/delete/{id}(id=${customer.id})}"
-																class="btn btn-danger btn-sm">Xóa </a>
+																class="btn btn-danger btn-sm" th:onclick="return onClickDelete(this)">Xóa </a>
 														</td>
 													</tr>
 												</tbody>

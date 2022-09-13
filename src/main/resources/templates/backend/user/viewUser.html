@@ -74,7 +74,7 @@
 															<a th:href="@{/admin/user/update/{id}(id=${obj.id})}"
 																class="btn btn-primary btn-sm">Sửa</a>
 															<a th:href="@{/admin/user/delete/{id}(id=${obj.id})}"
-																class="btn btn-danger btn-sm">Xóa </a>
+																class="btn btn-danger btn-sm" th:onclick="return onClickDelete(this)">Xóa </a>
 														</td>
 													</tr>
 												</tbody>
