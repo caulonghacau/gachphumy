@@ -13,6 +13,8 @@ public interface UserService {
 
 	UserDto add(UserDto userDto);
 
+	UserResponse addVaildate(UserDto dto);
+
 	UserDto update(UserDto userDto) throws Exception;
 
 	boolean delete(Long id) throws Exception;

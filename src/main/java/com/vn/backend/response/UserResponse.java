@@ -14,10 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserResponse {
-	private int page;
-	private int size;
-	private int totalPages;
-	private Long totalElement;
+public class UserResponse extends BaseResponse {
+	private UserDto user;
 	private List<UserDto> users = new ArrayList<>();
 }

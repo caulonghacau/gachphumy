@@ -21,6 +21,7 @@ import com.vn.auth.repository.UserRepository;
 import com.vn.backend.dto.UserDto;
 import com.vn.backend.response.UserResponse;
 import com.vn.backend.service.UserService;
+import com.vn.utils.Constant;
 import com.vn.utils.Message;
 
 @Service
@@ -86,12 +87,39 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public UserResponse addVaildate(UserDto dto) {
+
+		UserResponse result = vailidate(dto);
+
+		if (result.getStatus() != Constant.STATUS_SUCCSESS) {
+			return result;
+		}
+
+		User entity = new User();
+		BeanUtils.copyProperties(dto, entity);
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+
+		HashSet<Role> roles = new HashSet<>();
+		Role roleAdmin = roleRepository.findByName(ERole.ROLE_ADMIN).get();
+		roles.add(roleAdmin);
+		entity.setRoles(roles);
+		
+		User dataAfterSave = userRepository.save(entity);
+		BeanUtils.copyProperties(dataAfterSave, dto);
+		result.setStatus(Constant.STATUS_SUCCSESS);
+		result.setMessage(Message.ADD_SUCCESS);
+		result.setUser(dto);
+
+		return result;
+	}
+
+	@Override
 	public UserDto update(UserDto userDto) throws Exception {
 		Optional<User> option = userRepository.findById(userDto.getId());
 
 		if (option.isPresent()) {
 			User dataDb = option.get();
-			if (!StringUtils.isEmpty(userDto.getEmail())) {
+			if (StringUtils.hasText(userDto.getEmail())) {
 				dataDb.setEmail(userDto.getEmail());
 			}
 
@@ -113,4 +141,56 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
+	private UserResponse vailidate(UserDto dto) {
+		UserResponse result = new UserResponse();
+
+		if (!StringUtils.hasText(dto.getUsername())) {
+			result.setStatus(Constant.NOT_NULL);
+			result.setMessage(Message.NAMENAME_NOT_NULL);
+			result.setUser(dto);
+			return result;
+		}
+
+		if (!StringUtils.hasText(dto.getPassword()) || !StringUtils.hasText(dto.getConfirmPassword())) {
+			result.setStatus(Constant.NOT_NULL);
+			result.setMessage(Message.PASSWORD_NOT_NULL);
+			result.setUser(dto);
+			return result;
+		}
+
+		if (!StringUtils.hasText(dto.getEmail())) {
+			result.setStatus(Constant.NOT_NULL);
+			result.setMessage(Message.EMAIL_NOT_NULL);
+			result.setUser(dto);
+			return result;
+		}
+
+		if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+			result.setStatus(Constant.NOT_DUPLICATE);
+			result.setMessage(Message.PASSWORD_NOT_DUPLICATE);
+			result.setUser(dto);
+			return result;
+		}
+
+		if (dto.getPassword().length() > 50 || dto.getConfirmPassword().length() > 50
+				|| dto.getConfirmPassword().length() > 50) {
+			result.setStatus(Constant.MAX_LENGTH);
+			result.setMessage(Message.MAX_LENGHT_50);
+			result.setUser(dto);
+			return result;
+		}
+
+		boolean existsByUsername = userRepository.existsByUsername(dto.getUsername());
+		if (existsByUsername) {
+			result.setStatus(Constant.DUPLICATE);
+			result.setMessage(Message.USERNAME_DUPLICATE);
+			result.setUser(dto);
+			return result;
+		}
+
+		result.setStatus(Constant.STATUS_SUCCSESS);
+		result.setMessage(Message.VALIDATE_SUCCESS);
+		result.setUser(dto);
+		return result;
+	}
 }

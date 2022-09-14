@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.vn.backend.dto.UserDto;
+import com.vn.backend.response.CategoryResponse;
 import com.vn.backend.response.UserResponse;
 import com.vn.backend.service.UserService;
 import com.vn.utils.Constant;
@@ -36,24 +37,30 @@ public class UserController {
 	@RequestMapping(value = "/user/add", method = RequestMethod.GET)
 	public String add(Model model) {
 		UserDto userDto = new UserDto();
-		model.addAttribute("userDto", userDto);
+		model.addAttribute("user", userDto);
 		return "/backend/user/addUser";
 
 	}
 
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
 	public String doAdd(UserDto userDto, Model model, RedirectAttributes redirect) {
-		userService.add(userDto);
-		redirect.addFlashAttribute("successMessage", Message.ADD_SUCCESS);
-		return "redirect:/admin/user/";
 
+		UserResponse resutl = userService.addVaildate(userDto);
+		if (Constant.STATUS_SUCCSESS != resutl.getStatus()) {
+			model.addAttribute("message", resutl.getMessage());
+			model.addAttribute("user", resutl.getUser());
+			return "/backend/user/addUser";
+		} else {
+			redirect.addFlashAttribute("successMessage", resutl.getMessage());
+			return "redirect:/admin/user/";
+		}
 	}
 
 	@RequestMapping(value = "/user/update/{id}", method = RequestMethod.GET)
 	public String update(@PathVariable("id") Long id, Model model) {
 		UserDto userDto = userService.getDetail(id, 0);
 
-		model.addAttribute("userDto", userDto);
+		model.addAttribute("user", userDto);
 		return "/backend/user/updateUser";
 
 	}

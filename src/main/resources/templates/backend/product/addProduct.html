@@ -44,9 +44,12 @@
 										</div>
 
 										<div class="form-group">
-											<label for="exampleInputUsername1">Danh mục</label>
-											<input type="text" class="form-control" th:field="*{categoryId}"
-												placeholder="Nhập danh mục">
+											<select th:field="*{categoryId}" id="categoryId">
+												<option value="">Chọn Danh mục</option>
+												<option value="1">Gạch Không Nung</option>
+												<option value="7">Sản Phẩm Khác</option>
+												<option value="16">Vật liệu xây dựng</option>
+											</select>
 										</div>
 										<div class="form-group">
 											<label for="exampleInputUsername1">Giá sản phẩm</label>
@@ -61,7 +64,8 @@
 										<div class="form-group">
 											<label for="exampleInputUsername1">Hình ảnh</label>
 											<input type="file" class="form-control" th:field="*{imageProduct}"
-												placeholder="Chọn đường dẫn" accept="image/png, image/jpeg, , image/jpg">
+												placeholder="Chọn đường dẫn"
+												accept="image/png, image/jpeg, , image/jpg">
 										</div>
 										<div class="form-group">
 											<label for="exampleInputUsername1">Nguyên vật liệu</label>

@@ -19,6 +19,9 @@ public class Constant {
 	
 	public static int STATUS_SUCCSESS = 200;
 	public static int DUPLICATE = 600;
+	public static int NOT_DUPLICATE = 601;
 	public static int NOT_FOUND = 800;
+	public static int NOT_NULL = 900;
+	public static int MAX_LENGTH = 901;
 
 }
