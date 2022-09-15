@@ -168,7 +168,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			Slice slice = new Slice();
 			slice.setTitle("Gạch Phú Mỹ");
 			slice.setDescription("Xây Vững niềm tin - Dựng uy tín vàng");
-			slice.setImage("../img/Slice01.jpg");
+			slice.setImage("/img/Slice01.jpg");
 			slice.setType(0);
 			slice.setDeleteFlag(0);
 			sliceRepository.save(slice);
