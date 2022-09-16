@@ -9,7 +9,7 @@ import com.vn.backend.response.CategoryResponse;
 
 public interface CategoryService {
 
-	List<CategoryDto> getListAll(int deleteFlag, Pageable pagging);
+	List<CategoryDto> getListAll(int deleteFlag);
 
 	CategoryResponse getPaggingCategory(int deleteFlag, Pageable pagging);
 

@@ -67,14 +67,14 @@ public class AboutServiceImpl implements AboutService {
 
 		if (option.isPresent()) {
 			About dataDb = option.get();
-			if (!StringUtils.hasText(aboutDto.getNameTab())) {
+			if (StringUtils.hasText(aboutDto.getNameTab())) {
 				dataDb.setNameTab(aboutDto.getNameTab());
 			}
 
-			if (!StringUtils.hasText(aboutDto.getTitle())) {
+			if (StringUtils.hasText(aboutDto.getTitle())) {
 				dataDb.setTitle(aboutDto.getTitle());
 			}
-			if (!StringUtils.hasText(aboutDto.getDecription())) {
+			if (StringUtils.hasText(aboutDto.getDecription())) {
 				dataDb.setDecription(aboutDto.getDecription());
 			}
 

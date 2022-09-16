@@ -1,6 +1,8 @@
 package com.vn.backend.dto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +21,7 @@ public class ProductDto {
 	private Long categoryId;
 	private Long categoryName;
 	private String name;
-	
+
 	private String image;
 	private MultipartFile imageProduct;
 	private Integer amount;
@@ -34,4 +36,5 @@ public class ProductDto {
 	private String description2;
 	private String sizeUnit;
 	private String weightUnit;
+	List<CategoryDto> categories = new ArrayList<>();
 }

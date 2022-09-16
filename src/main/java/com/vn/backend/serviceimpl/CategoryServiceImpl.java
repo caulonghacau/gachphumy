@@ -26,8 +26,8 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryRepository categoryRepository;
 
 	@Override
-	public List<CategoryDto> getListAll(int deleteFlag, Pageable pagging) {
-		List<Category> categories = categoryRepository.findByDeleteFlag(deleteFlag, pagging);
+	public List<CategoryDto> getListAll(int deleteFlag) {
+		List<Category> categories = categoryRepository.findByDeleteFlag(deleteFlag);
 		List<CategoryDto> results = new ArrayList<>();
 		for (Category cate : categories) {
 			CategoryDto dto = new CategoryDto();

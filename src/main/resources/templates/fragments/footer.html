@@ -44,9 +44,9 @@
 							<h5 class="text-secondary text-uppercase mb-4">Menu</h5>
 							<div class="d-flex flex-column justify-content-start"
 								th:each="menu : ${#session.getAttribute('menuSession')}">
-								<a th:href="${menu.link}" class="text-secondary mb-2" href="#">
+								<a th:href="${menu.link}" class="text-secondary mb-2">
 									<i class="fa fa-angle-right mr-2"></i>
-									<span th:text="${menu.name}">Trang Chủ</span>
+									<span th:text="${menu.name}" th:class="${menu.active}">Trang Chủ</span>
 								</a>
 							</div>
 						</div>

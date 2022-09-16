@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.vn.backend.dto.ProductDto;
 import com.vn.backend.response.ProductResponse;
+import com.vn.backend.service.CategoryService;
 import com.vn.backend.service.ProductService;
 import com.vn.utils.Constant;
 import com.vn.utils.Message;
@@ -24,6 +25,9 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private CategoryService categoryService;
 
 	@RequestMapping("/product")
 	public String view(Model model) {
@@ -46,7 +50,8 @@ public class ProductController {
 	@RequestMapping(value = "/product/add", method = RequestMethod.GET)
 	public String add(Model model) {
 		ProductDto productDto = new ProductDto();
-		model.addAttribute("productDto", productDto);
+		productDto.setCategories(categoryService.getListAll(Constant.DELETE_FLAG_ACTIVE));
+		model.addAttribute("product", productDto);
 
 		return "/backend/product/addProduct";
 
@@ -54,32 +59,42 @@ public class ProductController {
 
 	@RequestMapping(value = "/product/add", method = RequestMethod.POST)
 	public String doAdd(ProductDto productDto, Model model, RedirectAttributes redirect) {
-		productService.add(productDto);
-		redirect.addFlashAttribute("successMessage", Message.ADD_SUCCESS);
-		return "redirect:/admin/product/";
+
+		ProductResponse resutl = productService.addValidate(productDto);
+		if (Constant.STATUS_SUCCSESS == resutl.getStatus()) {
+			redirect.addFlashAttribute("successMessage", resutl.getMessage());
+			return "redirect:/admin/product/";
+		} else {
+			model.addAttribute("message", resutl.getMessage());
+			productDto.setCategories(categoryService.getListAll(Constant.DELETE_FLAG_ACTIVE));
+			model.addAttribute("product", productDto);
+			return "/backend/product/addProduct";
+		}
 
 	}
 
 	@RequestMapping(value = "/product/update/{id}", method = RequestMethod.GET)
 	public String update(@PathVariable("id") Long id, Model model) {
 		ProductDto productDto = productService.getDetail(id, 0);
-
-		model.addAttribute("productDto", productDto);
+		productDto.setCategories(categoryService.getListAll(Constant.DELETE_FLAG_ACTIVE));
+		model.addAttribute("product", productDto);
 		return "/backend/product/updateProduct";
 
 	}
 
 	@RequestMapping(value = "/product/update", method = RequestMethod.POST)
-	public String doUpdate(ProductDto productDto, Model model, RedirectAttributes redirect) {
-
-		try {
-			productService.update(productDto);
-			redirect.addFlashAttribute("successMessage", Message.UPDATE_SUCCESS);
+	public String doUpdate(ProductDto productDto, Model model, RedirectAttributes redirect) throws Exception {
+		ProductResponse resutl = productService.update(productDto);
+		if (Constant.STATUS_SUCCSESS == resutl.getStatus()) {
+			redirect.addFlashAttribute("successMessage", resutl.getMessage());
 			return "redirect:/admin/product/";
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else {
+			model.addAttribute("message", resutl.getMessage());
+			productDto.setCategories(categoryService.getListAll(Constant.DELETE_FLAG_ACTIVE));
+			model.addAttribute("product", productDto);
+			return "/backend/product/updateProduct";
 		}
-		return "redirect:/admin/product/";
+
 	}
 
 	@RequestMapping(value = "/product/delete/{id}", method = RequestMethod.GET)

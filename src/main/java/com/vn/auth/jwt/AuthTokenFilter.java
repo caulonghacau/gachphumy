@@ -1,6 +1,7 @@
 package com.vn.auth.jwt;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.FilterChain;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +22,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vn.auth.service.UserDetailsServiceImpl;
+import com.vn.backend.dto.MenuDto;
 import com.vn.backend.model.Category;
 import com.vn.backend.model.Contact;
 import com.vn.backend.model.Menu;
@@ -125,10 +128,33 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
 	private void setMenuSession(HttpServletRequest request) {
 		@SuppressWarnings("unchecked")
-		List<Menu> sessions = (List<Menu>) request.getSession().getAttribute(Constant.MENU_SESSION);
-		if (sessions == null) {
-			sessions = menuRepository.findAll();
-			request.getSession().setAttribute(Constant.MENU_SESSION, sessions);
+		List<MenuDto> sessions = (List<MenuDto>) request.getSession().getAttribute(Constant.MENU_SESSION);
+		String getServletPath = request.getServletPath();
+
+		List<String> str = new ArrayList<>();
+		if (sessions != null) {
+			for (MenuDto dto : sessions) {
+				str.add(dto.getLink());
+			}
+		}
+
+		if (str.contains(getServletPath) || sessions == null) {
+			if (sessions == null) {
+				List<Menu> menus = menuRepository.findAll();
+				List<MenuDto> sessionsDto = copyMenuToMenuDto(menus, getServletPath);
+				request.getSession().setAttribute(Constant.MENU_SESSION, sessionsDto);
+			} else {
+				List<MenuDto> sessionsDto = new ArrayList<>();
+				for (MenuDto dto : sessions) {
+					if (getServletPath.equals(dto.getLink())) {
+						dto.setActive("active");
+					} else {
+						dto.setActive("");
+					}
+					sessionsDto.add(dto);
+				}
+				request.getSession().setAttribute(Constant.MENU_SESSION, sessionsDto);
+			}
 		}
 	}
 
@@ -170,6 +196,23 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 //		}
 		sessions = vendorRepository.findAll();
 		request.getSession().setAttribute(Constant.VENDOR_SESSION, sessions);
+	}
+
+	private List<MenuDto> copyMenuToMenuDto(List<Menu> menus, String link) {
+
+		List<MenuDto> sessionsDto = new ArrayList<>();
+		for (Menu menu : menus) {
+			MenuDto menuDto = new MenuDto();
+			BeanUtils.copyProperties(menu, menuDto);
+			if (link.equals(menu.getLink())) {
+				menuDto.setActive("active");
+			} else {
+				menuDto.setActive("");
+			}
+			sessionsDto.add(menuDto);
+		}
+
+		return sessionsDto;
 	}
 
 }

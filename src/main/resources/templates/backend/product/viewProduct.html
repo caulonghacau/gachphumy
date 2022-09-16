@@ -6,8 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Gạch Phú Mỹ</title>
-	<link rel="shortcut icon" href="../backend/images/logo-admin.svg" />
-	<link th:href="@{../img/favicon.ico}" rel="icon">
+	<link th:href="@{/img/favicon.ico}" rel="icon">
 	<div th:replace="fragments/admin-header :: admin-header-css" />
 </head>
 
@@ -42,7 +41,7 @@
 											</div>
 											<table class="table table-bordered table-striped">
 												<thead>
-													<tr  class="table-info">
+													<tr class="table-info">
 														<th style="width: 5%; text-align: center">
 															STT
 														</th>
@@ -94,7 +93,8 @@
 															<a th:href="@{/admin/product/update/{id}(id=${obj.id})}"
 																class="btn btn-primary btn-sm">Sửa</a>
 															<a th:href="@{/admin/product/delete/{id}(id=${obj.id})}"
-																class="btn btn-danger btn-sm" th:onclick="return onClickDelete(this)">Xóa </a>
+																class="btn btn-danger btn-sm"
+																th:onclick="return onClickDelete(this)">Xóa </a>
 														</td>
 													</tr>
 												</tbody>

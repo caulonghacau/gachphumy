@@ -6,8 +6,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Gạch Phú Mỹ</title>
-	<link rel="shortcut icon" th:href="@{../admin/images/logo-admin.svg}" />
-	<link th:href="@{../img/favicon.ico}" rel="icon">
+	<link th:href="@{/img/favicon.ico}" rel="icon">
 	<div th:replace="fragments/admin-header :: admin-header-css" />
 </head>
 
@@ -25,30 +24,32 @@
 							<div class="card">
 								<div class="card-body">
 									<h4 class="card-title">Thêm Sản Phẩm</h4>
-									<form class="forms-sample" th:object="${productDto}"
-										th:action="@{/admin/product/add}" method="post" enctype="multipart/form-data">
+									<div th:if="${message}">
+										<span class="text-danger" th:text=" ${message}"></span>
+									</div>
+									<form class="forms-sample" th:object="${product}" th:action="@{/admin/product/add}"
+										method="post" enctype="multipart/form-data">
 										<div class="form-group">
 											<label for="exampleInputUsername1">Mã sản phẩm</label>
 											<input type="hidden" th:field="*{id}">
 											<input type="text" class="form-control" th:field="*{productCode}"
 												placeholder="Nhập tên công ty">
-											<small id="productCodeValid" class="form-text text-danger invalid-feedback">
+											<small id="productCodeValid" class="form-text text-danger visible">
 												Nhập mã sản phẩm
 											</small>
 
 										</div>
 										<div class="form-group">
-											<label for="exampleInputUsername1">Tên sản phẩm</label>
+											<label for="name">Tên sản phẩm</label>
 											<input type="text" class="form-control" th:field="*{name}"
 												placeholder="Nhập tên sản phẩm">
 										</div>
 
 										<div class="form-group">
-											<select th:field="*{categoryId}" id="categoryId">
-												<option value="">Chọn Danh mục</option>
-												<option value="1">Gạch Không Nung</option>
-												<option value="7">Sản Phẩm Khác</option>
-												<option value="16">Vật liệu xây dựng</option>
+											<div>Chọn danh mục sản phẩm</div>
+											<select th:field="*{categoryId}" id="categoryId" class="form-select">
+												<option th:each="obj : ${product.categories}" th:value="${obj.id}"
+													th:text="${obj.name}"></option>
 											</select>
 										</div>
 										<div class="form-group">
@@ -62,7 +63,8 @@
 												placeholder="Nhập số lượng">
 										</div>
 										<div class="form-group">
-											<label for="exampleInputUsername1">Hình ảnh</label>
+											<label for="exampleInputUsername1">Hình ảnh sản phẩm</label>
+											<input type="hidden" th:field="*{image}">
 											<input type="file" class="form-control" th:field="*{imageProduct}"
 												placeholder="Chọn đường dẫn"
 												accept="image/png, image/jpeg, , image/jpg">

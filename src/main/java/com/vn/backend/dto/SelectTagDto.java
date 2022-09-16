@@ -7,13 +7,11 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
-public class MenuDto {
-	private Long id;
-	private String name;
-	private String link;
-	private int positon;
-	private String active;
-	private int deleteFlag;
+@Setter
+public class SelectTagDto {
+
+	private String key;
+	private String value;
+
 }

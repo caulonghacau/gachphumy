@@ -22,11 +22,13 @@ import com.vn.backend.model.Product;
 import com.vn.backend.repository.ProductRepository;
 import com.vn.backend.response.ProductResponse;
 import com.vn.backend.service.ProductService;
+import com.vn.utils.Constant;
 import com.vn.utils.FileUploadUtil;
 import com.vn.utils.Message;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+
 	@Value("${upload.path}")
 	private String fileUpload;
 
@@ -48,11 +50,6 @@ public class ProductServiceImpl implements ProductService {
 
 		}
 		return results;
-	}
-
-	@Override
-	public ProductDto addProduct(ProductDto product) {
-		return null;
 	}
 
 	@Override
@@ -107,13 +104,99 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public ProductDto update(ProductDto productDto) throws Exception {
+	public ProductResponse addValidate(ProductDto productDto) {
+		ProductResponse result = new ProductResponse();
+
+		if (!StringUtils.hasText(productDto.getName())) {
+			result.setStatus(Constant.NOT_NULL);
+			result.setMessage(Message.PRODUCT_NAME_NOT_NULL);
+			result.setProduct(productDto);
+			return result;
+		}
+
+		if (!StringUtils.hasText(productDto.getProductCode())) {
+			result.setStatus(Constant.NOT_NULL);
+			result.setMessage(Message.PRODUCT_CODE_NOT_NULL);
+			result.setProduct(productDto);
+			return result;
+		}
+
+		List<Product> exitsProductNane = productRepository.findByNameAndDeleteFlag(productDto.getName(),
+				Constant.DELETE_FLAG_ACTIVE);
+
+		if (exitsProductNane != null && exitsProductNane.size() > 0) {
+			result.setStatus(Constant.DUPLICATE);
+			result.setMessage(Message.NAME_PRODUCT_DUPLICATE);
+			result.setProduct(productDto);
+			return result;
+		}
+
+		List<Product> exitsProductCode = productRepository.findByProductCodeAndDeleteFlag(productDto.getProductCode(),
+				Constant.DELETE_FLAG_ACTIVE);
+		if (exitsProductCode != null && exitsProductCode.size() > 0) {
+			result.setStatus(Constant.DUPLICATE);
+			result.setMessage(Message.PRODUCT_CODE_DUPLICATE);
+			result.setProduct(productDto);
+			return result;
+		}
+
+		Product entity = new Product();
+		BeanUtils.copyProperties(productDto, entity);
+		Product dataAfterSave = productRepository.save(entity);
+		BeanUtils.copyProperties(dataAfterSave, productDto);
+
+		result.setStatus(Constant.STATUS_SUCCSESS);
+		result.setMessage(Message.ADD_SUCCESS);
+		result.setProduct(productDto);
+
+		return result;
+	}
+
+	@Override
+	public ProductResponse update(ProductDto productDto) {
 		Optional<Product> option = productRepository.findById(productDto.getId());
+
+		ProductResponse result = new ProductResponse();
+
+		if (!StringUtils.hasText(productDto.getName())) {
+			result.setStatus(Constant.NOT_NULL);
+			result.setMessage(Message.PRODUCT_NAME_NOT_NULL);
+			result.setProduct(productDto);
+			return result;
+		}
+
+		if (!StringUtils.hasText(productDto.getProductCode())) {
+			result.setStatus(Constant.NOT_NULL);
+			result.setMessage(Message.PRODUCT_CODE_NOT_NULL);
+			result.setProduct(productDto);
+			return result;
+		}
+
+		List<Product> exitsProductNane = productRepository.findByNameAndDeleteFlag(productDto.getName(),
+				Constant.DELETE_FLAG_ACTIVE);
+
+		if (exitsProductNane != null && exitsProductNane.size() > 0
+				&& exitsProductNane.get(0).getId().compareTo(productDto.getId()) != 0) {
+			result.setStatus(Constant.DUPLICATE);
+			result.setMessage(Message.NAME_PRODUCT_DUPLICATE);
+			result.setProduct(productDto);
+			return result;
+		}
+
+		List<Product> exitsProductCode = productRepository.findByProductCodeAndDeleteFlag(productDto.getProductCode(),
+				Constant.DELETE_FLAG_ACTIVE);
+		if (exitsProductCode != null && exitsProductCode.size() > 0
+				&& exitsProductCode.get(0).getId().compareTo(productDto.getId()) != 0) {
+			result.setStatus(Constant.DUPLICATE);
+			result.setMessage(Message.PRODUCT_CODE_DUPLICATE);
+			result.setProduct(productDto);
+			return result;
+		}
 
 		if (option.isPresent()) {
 			Product dataDb = option.get();
 
-			if (!StringUtils.isEmpty(productDto.getCategoryId())) {
+			if (productDto.getCategoryId() != null) {
 				dataDb.setCategoryId(productDto.getCategoryId());
 			}
 
@@ -123,10 +206,10 @@ public class ProductServiceImpl implements ProductService {
 			if (StringUtils.hasText(productDto.getName())) {
 				dataDb.setName(productDto.getName());
 			}
-			if (!StringUtils.isEmpty(productDto.getAmount())) {
+			if (productDto.getAmount() != null) {
 				dataDb.setAmount(productDto.getAmount());
 			}
-			if (!StringUtils.isEmpty(productDto.getPrice())) {
+			if (productDto.getPrice() != null) {
 				dataDb.setPrice(productDto.getPrice());
 			}
 
@@ -170,17 +253,24 @@ public class ProductServiceImpl implements ProductService {
 				logger.error("Upload image has erro: " + productDto.getId());
 				logger.error("Message: " + e.getMessage());
 			}
+
 			String url = File.separator + this.fileUpload + File.separator + fileName;
 			productDto.setImage(url);
-			if (StringUtils.hasText(url)) {
+			if (StringUtils.hasText(fileName)) {
 				dataDb.setImage(url);
 			}
 
-			Product result = productRepository.save(dataDb);
-			BeanUtils.copyProperties(productDto, result);
-			return productDto;
+			Product dataAfterUpdate = productRepository.save(dataDb);
+			BeanUtils.copyProperties(productDto, dataAfterUpdate);
+			result.setStatus(Constant.STATUS_SUCCSESS);
+			result.setMessage(Message.UPDATE_SUCCESS);
+			result.setProduct(productDto);
+			return result;
 		} else {
-			throw new Exception(Message.UPDATE_FAILURE);
+			result.setStatus(Constant.NOT_NULL);
+			result.setMessage(Message.PRODUCT_NOT_EXIST);
+			result.setProduct(productDto);
+			return result;
 		}
 	}
 
