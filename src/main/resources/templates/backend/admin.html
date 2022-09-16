@@ -1,30 +1,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
-<!--<!DOCTYPE html>-->
 
 <head>
-	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Gạch Phú Mỹ</title>
-	<!-- endinject -->
-	<link rel="shortcut icon" href="../admin/images/logo-admin.svg" />
-	<link th:href="@{../img/favicon.ico}" rel="icon">
+	<link th:href="@{/img/favicon.ico}" rel="icon">
 	<div th:replace="fragments/admin-header :: admin-header-css" />
 </head>
 
 <body>
 	<div class="container-scroller">
-		<!-- partial:partials/_navbar.html -->
 		<div th:replace="fragments/admin-header :: admin-header" />
-		<!-- partial -->
 		<div class="container-fluid page-body-wrapper">
-			<!-- partial:partials/_settings-panel.html -->
-			<!--			admin-change-background-->
 			<div th:replace="fragments/admin-header :: admin-change-background" />
-			<!-- partial:partials/_sidebar.html -->
-			<div th:replace="fragments/admin-header :: admin-menu" />
-			<!-- partial -->
+			<div th:replace="fragments/admin-header :: admin-menu" />s
 			<div class="main-panel">
 				<div class="content-wrapper">
 					<div class="row">
@@ -39,16 +29,10 @@
 						</div>
 					</div>
 				</div>
-				<!-- content-wrapper ends -->
-				<!-- partial:partials/_footer.html -->
 				<div th:replace="fragments/admin-footer :: admin-footer" />
-				<!-- partial -->
 			</div>
-			<!-- main-panel ends -->
 		</div>
-		<!-- page-body-wrapper ends -->
 	</div>
-	<!-- container-scroller -->
 	<div th:replace="fragments/admin-footer :: admin-footer-js" />
 </body>
 
