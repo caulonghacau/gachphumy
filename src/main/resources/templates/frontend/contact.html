@@ -80,11 +80,11 @@
 					</p>
 					<p class="mb-2">
 						<i class="fa fa-envelope text-primary mr-3"></i>
-						<span th:text="${session.contactSession.email}">ctydtgachphumy@gmail.com</span>
+						<a class="black-color" th:text="${session.contactSession.email}" th:href="${'mailto:'+ session.contactSession.email}">ctydtgachphumy@gmail.com</a>
 					</p>
 					<p class="mb-2">
 						<i class="fa fa-phone-alt text-primary mr-3"></i>
-						<a th:text="${session.contactSession.phone}" th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
+						<a class="black-color" th:text="${session.contactSession.phone}" th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
 					</p>
 				</div>
 			</div>

@@ -5,3 +5,11 @@ span.active{
 a {
 	text-decoration: none !important;
 }
+
+a.black-color {
+	color: #6C757D !important;
+}
+
+a.while-color {
+	color: #F5F5F5 !important;
+}

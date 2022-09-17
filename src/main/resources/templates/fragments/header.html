@@ -44,15 +44,13 @@
 				</div>
 				<div class="col-lg-4 col-6 text-right">
 					<h5 class="m-0"><span style="color: red;">Hotline: </span>
-						<a th:text="${session.contactSession.phone}" th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
+						<a class="black-color" th:text="${session.contactSession.phone}" th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
 					</h5>
-					<p class="m-0" th:text="${session.contactSession.email}">ctydtgachphumy@gmail.com</p>
+					<a class="m-0 black-color" th:text="${session.contactSession.email}" th:href="${'mailto:'+ session.contactSession.email}">ctydtgachphumy@gmail.com</a>
 
 				</div>
 			</div>
 		</div>
-		<!-- Topbar End -->
-		<!-- Navbar Start -->
 		<div class="container-fluid bg-dark mb-30">
 			<div class="row px-xl-5">
 				<div class="col-lg-3 d-none d-lg-block">
