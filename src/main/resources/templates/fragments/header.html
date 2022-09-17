@@ -44,7 +44,7 @@
 				</div>
 				<div class="col-lg-4 col-6 text-right">
 					<h5 class="m-0"><span style="color: red;">Hotline: </span>
-						<span th:text="${session.contactSession.phone}"> 0978 414 433</span>
+						<a th:text="${session.contactSession.phone}" th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
 					</h5>
 					<p class="m-0" th:text="${session.contactSession.email}">ctydtgachphumy@gmail.com</p>
 

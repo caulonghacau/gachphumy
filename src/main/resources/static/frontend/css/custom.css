@@ -1,3 +1,7 @@
 span.active{
   color: #FFD333 !important;
 }
+
+a {
+	text-decoration: none !important;
+}

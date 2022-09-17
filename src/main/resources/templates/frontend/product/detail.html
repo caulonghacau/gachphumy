@@ -7,9 +7,7 @@
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<meta content="Free HTML Templates" name="keywords">
 	<meta content="Free HTML Templates" name="description">
-
-	<!-- Favicon -->
-	<link th:href="@{../upload/favicon.ico}" rel="icon">
+	<link th:href="@{/img/favicon.ico}" rel="icon">
 	<div th:replace="fragments/header :: header-css" />
 </head>
 
@@ -25,15 +23,6 @@
 						<div class="carousel-item active">
 							<img class="w-100 h-100" th:src="${product.image}" alt="Image">
 						</div>
-						<!--						<div class="carousel-item">-->
-						<!--							<img class="w-100 h-100" src="../upload/product02.jpg" alt="Image">-->
-						<!--						</div>-->
-						<!--						<div class="carousel-item">-->
-						<!--							<img class="w-100 h-100" src="../upload/product03.jpg" alt="Image">-->
-						<!--						</div>-->
-						<!--						<div class="carousel-item">-->
-						<!--							<img class="w-100 h-100" src="../upload/product04.jpg" alt="Image">-->
-						<!--						</div>-->
 					</div>
 					<a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
 						<i class="fa fa-2x fa-angle-left text-dark"></i>
@@ -49,35 +38,12 @@
 					<p class="font-weight-semi-bold mb-4">Đơn giá: <span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">4.000</span> vnđ</p>
 					<p>Tên sản phẩm: <span th:text="*{name}">Gạch không nung loại 1</span></p>
 					<p>Tình trạng: Còn hàng</p>
-					<!--					<div class="d-flex mb-3">-->
-					<!--						<div class="text-primary mr-2">-->                    
-					<!--							<small class="fas fa-star"></small>--> 	
-					<!--							<small class="fas fa-star"></small>-->
-					<!--							<small class="fas fa-star"></small>-->
-					<!--							<small class="fas fa-star-half-alt"></small>-->
-					<!--							<small class="far fa-star"></small>-->
-					<!--						</div>-->
-					<!--						<small class="pt-1">(99 Reviews)</small>-->
-					<!--					</div>-->
 					<div class="d-flex align-items-center mb-4 pt-2">
-						<!--						<div class="input-group quantity mr-3" style="width: 130px;">-->
-						<!--							<div class="input-group-btn">-->
-						<!--								<button class="btn btn-primary btn-minus">-->
-						<!--									<i class="fa fa-minus"></i>-->
-						<!--								</button>-->
-						<!--							</div>-->
-						<!--							<input type="text" class="form-control bg-secondary border-0 text-center" value="10">-->
-						<!--							<div class="input-group-btn">-->
-						<!--								<button class="btn btn-primary btn-plus">-->
-						<!--									<i class="fa fa-plus"></i>-->
-						<!--								</button>-->
-						<!--							</div>-->
-						<!--						</div>-->
-						<!--						<button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To-->
-						<!--							Cart</button>-->
-						<button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>Gọi cho chúng tôi
-							để biết chi tiết về giá và sản phẩm: <span th:text="${session.contactSession.phone}"
-								style="color: red;"> 0978 414 433</span></button>
+						<button class="btn btn-dark px-3">
+							<i class="fa fa-phone-alt text-primary mr-3"></i></i>
+							Gọi cho chúng tôi để biết chi tiết về giá và sản phẩm: 
+							<a th:text="${session.contactSession.phone}" style="color: #FFD333 ;" th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
+						</button>
 					</div>
 					<h6 class="font-weight-semi-bold mb-4">Thông tin sản phẩm</h6>
 					<table class="table table-bordered">
@@ -122,7 +88,7 @@
 					</div>
 					<div class="tab-content">
 						<div class="tab-pane fade show active" id="tab-pane-1">
-							<h4 class="mb-3">Product Description</h4>
+							<h4 class="mb-3">Mô tả sản phẩm</h4>
 							<p>Gạch không nung là loại gạch xây, sau khi được tạo hình thì tự đóng rắn để đạt các chỉ số
 								cơ học về: Cường độ nén, uốn, độ hút nước... mà không cần gia nhiệt. Độ bền của viên
 								gạch không nung được gia tăng nhờ lực ép rung lên các cốt liệu và phụ gia đã được gia
@@ -246,10 +212,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- Shop Detail End -->
-
-
-	<!-- Products Start -->
 	<div class="container-fluid py-5">
 		<h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Sản Phẩm
 				Khác</span></h2>
@@ -261,20 +223,12 @@
 							<a th:href="@{/product/{id}(id=${prod.id})}">
 								<img class="img-fluid w-100" th:src="${prod.image}" alt="" style="height: 326px">
 							</a>
-							<!--							<div class="product-action">-->
-							<!--								<a class="btn btn-outline-dark btn-square" href=""><i-->
-							<!--										class="fa fa-shopping-cart"></i></a>-->
-							<!--								<a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>-->
-							<!--								<a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>-->
-							<!--								<a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>-->
-							<!--							</div>-->
 						</div>
 						<div class="text-center py-4">
 							<a class="h6 text-decoration-none text-truncate" th:href="@{/product/{id}(id=${prod.id})}"
 								th:text="${prod.name}">Product Name</a>
 							<div class="d-flex align-items-center justify-content-center mt-2">
-								<h5 th:text="${prod.price}">$123.00</h5>
-								<!-- <h6 class="text-muted ml-2"><del>$123.00</del></h6>-->
+								<h5 th:text="${#numbers.formatDecimal(prod.price, 0, 'COMMA', 0, 'POINT')}">$123.00</h5>
 							</div>
 							<div class="d-flex align-items-center justify-content-center mb-1">
 								<a class="btn btn-primary" href="/contact">Liên hệ mua</a>
