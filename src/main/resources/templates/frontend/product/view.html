@@ -34,16 +34,31 @@
 					</a>
 				</div>
 				<div class="text-center py-4">
-					<a th:text="${product.name}" class="h6 text-decoration-none text-truncate"
-						th:href="@{/product/{id}(id=${product.id})}">Gạch Không Nung
-						Đặc 2 Lỗ Nhỏ</a>
-					<div class="d-flex align-items-center justify-content-center mt-2">
-						<h5><span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">5.000
-							</span>đ/Viên</h5>
-					</div>
-					<div class="d-flex align-items-center justify-content-center mb-1">
-						<a class="btn btn-primary" href="/contact">Liên hệ mua</a>
-					</div>
+					<a class="h6 text-decoration-none text-truncate"
+							th:href="@{/product/{id}(id=${product.id})}">
+								<span>Tên SP:</span>
+								<span th:text="${product.name}"></span>
+						</a>
+						<div class="d-flex align-items-center justify-content-center mt-2">
+							<h6>
+								<span>Mã sản phẩm: </span> <span th:text="${product.productCode}"></span>
+							</h6>
+						</div>
+						<div class="d-flex align-items-center justify-content-center mt-2">
+							<h6 th:if="${product.price != null}">
+								<span class="text-danger">Giá bán: </span> <span class="text-danger" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">5.000</span>
+								 <span>vnđ/Viên</span>
+							</h6>
+							<h6 th:if="${product.price == null}">
+								<span>Giá bán: Liên hệ</span>
+							</h5>
+						</div>
+						<div class="d-flex align-items-center justify-content-center mb-1">
+							<button class="btn btn-primary px-3">
+								<span class="black-color">Liên hệ mua hàng: </span>
+								<a class="black-color" th:text="${session.contactSession.phone}" th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
+							</button>
+						</div>
 				</div>
 			</div>
 		</div>

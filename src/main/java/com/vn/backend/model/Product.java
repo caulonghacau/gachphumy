@@ -60,6 +60,9 @@ public class Product {
 
 	@Column(name = "description2", columnDefinition = "TEXT")
 	private String description2;
+	
+	@Column(name = "price_unit")
+	private String priceUnit;
 
 	@Column(name = "size_unit")
 	private String sizeUnit;

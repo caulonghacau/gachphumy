@@ -196,54 +196,54 @@ public class ProductServiceImpl implements ProductService {
 		if (option.isPresent()) {
 			Product dataDb = option.get();
 
-			if (productDto.getCategoryId() != null) {
-				dataDb.setCategoryId(productDto.getCategoryId());
-			}
-
-			if (StringUtils.hasText(productDto.getProductCode())) {
-				dataDb.setProductCode(productDto.getProductCode());
-			}
-			if (StringUtils.hasText(productDto.getName())) {
-				dataDb.setName(productDto.getName());
-			}
-			if (productDto.getAmount() != null) {
-				dataDb.setAmount(productDto.getAmount());
-			}
-			if (productDto.getPrice() != null) {
-				dataDb.setPrice(productDto.getPrice());
-			}
-
-			if (StringUtils.hasText(productDto.getIngredient())) {
-				dataDb.setIngredient(productDto.getIngredient());
-			}
-
-			if (StringUtils.hasText(productDto.getStandard())) {
-				dataDb.setStandard(productDto.getStandard());
-			}
-
-			if (StringUtils.hasText(productDto.getSpecifications())) {
-				dataDb.setSpecifications(productDto.getSpecifications());
-			}
-
-			if (StringUtils.hasText(productDto.getSize())) {
-				dataDb.setSize(productDto.getSize());
-			}
-
-			if (StringUtils.hasText(productDto.getWeight())) {
-				dataDb.setWeight(productDto.getWeight());
-			}
-
-			if (StringUtils.hasText(productDto.getNewProduct())) {
-				dataDb.setNewProduct(productDto.getNewProduct());
-			}
-
-			if (StringUtils.hasText(productDto.getDescription1())) {
-				dataDb.setDescription1(productDto.getDescription1());
-			}
-
-			if (StringUtils.hasText(productDto.getDescription2())) {
-				dataDb.setDescription2(productDto.getDescription2());
-			}
+//			if (productDto.getCategoryId() != null) {
+//				dataDb.setCategoryId(productDto.getCategoryId());
+//			}
+//
+//			if (StringUtils.hasText(productDto.getProductCode())) {
+//				dataDb.setProductCode(productDto.getProductCode());
+//			}
+//			if (StringUtils.hasText(productDto.getName())) {
+//				dataDb.setName(productDto.getName());
+//			}
+//			if (productDto.getAmount() != null) {
+//				dataDb.setAmount(productDto.getAmount());
+//			}
+//			if (productDto.getPrice() != null) {
+//				dataDb.setPrice(productDto.getPrice());
+//			}
+//
+//			if (StringUtils.hasText(productDto.getIngredient())) {
+//				dataDb.setIngredient(productDto.getIngredient());
+//			}
+//
+//			if (StringUtils.hasText(productDto.getStandard())) {
+//				dataDb.setStandard(productDto.getStandard());
+//			}
+//
+//			if (StringUtils.hasText(productDto.getSpecifications())) {
+//				dataDb.setSpecifications(productDto.getSpecifications());
+//			}
+//
+//			if (StringUtils.hasText(productDto.getSize())) {
+//				dataDb.setSize(productDto.getSize());
+//			}
+//
+//			if (StringUtils.hasText(productDto.getWeight())) {
+//				dataDb.setWeight(productDto.getWeight());
+//			}
+//
+//			if (StringUtils.hasText(productDto.getNewProduct())) {
+//				dataDb.setNewProduct(productDto.getNewProduct());
+//			}
+//
+//			if (StringUtils.hasText(productDto.getDescription1())) {
+//				dataDb.setDescription1(productDto.getDescription1());
+//			}
+//
+//			if (StringUtils.hasText(productDto.getDescription2())) {
+//				dataDb.setDescription2(productDto.getDescription2());
+//			}
 
 			MultipartFile multipartFile = productDto.getImageProduct();
 			String fileName = multipartFile.getOriginalFilename();
@@ -255,13 +255,20 @@ public class ProductServiceImpl implements ProductService {
 			}
 
 			String url = File.separator + this.fileUpload + File.separator + fileName;
-			productDto.setImage(url);
 			if (StringUtils.hasText(fileName)) {
-				dataDb.setImage(url);
+				productDto.setImage(url);
 			}
 
-			Product dataAfterUpdate = productRepository.save(dataDb);
-			BeanUtils.copyProperties(productDto, dataAfterUpdate);
+			
+			Product entity = new Product();
+			// Copy dto to entity
+			BeanUtils.copyProperties(productDto, entity);
+			entity.setDeleteFlag(dataDb.getDeleteFlag());
+
+			Product dataAfterUpdate = productRepository.save(entity);
+
+			// Copy dataAfterUpdate to productDto
+			BeanUtils.copyProperties(dataAfterUpdate, productDto);
 			result.setStatus(Constant.STATUS_SUCCSESS);
 			result.setMessage(Message.UPDATE_SUCCESS);
 			result.setProduct(productDto);
