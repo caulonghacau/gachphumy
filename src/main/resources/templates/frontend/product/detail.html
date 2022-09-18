@@ -35,7 +35,7 @@
 
 			<div class="col-lg-7 h-auto mb-30" th:object="${product}">
 				<div class="h-100 bg-light p-30">
-					<p th:if="${product.price != null}" class="font-weight-semi-bold mb-4">Giá bán: <span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">4.000</span> vnđ</p>
+					<p th:if="${product.price != null}" class="font-weight-semi-bold mb-4 text-danger">Giá bán: <span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">4.000<span th:text="*{priceUnit}">Gạch không nung loại 1</span></p>
 					<p th:if="${product.price == null}" class="font-weight-semi-bold mb-4"><span class="text-danger">Giá bán: Liên hệ</span></p>
 					<p>Tên sản phẩm: <span th:text="*{name}">Gạch không nung loại 1</span></p>
 					<p>Tình trạng: Còn hàng</p>
