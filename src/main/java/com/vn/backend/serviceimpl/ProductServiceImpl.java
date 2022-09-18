@@ -17,10 +17,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.vn.backend.dto.CategoryDto;
 import com.vn.backend.dto.ProductDto;
 import com.vn.backend.model.Product;
 import com.vn.backend.repository.ProductRepository;
 import com.vn.backend.response.ProductResponse;
+import com.vn.backend.service.CategoryService;
 import com.vn.backend.service.ProductService;
 import com.vn.utils.Constant;
 import com.vn.utils.FileUploadUtil;
@@ -36,6 +38,9 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+
+	@Autowired
+	private CategoryService categoryService;
 
 	@Override
 	public List<ProductDto> getListProduct() {
@@ -63,6 +68,9 @@ public class ProductServiceImpl implements ProductService {
 		for (Product product : products) {
 			ProductDto dto = new ProductDto();
 			BeanUtils.copyProperties(product, dto);
+			CategoryDto cate = categoryService.getDetail(product.getCategoryId(), Constant.DELETE_FLAG_ACTIVE);
+			dto.setCategoryName(cate.getName());
+			dto.setCategory(cate);
 			listResult.add(dto);
 		}
 		results.setProducts(listResult);
@@ -259,7 +267,6 @@ public class ProductServiceImpl implements ProductService {
 				productDto.setImage(url);
 			}
 
-			
 			Product entity = new Product();
 			// Copy dto to entity
 			BeanUtils.copyProperties(productDto, entity);

@@ -55,13 +55,20 @@
 																</th>
 																<td style="width: 70%;" th:text="*{name}"></td>
 															</tr>
-															<th>
-																Giá bán
-															</th>
-															<td style="width: 70%;">
-																<span th:text="*{price}"></span>
-																<span>vnđ</span>
-															</td>
+															<tr>
+																<th>
+																	Giá bán
+																</th>
+																<td style="width: 70%;">
+																	<span th:text="*{price}"></span>
+																	<span>vnđ</span>
+																</td>
+															</tr>
+															<tr>
+																<th>
+																	Đơn vị tính giá
+																</th>
+																<td style="width: 70%;" th:text="*{priceUnit}"></td>
 															</tr>
 
 															<tr>
@@ -120,7 +127,7 @@
 																	Mỗ tả
 																</th>
 																<td style="width: 70%;">
-																	<span th:text="*{description1}"> </span>
+																	<span th:utext="*{description1}"> </span>
 																</td>
 															</tr>
 														</table>

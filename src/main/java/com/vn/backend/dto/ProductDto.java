@@ -19,7 +19,7 @@ public class ProductDto {
 	private Long id;
 	private String productCode;
 	private Long categoryId;
-	private Long categoryName;
+	private String categoryName;
 	private String name;
 
 	private String image;
@@ -36,5 +36,7 @@ public class ProductDto {
 	private String description2;
 	private String sizeUnit;
 	private String weightUnit;
+	private String priceUnit;
+	private CategoryDto category;
 	List<CategoryDto> categories = new ArrayList<>();
 }

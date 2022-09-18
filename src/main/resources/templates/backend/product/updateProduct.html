@@ -59,6 +59,11 @@
 												placeholder="Nhập giá">
 										</div>
 										<div class="form-group">
+											<label for="exampleInputUsername1">Đơn vị tính đơn giá (vnđ/viên or vnđ)</label>
+											<input type="text" class="form-control" th:field="*{priceUnit}"
+												placeholder="Nhập đơn vị tính giá">
+										</div>
+										<div class="form-group">
 											<label for="exampleInputUsername1">Số lượng</label>
 											<input type="text" class="form-control" th:field="*{amount}"
 												placeholder="Nhập số lượng">
@@ -108,8 +113,7 @@
 										</div>
 										<div class="form-group">
 											<label for="exampleInputUsername1">Mô tả</label>
-											<input type="text" class="form-control" th:field="*{description1}"
-												placeholder="Nhập kích thước">
+											<textarea class="form-control" rows="8" id="description1" placeholder="Mô tả sản phẩm" th:field="*{description1}"></textarea>
 										</div>
 										<button type="submit" class="btn btn-success me-2">Lưu</button>
 										<a class="btn btn-info me-2" th:href="@{/admin/product}">Hủy</a>
@@ -130,6 +134,10 @@
 
 </html>
 <script type="text/javascript" language="javascript">
+	$( document ).ready(function() {
+	    console.log( "ready!" );
+	    CKEDITOR.replace('description1', {});
+	});
 	function validate() {
 		$("#productCodeValid").show();
 	}
