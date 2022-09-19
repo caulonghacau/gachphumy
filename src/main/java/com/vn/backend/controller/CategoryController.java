@@ -73,16 +73,11 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "/category/update", method = RequestMethod.POST)
-	public String doUpdate(CategoryDto categoryDto, Model model, RedirectAttributes redirect) {
-
-		try {
-			categoryService.update(categoryDto);
-			redirect.addFlashAttribute("successMessage", "Cập nhật danh mục thành công!");
-			return "redirect:/admin/category/";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public String doUpdate(CategoryDto categoryDto, Model model, RedirectAttributes redirect) throws Exception {
+		categoryService.update(categoryDto);
+		redirect.addFlashAttribute("successMessage", "Cập nhật danh mục thành công!");
 		return "redirect:/admin/category/";
+
 	}
 
 	@RequestMapping(value = "/category/delete/{id}", method = RequestMethod.GET)
