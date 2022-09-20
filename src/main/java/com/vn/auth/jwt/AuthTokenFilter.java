@@ -79,6 +79,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 				setMenuSession(request);
 				setContactSession(request);
 				setSliceSession(request);
+				setSliceAboveSession(request);
+				setSliceBelowSession(request);
 				setCategorySession(request);
 				setVendorSession(request);
 			}
@@ -171,8 +173,30 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		@SuppressWarnings("unchecked")
 		List<Slice> sessions = (List<Slice>) request.getSession().getAttribute(Constant.SLICE_SESSION);
 		if (sessions == null) {
-			sessions = sliceRepository.findByType(0);
+			sessions = sliceRepository.findByPosition(1);
 			request.getSession().setAttribute(Constant.SLICE_SESSION, sessions);
+		}
+	}
+
+	private void setSliceAboveSession(HttpServletRequest request) {
+		@SuppressWarnings("unchecked")
+		Slice slice = (Slice) request.getSession().getAttribute(Constant.SLICE_SESSION_ABOVE);
+		if (slice == null) {
+			List<Slice> sessions = sliceRepository.findByPosition(2);
+			if (sessions != null && sessions.size() > 0) {
+				request.getSession().setAttribute(Constant.SLICE_SESSION_ABOVE, sessions.get(0));
+			}
+		}
+	}
+
+	private void setSliceBelowSession(HttpServletRequest request) {
+		@SuppressWarnings("unchecked")
+		Slice slice = (Slice) request.getSession().getAttribute(Constant.SLICE_SESSION_BELOW);
+		if (slice == null) {
+			List<Slice> sessions = sliceRepository.findByPosition(3);
+			if (sessions != null && sessions.size() > 0) {
+				request.getSession().setAttribute(Constant.SLICE_SESSION_BELOW, sessions.get(0));
+			}
 		}
 	}
 

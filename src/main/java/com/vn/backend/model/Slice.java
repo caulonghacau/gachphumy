@@ -25,8 +25,9 @@ public class Slice {
 	private String title;
 	private String description;
 	private String image;
-	// Slice: set = 0 display left, set = 1 display right
-	private int type = 0;
+	// Slice: set = 1 display left, set = 2 display right
+	// ALTER TABLE slice DROP COLUMN type;
+	private Integer position;
 	@Column(name = "delete_flag")
 	private int deleteFlag;
 }

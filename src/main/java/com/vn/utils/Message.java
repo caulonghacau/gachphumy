@@ -12,6 +12,8 @@ public class Message {
 	public static String DELETE_FAILURE = "Xóa Thất Bại !!!";
 
 	public static String NAME_CATEGORY_DUPLICATE = "Tên danh mục đã tồn tại !!!";
+	public static String NOT_FOUND = "Không tìm thấy giá trị để cập nhật !!!";
+	
 
 	public static String NAME_PRODUCT_DUPLICATE = "Tên sản phẩm đã tồn tại !!!";
 	public static String PRODUCT_CODE_DUPLICATE = "Mã sản phẩm đã tồn tại !!!";

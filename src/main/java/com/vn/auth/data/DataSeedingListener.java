@@ -75,7 +75,6 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		addCategory();
 		addAdvantage();
 		addVendor();
-		// addServiceInfo();
 		addProduct();
 	}
 
@@ -154,7 +153,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			contact.setEmail("ctydtgachphumy@gmail.com");
 			contact.setPhone("0978 414 433");
 			contact.setGoogleMap("");
-//			"https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d7843.73143489679!2d107.14137119728865!3d10.589670397755814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1zVGjDtG4gVMOibiBDaMOidSwgWMOjIENow6J1IFBoYSwgVGjhu4sgeMOjIFBow7ogTeG7uSwgVOG7iW5oIELDoCBS4buLYSAtIFbFqW5nIFTDoHUsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1661224233538!5m2!1svi!2s"
+			// "https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d7843.73143489679!2d107.14137119728865!3d10.589670397755814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1zVGjDtG4gVMOibiBDaMOidSwgWMOjIENow6J1IFBoYSwgVGjhu4sgeMOjIFBow7ogTeG7uSwgVOG7iW5oIELDoCBS4buLYSAtIFbFqW5nIFTDoHUsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1661224233538!5m2!1svi!2s"
 			contact.setAddress("Thôn Tân Châu, Xã Châu Pha, Thị xã Phú Mỹ, Tỉnh Bà Rịa - Vũng Tàu, Việt Nam");
 			contact.setDeleteFlag(0);
 			contactRepository.save(contact);
@@ -168,40 +167,40 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 			Slice slice = new Slice();
 			slice.setTitle("Gạch Phú Mỹ");
 			slice.setDescription("Xây Vững niềm tin - Dựng uy tín vàng");
-			slice.setImage("/img/Slice01.jpg");
-			slice.setType(0);
+			slice.setImage("/images/Slice01.jpg");
+			slice.setPosition(1);
 			slice.setDeleteFlag(0);
 			sliceRepository.save(slice);
 
 			Slice slice1 = new Slice();
 			slice1.setTitle("Gạch Phú Mỹ");
 			slice1.setDescription("Xây Vững niềm tin - Dựng uy tín vàng");
-			slice1.setImage("/img/Slice02.jpg");
-			slice1.setType(0);
+			slice1.setImage("/images/Slice02.jpg");
+			slice.setPosition(1);
 			slice1.setDeleteFlag(0);
 			sliceRepository.save(slice1);
 
 			Slice slice2 = new Slice();
 			slice2.setTitle("Gạch Phú Mỹ");
 			slice2.setDescription("Xây Vững niềm tin - Dựng uy tín vàng");
-			slice2.setImage("/img/Slice03.jpg");
-			slice2.setType(0);
+			slice2.setImage("/images/Slice03.jpg");
+			slice.setPosition(1);
 			slice2.setDeleteFlag(0);
 			sliceRepository.save(slice2);
 
 			Slice slice3 = new Slice();
 			slice3.setTitle("LUÔN CÓ SẴN SỐ LƯỢNG LỚN");
 			slice3.setDescription("Cam kết chiết khấu cao nhất");
-			slice3.setImage("/img/Slice05.jpg");
-			slice3.setType(1);
+			slice3.setImage("/images/Slice05.jpg");
+			slice.setPosition(2);
 			slice3.setDeleteFlag(0);
 			sliceRepository.save(slice2);
 
 			Slice slice4 = new Slice();
 			slice4.setTitle("TƯ VẤN THI CÔNG MIỄN PHÍ");
 			slice4.setDescription("Hỗ trợ gọi xe vận chuyển tận nơi");
-			slice4.setImage("/img/Slice06.jpg");
-			slice4.setType(1);
+			slice4.setImage("/images/Slice06.jpg");
+			slice.setPosition(2);
 			slice4.setDeleteFlag(0);
 			sliceRepository.save(slice4);
 
@@ -346,23 +345,13 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 	}
 
-//	private void addServiceInfo() {
-//		List<ServiceInfo> list = serviceInfoRepository.findAll();
-//		if (list == null || (list != null && list.size() == 0)) {
-//			ServiceInfo info = new ServiceInfo();
-//			info.setName("Công Ty Xây Dựng Xuân Thành");
-//			info.setDeleteFlag(0);
-//			serviceInfoRepository.save(info);
-//		}
-//	}
-
 	private void addProduct() {
 		List<Product> list = productRepository.findAll();
 		BigDecimal BIG_5 = new BigDecimal("5000");
 		if (list == null || (list != null && list.size() == 0)) {
 			Product product = new Product();
 			product.setName("Gạch xi măng cốt liệu");
-			product.setImage("/upload/product01.jpg");
+			product.setImage("/uploads/product01.jpg");
 			product.setCategoryId(1L);
 			product.setProductCode("SKU01");
 			product.setAmount(80000);
@@ -380,7 +369,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product1 = new Product();
 			product1.setName("Gạch babanh");
-			product1.setImage("/upload/product02.jpg");
+			product1.setImage("/uploads/product02.jpg");
 			product1.setCategoryId(1L);
 			product1.setProductCode("SKU02");
 			product1.setAmount(80000);
@@ -398,7 +387,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product2 = new Product();
 			product2.setName("Gạch không nung tự nhiên");
-			product2.setImage("/upload/product03.jpg");
+			product2.setImage("/uploads/product03.jpg");
 			product2.setCategoryId(1L);
 			product2.setProductCode("SKU03");
 			product2.setAmount(80000);
@@ -416,7 +405,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product3 = new Product();
 			product3.setName("Gạch bê tông nhẹ");
-			product3.setImage("/upload/product04.jpg");
+			product3.setImage("/uploads/product04.jpg");
 			product3.setCategoryId(1L);
 			product3.setProductCode("SKU04");
 			product3.setAmount(80000);
@@ -434,7 +423,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product4 = new Product();
 			product4.setName("Gạch không nung rỗng 3 thành vách MT-KM100V3S");
-			product4.setImage("/upload/product05.jpg");
+			product4.setImage("/uploads/product05.jpg");
 			product4.setCategoryId(2L);
 			product4.setProductCode("SKU05");
 			product4.setAmount(80000);
@@ -452,7 +441,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product5 = new Product();
 			product5.setName("Gạch đặc không nung MT-KM95DA");
-			product5.setImage("/upload/product06.jpg");
+			product5.setImage("/uploads/product06.jpg");
 			product5.setCategoryId(2L);
 			product5.setProductCode("SKU06");
 			product5.setAmount(80000);
@@ -470,7 +459,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product6 = new Product();
 			product6.setName("Gạch không nung tự nhiên");
-			product6.setImage("/upload/product07.jpg");
+			product6.setImage("/uploads/product07.jpg");
 			product6.setCategoryId(2L);
 			product6.setProductCode("SKU07");
 			product6.setAmount(80000);
@@ -488,7 +477,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
 			Product product7 = new Product();
 			product7.setName("Gạch bê tông nhẹ");
-			product7.setImage("/upload/product08.jpg");
+			product7.setImage("/uploads/product08.jpg");
 			product7.setCategoryId(2L);
 			product7.setProductCode("SKU08");
 			product7.setAmount(80000);

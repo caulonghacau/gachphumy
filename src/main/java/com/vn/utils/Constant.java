@@ -6,6 +6,8 @@ public class Constant {
 	public static String CONTACT_SESSION = "contactSession";
 
 	public static String SLICE_SESSION = "sliceSession";
+	public static String SLICE_SESSION_ABOVE = "sliceSessionAbove";
+	public static String SLICE_SESSION_BELOW = "sliceSessionBelow";
 
 	public static String CATEGORY_SESSION = "categorySession";
 
@@ -13,10 +15,10 @@ public class Constant {
 
 	public static int DELETE_FLAG_ACTIVE = 0;
 	public static int DELETE_FLAG_DISABLE = 1;
-	
+
 	public static int DEFAULT_PAGE = 0;
 	public static int DEFAULT_PAGE_SIZE = 25;
-	
+
 	public static int STATUS_SUCCSESS = 200;
 	public static int DUPLICATE = 600;
 	public static int NOT_DUPLICATE = 601;
