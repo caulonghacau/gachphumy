@@ -31,7 +31,8 @@ public class SliceServiceImpl implements SliceService {
 	@Autowired
 	private SliceRepository sliceRepository;
 
-	private String IMAGES_FOLDER = "images";
+	@Value("${image.system}")
+	private String images;
 
 	@Override
 	public List<SliceDto> getListAll(int deleteFlag) {
@@ -96,7 +97,7 @@ public class SliceServiceImpl implements SliceService {
 		MultipartFile multipartFile = dto.getImageUpload();
 		String fileName = multipartFile.getOriginalFilename();
 		try {
-			FileUploadUtil.saveFile(this.IMAGES_FOLDER, fileName, multipartFile);
+			FileUploadUtil.saveFile(this.images, fileName, multipartFile);
 		} catch (IOException e) {
 			throw new Exception();
 		}
@@ -105,7 +106,7 @@ public class SliceServiceImpl implements SliceService {
 		BeanUtils.copyProperties(dto, entity);
 
 		if (StringUtils.hasText(fileName)) {
-			String url = File.separator + this.IMAGES_FOLDER + File.separator + fileName;
+			String url = File.separator + this.images + File.separator + fileName;
 			entity.setImage(url);
 		}
 
@@ -135,11 +136,11 @@ public class SliceServiceImpl implements SliceService {
 			String fileName = multipartFile.getOriginalFilename();
 			if (StringUtils.hasText(fileName)) {
 				try {
-					FileUploadUtil.saveFile(this.IMAGES_FOLDER, fileName, multipartFile);
+					FileUploadUtil.saveFile(this.images, fileName, multipartFile);
 				} catch (IOException e) {
 					throw new Exception();
 				}
-				String url = File.separator + this.IMAGES_FOLDER + File.separator + fileName;
+				String url = File.separator + this.images + File.separator + fileName;
 				entity.setImage(url);
 			}
 			entity.setDeleteFlag(dataInDatabase.getDeleteFlag());
