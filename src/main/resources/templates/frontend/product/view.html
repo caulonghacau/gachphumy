@@ -2,12 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="utf-8">
-	<title>Công Ty Gạch Phú Mỹ</title>
-	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<meta content="Free HTML Templates" name="keywords">
-	<meta content="Free HTML Templates" name="description">
-	<link th:href="@{/img/favicon.ico}" rel="icon">
 	<div th:replace="fragments/header :: header-css" />
 </head>
 
@@ -34,30 +28,31 @@
 					</a>
 				</div>
 				<div class="text-center py-4">
-					<a class="h6 text-decoration-none text-truncate"
-							th:href="@{/product/{id}(id=${product.id})}">
-								<span th:text="${product.name}"></span>
-						</a>
-						<div class="d-flex align-items-center justify-content-center mt-2">
-							<h6>
-								<span>Mã sản phẩm: </span> <span th:text="${product.productCode}"></span>
-							</h6>
-						</div>
-						<div class="d-flex align-items-center justify-content-center mt-2">
-							<h6 th:if="${product.price != null}">
-								<span class="text-danger">Giá bán: </span> <span class="text-danger" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">5.000</span>
-								 <span class="text-danger" th:text="${product.priceUnit}" >vnđ/Viên</span>
-							</h6>
-							<h6 th:if="${product.price == null}">
-								<span class="text-danger">Giá bán: Liên hệ</span>
+					<a class="h6 text-decoration-none text-truncate" th:href="@{/product/{id}(id=${product.id})}">
+						<span th:text="${product.name}"></span>
+					</a>
+					<div class="d-flex align-items-center justify-content-center mt-2">
+						<h6>
+							<span>Mã sản phẩm: </span> <span th:text="${product.productCode}"></span>
+						</h6>
+					</div>
+					<div class="d-flex align-items-center justify-content-center mt-2">
+						<h6 th:if="${product.price != null}">
+							<span class="text-danger">Giá bán: </span> <span class="text-danger"
+								th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">5.000</span>
+							<span class="text-danger" th:text="${product.priceUnit}">vnđ/Viên</span>
+						</h6>
+						<h6 th:if="${product.price == null}">
+							<span class="text-danger">Giá bán: Liên hệ</span>
 							</h5>
-						</div>
-						<div class="d-flex align-items-center justify-content-center mb-1">
-							<button class="btn btn-primary px-3">
-								<span class="black-color">Liên hệ mua hàng: </span>
-								<a class="black-color" th:text="${session.contactSession.phone}" th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
-							</button>
-						</div>
+					</div>
+					<div class="d-flex align-items-center justify-content-center mb-1">
+						<button class="btn btn-primary px-3">
+							<span class="black-color">Liên hệ mua hàng: </span>
+							<a class="black-color" th:text="${session.contactSession.phone}"
+								th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

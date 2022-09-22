@@ -1,5 +1,7 @@
 package com.vn.backend.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +16,5 @@ public class VendorDto {
 	private String name;
 	private String image;
 	private int deleteFlag;
+	private MultipartFile imageUpload;
 }

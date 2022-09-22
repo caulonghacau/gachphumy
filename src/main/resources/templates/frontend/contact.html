@@ -2,12 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="utf-8">
-	<title>Công Ty Gạch Phú Mỹ</title>
-	<meta content="width=device-width, initial-scale=1.0" name="viewport">
-	<meta content="Free HTML Templates" name="keywords">
-	<meta content="Free HTML Templates" name="description">
-	<link th:href="@{/img/favicon.ico}" rel="icon">
 	<div th:replace="fragments/header :: header-css" />
 </head>
 
@@ -80,11 +74,13 @@
 					</p>
 					<p class="mb-2">
 						<i class="fa fa-envelope text-primary mr-3"></i>
-						<a class="black-color" th:text="${session.contactSession.email}" th:href="${'mailto:'+ session.contactSession.email}">ctydtgachphumy@gmail.com</a>
+						<a class="black-color" th:text="${session.contactSession.email}"
+							th:href="${'mailto:'+ session.contactSession.email}">ctydtgachphumy@gmail.com</a>
 					</p>
 					<p class="mb-2">
 						<i class="fa fa-phone-alt text-primary mr-3"></i>
-						<a class="black-color" th:text="${session.contactSession.phone}" th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
+						<a class="black-color" th:text="${session.contactSession.phone}"
+							th:href="${'tel:'+ session.contactSession.phone}"> 0978 414 433</a>
 					</p>
 				</div>
 			</div>
