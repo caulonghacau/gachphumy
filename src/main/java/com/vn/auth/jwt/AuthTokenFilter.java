@@ -207,8 +207,10 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 //			sessions = categoryRepository.findAll();
 //			request.getSession().setAttribute(Constant.CATEGORY_SESSION, sessions);
 //		}
+//		List<Category> sessions = categoryRepository.findAll();
+//		request.getSession().setAttribute(Constant.CATEGORY_SESSION, sessions);
 		List<Category> sessions = categoryRepository.findAll();
-		request.getSession().setAttribute(Constant.CATEGORY_SESSION, sessions);
+		request.setAttribute("listCategory", sessions);
 	}
 
 	private void setVendorSession(HttpServletRequest request) {
@@ -237,6 +239,23 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		}
 
 		return sessionsDto;
+	}
+
+	private boolean exitsLinksInMenu(HttpServletRequest request) {
+		List<Menu> menus = menuRepository.findAll();
+		String getServletPath = request.getServletPath();
+		List<String> str = new ArrayList<>();
+		if (menus != null) {
+			for (Menu dto : menus) {
+				str.add(dto.getLink());
+			}
+		}
+
+		if (getServletPath.contains(getServletPath)) {
+			return true;
+		}
+
+		return false;
 	}
 
 }
