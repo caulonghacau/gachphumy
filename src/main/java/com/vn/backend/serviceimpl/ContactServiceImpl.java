@@ -24,6 +24,18 @@ public class ContactServiceImpl implements ContactService {
 	private ContactRepository contactRepository;
 
 	@Override
+	public List<ContactDto> getListAll(int deleteFlag) {
+		List<Contact> contacts = contactRepository.findByDeleteFlag(deleteFlag);
+		List<ContactDto> results = new ArrayList<>();
+		for (Contact contact : contacts) {
+			ContactDto dto = new ContactDto();
+			BeanUtils.copyProperties(contact, dto);
+			results.add(dto);
+		}
+		return results;
+	}
+
+	@Override
 	public ContactResponse getPaggingContact(int deleteFlag, Pageable pagging) {
 		ContactResponse results = new ContactResponse();
 

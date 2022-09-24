@@ -1,8 +1,6 @@
 package com.vn.frontend.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,9 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,10 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.vn.auth.jwt.JwtUtils;
 import com.vn.auth.repository.RoleRepository;
 import com.vn.auth.repository.UserRepository;
-import com.vn.auth.request.LoginRequest;
-import com.vn.auth.response.JwtResponse;
 import com.vn.auth.service.SecurityService;
-import com.vn.auth.service.UserDetailsImpl;
 import com.vn.backend.dto.AboutDto;
 import com.vn.backend.dto.AdvantageDto;
 import com.vn.backend.dto.CustomerDto;
@@ -113,6 +105,23 @@ public class HomeController {
 		return "/frontend/product/detail";
 	}
 
+	@GetMapping("/product/{id}/{name}")
+	public String detail1(@PathVariable("id") Long id, @PathVariable("name") String name, Model model) {
+
+		List<ProductDto> products = productService.getListProduct();
+
+		ProductDto product = new ProductDto();
+		for (ProductDto dto : products) {
+			if (dto.getId().compareTo(id) == 0) {
+				BeanUtils.copyProperties(dto, product);
+			}
+		}
+		model.addAttribute("product", product);
+		model.addAttribute("products", products);
+
+		return "/frontend/product/detail";
+	}
+
 	@GetMapping("/about")
 	public String about(Model model) {
 		Pageable paging = PageRequest.of(Constant.DEFAULT_PAGE, Constant.DEFAULT_PAGE_SIZE,
@@ -147,42 +156,9 @@ public class HomeController {
 		customerService.add(dto);
 		CustomerDto objectDto = new CustomerDto();
 		model.addAttribute("customer", objectDto);
-//		model.addAttribute("message", "Thêm thành công");
 		redirect.addFlashAttribute("message",
 				"Cảm ơn quý khách đã liên hệ với chúng tôi. Chúng tôi sẽ phản hồi đến quý khách ngay sau khi chúng tôi tiếp nhận thông tin của quý khách");
 		return "redirect:/contact";
-	}
-
-	@GetMapping("/token")
-	public String token(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
-		LoginRequest loginRequest = new LoginRequest();
-		loginRequest.setUsername("admin1");
-		loginRequest.setPassword("123456");
-
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateJwtToken(authentication);
-
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
-				.collect(Collectors.toList());
-		JwtResponse jwtResponse = new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
-				userDetails.getEmail(), roles);
-
-		List<String> notes = (List<String>) request.getSession().getAttribute("NOTES_SESSION");
-		// check if notes is present in session or not
-		if (notes == null) {
-			notes = new ArrayList<>();
-			// if notes object is not present in session, set notes in the request session
-			request.getSession().setAttribute("NOTES_SESSION", notes);
-		}
-		notes.add(jwt);
-
-		request.getSession().setAttribute("NOTES_SESSION", notes);
-
-		return "/backend/admin";
 	}
 
 	@GetMapping("/login")

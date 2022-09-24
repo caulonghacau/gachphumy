@@ -21,7 +21,8 @@ public class ProductDto {
 	private Long categoryId;
 	private String categoryName;
 	private String name;
-
+	private String urlFriendy;
+	
 	private String image;
 	private MultipartFile imageProduct;
 	private Integer amount;

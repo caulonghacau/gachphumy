@@ -35,6 +35,7 @@
 					<p th:if="${product.price == null}" class="font-weight-semi-bold mb-4"><span class="text-danger">Giá
 							bán: Liên hệ</span></p>
 					<p>Tên sản phẩm: <span th:text="*{name}">Gạch không nung loại 1</span></p>
+					<p>Mã sản phẩm: <span th:text="*{productCode}"></span></p>
 					<p>Tình trạng: Còn hàng</p>
 					<div class="d-flex align-items-center mb-4 pt-2">
 						<button class="btn btn-dark px-3">
@@ -102,25 +103,25 @@
 				<div class="owl-carousel related-carousel">
 					<div class="product-item bg-light" th:each="prod : ${products}">
 						<div class="product-img position-relative overflow-hidden">
-							<a th:href="@{/product/{id}(id=${prod.id})}">
+							<a th:href="@{/product/{id}/{name}(id=${prod.id}, name=${prod.urlFriendy})}">
 								<img class="img-fluid w-100" th:src="${prod.image}" alt="" style="height: 326px">
 							</a>
 						</div>
 						<div class="text-center py-4">
 							<a class="h6 text-decoration-none text-truncate"
-								th:href="@{/product/{id}(id=${product.id})}">
-								<span th:text="${product.name}"></span>
+								th:href="@{/product/{id}/{name}(id=${prod.id}, name=${prod.urlFriendy})}">
+								<span th:text="${prod.name}"></span>
 							</a>
 							<div class="d-flex align-items-center justify-content-center mt-2">
 								<h6>
-									<span>Mã sản phẩm: </span> <span th:text="${product.productCode}"></span>
+									<span>Mã sản phẩm: </span> <span th:text="${prod.productCode}"></span>
 								</h6>
 							</div>
 							<div class="d-flex align-items-center justify-content-center mt-2">
 								<h6 th:if="${product.price != null}">
 									<span class="text-danger">Giá bán: </span> <span class="text-danger"
 										th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">5.000</span>
-									<span>vnđ/Viên</span>
+									<span th:text="${prod.priceUnit}">vnđ/Viên</span>
 								</h6>
 								<h6 th:if="${product.price == null}">
 									<span>Giá bán: Liên hệ</span>

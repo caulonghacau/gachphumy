@@ -9,6 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -23,6 +25,7 @@ import com.vn.backend.response.UserResponse;
 import com.vn.backend.service.UserService;
 import com.vn.utils.Constant;
 import com.vn.utils.Message;
+import com.vn.utils.UserUtils;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -103,7 +106,7 @@ public class UserServiceImpl implements UserService {
 		Role roleAdmin = roleRepository.findByName(ERole.ROLE_ADMIN).get();
 		roles.add(roleAdmin);
 		entity.setRoles(roles);
-		
+
 		User dataAfterSave = userRepository.save(entity);
 		BeanUtils.copyProperties(dataAfterSave, dto);
 		result.setStatus(Constant.STATUS_SUCCSESS);
@@ -190,6 +193,70 @@ public class UserServiceImpl implements UserService {
 
 		result.setStatus(Constant.STATUS_SUCCSESS);
 		result.setMessage(Message.VALIDATE_SUCCESS);
+		result.setUser(dto);
+		return result;
+	}
+
+	@Override
+	public UserResponse changePassword(UserDto dto) {
+		UserResponse result = new UserResponse();
+
+		String passwordOld = "";
+		String password = "";
+		String ConfirmPassword = "";
+
+		if (StringUtils.hasText(dto.getPasswordOld())) {
+			passwordOld = dto.getPasswordOld();
+		}
+
+		if (StringUtils.hasText(dto.getPassword())) {
+			password = dto.getPassword();
+		}
+
+		if (StringUtils.hasText(dto.getConfirmPassword())) {
+			ConfirmPassword = dto.getConfirmPassword();
+		}
+
+		String username = UserUtils.getUserLogin();
+		User user = null;
+		Optional<User> optional = userRepository.findByUsername(username);
+		if (optional.isPresent()) {
+			user = optional.get();
+		}
+
+		if (user == null) {
+			result.setStatus(Constant.NOT_FOUND);
+			result.setMessage(Message.USERNAME_NOT_FOUND);
+			result.setUser(dto);
+			return result;
+		}
+
+		boolean checkPassword = passwordEncoder.matches(passwordOld, user.getPassword());
+		if (!checkPassword) {
+			result.setStatus(Constant.NOT_DUPLICATE);
+			result.setMessage(Message.PASSWORD_INVALID);
+			result.setUser(dto);
+			return result;
+		}
+
+		if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+			result.setStatus(Constant.NOT_DUPLICATE);
+			result.setMessage(Message.PASSWORD_NOT_DUPLICATE);
+			result.setUser(dto);
+			return result;
+		}
+
+		if (passwordOld.length() > 50 || password.length() > 50 || ConfirmPassword.length() > 50) {
+			result.setStatus(Constant.MAX_LENGTH);
+			result.setMessage(Message.MAX_LENGHT_50);
+			result.setUser(dto);
+			return result;
+		}
+
+		user.setPassword(passwordEncoder.encode(dto.getPassword()));
+		userRepository.save(user);
+		result.setStatus(Constant.STATUS_SUCCSESS);
+		result.setMessage(Message.UPDATE_SUCCESS);
 		result.setUser(dto);
 		return result;
 	}

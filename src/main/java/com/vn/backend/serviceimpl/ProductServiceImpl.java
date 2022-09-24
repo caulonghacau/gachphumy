@@ -27,6 +27,7 @@ import com.vn.backend.service.ProductService;
 import com.vn.utils.Constant;
 import com.vn.utils.FileUploadUtil;
 import com.vn.utils.Message;
+import com.vn.utils.Util;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -51,6 +52,7 @@ public class ProductServiceImpl implements ProductService {
 			ProductDto dto = new ProductDto();
 
 			BeanUtils.copyProperties(product, dto);
+			dto.setUrlFriendy(Util.removeAccent(product.getName()));
 			results.add(dto);
 
 		}
@@ -69,6 +71,7 @@ public class ProductServiceImpl implements ProductService {
 			ProductDto dto = new ProductDto();
 			BeanUtils.copyProperties(product, dto);
 			CategoryDto cate = categoryService.getDetail(product.getCategoryId(), Constant.DELETE_FLAG_ACTIVE);
+			dto.setUrlFriendy(Util.removeAccent(product.getName()));
 			dto.setCategoryName(cate.getName());
 			dto.setCategory(cate);
 			listResult.add(dto);

@@ -15,7 +15,7 @@
 			<div th:each="product : ${products}" class="col-lg-3 col-md-4 col-sm-6 pb-1">
 				<div class="product-item bg-light mb-4">
 					<div class="product-img position-relative overflow-hidden">
-						<a th:href="@{/product/{id}(id=${product.id})}">
+						<a th:href="@{/product/{id}/{name}(id=${product.id}, name=${product.urlFriendy})}">
 							<img class="img-fluid w-100" th:src="${product.image}" alt="" style="height: 326px" />
 						</a>
 						<!--<div class="product-action">
@@ -26,7 +26,8 @@
                         </div>-->
 					</div>
 					<div class="text-center py-4">
-						<a class="h6 text-decoration-none text-truncate" th:href="@{/product/{id}(id=${product.id})}">
+						<a class="h6 text-decoration-none text-truncate"
+							th:href="@{/product/{id}/{name}(id=${product.id}, name=${product.urlFriendy})}">
 							<span th:text="${product.name}"></span>
 						</a>
 						<div class="d-flex align-items-center justify-content-center mt-2">

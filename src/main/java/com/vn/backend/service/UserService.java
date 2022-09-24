@@ -18,5 +18,7 @@ public interface UserService {
 	UserDto update(UserDto userDto) throws Exception;
 
 	boolean delete(Long id) throws Exception;
+	
+	UserResponse changePassword(UserDto dto);
 
 }

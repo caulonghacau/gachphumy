@@ -20,5 +20,6 @@ public class UserDto {
 	private String email;
 	private String password;
 	private String confirmPassword;
+	private String passwordOld;
 	private List<Role> roles = new ArrayList<>();
 }

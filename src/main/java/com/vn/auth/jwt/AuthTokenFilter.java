@@ -22,17 +22,17 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vn.auth.service.UserDetailsServiceImpl;
+import com.vn.backend.dto.CategoryDto;
+import com.vn.backend.dto.ContactDto;
 import com.vn.backend.dto.MenuDto;
-import com.vn.backend.model.Category;
-import com.vn.backend.model.Contact;
+import com.vn.backend.dto.SliceDto;
+import com.vn.backend.dto.VendorDto;
 import com.vn.backend.model.Menu;
-import com.vn.backend.model.Slice;
-import com.vn.backend.model.Vendor;
-import com.vn.backend.repository.CategoryRepository;
-import com.vn.backend.repository.ContactRepository;
-import com.vn.backend.repository.MenuRepository;
-import com.vn.backend.repository.SliceRepository;
-import com.vn.backend.repository.VendorRepository;
+import com.vn.backend.service.CategoryService;
+import com.vn.backend.service.ContactService;
+import com.vn.backend.service.MenuService;
+import com.vn.backend.service.SliceService;
+import com.vn.backend.service.VendorService;
 import com.vn.utils.Constant;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
@@ -43,19 +43,19 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 	private UserDetailsServiceImpl userDetailsService;
 
 	@Autowired
-	private MenuRepository menuRepository;
+	private MenuService menuService;
 
 	@Autowired
-	private ContactRepository contactRepository;
+	private ContactService contactService;
 
 	@Autowired
-	private SliceRepository sliceRepository;
+	private SliceService sliceService;
 
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private CategoryService categoryService;
 
 	@Autowired
-	private VendorRepository vendorRepository;
+	private VendorService vendorService;
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
@@ -65,22 +65,26 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
 		try {
 
+			@SuppressWarnings("unchecked")
 			List<String> notes = (List<String>) request.getSession().getAttribute("NOTES_SESSION");
 			String jwt = null;
 			if (notes != null && notes.size() > 0) {
 				jwt = notes.get(0);
 			}
-//			String getContextPath = request.getContextPath();
-//			String getPathInfo = request.getPathInfo();
-//			String getRequestURI = request.getRequestURI();
+			// String getContextPath = request.getContextPath();
+			// String getPathInfo = request.getPathInfo();
+			// String getRequestURI = request.getRequestURI();
 			String getServletPath = request.getServletPath();
+			@SuppressWarnings("unchecked")
+			List<MenuDto> menus = (List<MenuDto>) request.getSession().getAttribute(Constant.MENU_SESSION);
+			if (menus == null) {
+				menus = menuService.getListAll(Constant.DELETE_FLAG_ACTIVE);
+			}
 
-			if (!getServletPath.contains("/admin")) {
-				setMenuSession(request);
+			if (exitsLinksInMenu(getServletPath, menus)) {
+				setMenuSession(request, menuService.getListAll(Constant.DELETE_FLAG_ACTIVE));
 				setContactSession(request);
 				setSliceSession(request);
-				setSliceAboveSession(request);
-				setSliceBelowSession(request);
 				setCategorySession(request);
 				setVendorSession(request);
 			}
@@ -128,103 +132,93 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		return null;
 	}
 
-	private void setMenuSession(HttpServletRequest request) {
-		@SuppressWarnings("unchecked")
-		List<MenuDto> sessions = (List<MenuDto>) request.getSession().getAttribute(Constant.MENU_SESSION);
-		String getServletPath = request.getServletPath();
-
-		List<String> str = new ArrayList<>();
-		if (sessions != null) {
-			for (MenuDto dto : sessions) {
-				str.add(dto.getLink());
-			}
-		}
-
-		if (str.contains(getServletPath) || sessions == null) {
-			if (sessions == null) {
-				List<Menu> menus = menuRepository.findAll();
-				List<MenuDto> sessionsDto = copyMenuToMenuDto(menus, getServletPath);
-				request.getSession().setAttribute(Constant.MENU_SESSION, sessionsDto);
-			} else {
-				List<MenuDto> sessionsDto = new ArrayList<>();
-				for (MenuDto dto : sessions) {
-					if (getServletPath.equals(dto.getLink())) {
-						dto.setActive("active");
-					} else {
-						dto.setActive("");
-					}
-					sessionsDto.add(dto);
+	private boolean exitsLinksInMenu(String link, List<MenuDto> menus) {
+		if (menus != null) {
+			for (MenuDto dto : menus) {
+				if (link.equals(dto.getLink()) || "/".equals(link) || "/home".equals(link)) {
+					return true;
 				}
-				request.getSession().setAttribute(Constant.MENU_SESSION, sessionsDto);
 			}
 		}
+		return false;
+
 	}
 
-	private void setContactSession(HttpServletRequest request) {
-		@SuppressWarnings("unchecked")
-		Contact sessions = (Contact) request.getSession().getAttribute(Constant.CONTACT_SESSION);
-		if (sessions == null) {
-			sessions = contactRepository.findAll().get(0);
-			request.getSession().setAttribute(Constant.CONTACT_SESSION, sessions);
-		}
-	}
-
-	private void setSliceSession(HttpServletRequest request) {
-		@SuppressWarnings("unchecked")
-		List<Slice> sessions = (List<Slice>) request.getSession().getAttribute(Constant.SLICE_SESSION);
-		if (sessions == null) {
-			sessions = sliceRepository.findByPosition(1);
-			request.getSession().setAttribute(Constant.SLICE_SESSION, sessions);
-		}
-	}
-
-	private void setSliceAboveSession(HttpServletRequest request) {
-		@SuppressWarnings("unchecked")
-		Slice slice = (Slice) request.getSession().getAttribute(Constant.SLICE_SESSION_ABOVE);
-		if (slice == null) {
-			List<Slice> sessions = sliceRepository.findByPosition(2);
-			if (sessions != null && sessions.size() > 0) {
-				request.getSession().setAttribute(Constant.SLICE_SESSION_ABOVE, sessions.get(0));
+	public void setMenuSession(HttpServletRequest request, List<MenuDto> sessions) {
+		String getServletPath = request.getServletPath();
+		List<MenuDto> sessionsDto = new ArrayList<>();
+		for (MenuDto dto : sessions) {
+			if (getServletPath.equals(dto.getLink())) {
+				dto.setActive("active");
+			} else {
+				dto.setActive("");
 			}
+			sessionsDto.add(dto);
 		}
+		request.getSession().setAttribute(Constant.MENU_SESSION, sessionsDto);
 	}
 
-	private void setSliceBelowSession(HttpServletRequest request) {
-		@SuppressWarnings("unchecked")
-		Slice slice = (Slice) request.getSession().getAttribute(Constant.SLICE_SESSION_BELOW);
-		if (slice == null) {
-			List<Slice> sessions = sliceRepository.findByPosition(3);
-			if (sessions != null && sessions.size() > 0) {
-				request.getSession().setAttribute(Constant.SLICE_SESSION_BELOW, sessions.get(0));
+	public void setContactSession(HttpServletRequest request) {
+		List<ContactDto> sessions = contactService.getListAll(Constant.DELETE_FLAG_ACTIVE);
+		if (sessions != null && sessions.size() > 0) {
+			request.getSession().setAttribute(Constant.CONTACT_SESSION, sessions.get(0));
+		} else {
+			request.getSession().setAttribute(Constant.CONTACT_SESSION, new ContactDto());
+		}
+
+	}
+
+	public void setSliceSession(HttpServletRequest request) {
+
+		List<SliceDto> sessions = sliceService.getListAll(Constant.DELETE_FLAG_ACTIVE);
+		List<SliceDto> sliceLeft = new ArrayList<>();
+		List<SliceDto> sliceRightAbove = new ArrayList<>();
+		List<SliceDto> sliceRightBelow = new ArrayList<>();
+		if (sessions != null && sessions.size() > 0) {
+
+			for (SliceDto sliceDto : sessions) {
+
+				if (sliceDto.getPosition() != null && sliceDto.getPosition() == 1) {
+					sliceLeft.add(sliceDto);
+				}
+
+				if (sliceDto.getPosition() != null && sliceDto.getPosition() == 2) {
+					sliceRightAbove.add(sliceDto);
+				}
+
+				if (sliceDto.getPosition() != null && sliceDto.getPosition() == 3) {
+					sliceRightBelow.add(sliceDto);
+				}
 			}
+
 		}
+
+		request.getSession().setAttribute(Constant.SLICE_SESSION, sliceLeft);
+		if (sessions != null && sliceRightAbove.size() > 0) {
+			request.getSession().setAttribute(Constant.SLICE_SESSION_ABOVE, sessions.get(0));
+		} else {
+			request.getSession().setAttribute(Constant.SLICE_SESSION_ABOVE, new SliceDto());
+		}
+
+		if (sessions != null && sliceRightBelow.size() > 0) {
+			request.getSession().setAttribute(Constant.SLICE_SESSION_BELOW, sessions.get(0));
+		} else {
+			request.getSession().setAttribute(Constant.SLICE_SESSION_BELOW, new SliceDto());
+		}
+
 	}
 
-	private void setCategorySession(HttpServletRequest request) {
-//		@SuppressWarnings("unchecked")
-//		List<Category> sessions = (List<Category>) request.getSession().getAttribute(Constant.CATEGORY_SESSION);
-//		if (sessions == null) {
-//			sessions = categoryRepository.findAll();
-//			request.getSession().setAttribute(Constant.CATEGORY_SESSION, sessions);
-//		}
-//		List<Category> sessions = categoryRepository.findAll();
-//		request.getSession().setAttribute(Constant.CATEGORY_SESSION, sessions);
-		List<Category> sessions = categoryRepository.findAll();
+	public void setCategorySession(HttpServletRequest request) {
+		List<CategoryDto> sessions = categoryService.getListAll(Constant.DELETE_FLAG_ACTIVE);
 		request.setAttribute("listCategory", sessions);
 	}
 
-	private void setVendorSession(HttpServletRequest request) {
-		@SuppressWarnings("unchecked")
-		List<Vendor> sessions = (List<Vendor>) request.getSession().getAttribute(Constant.VENDOR_SESSION);
-//		if (sessions == null) {
-//			sessions = vendorRepository.findAll();
-//			request.getSession().setAttribute(Constant.VENDOR_SESSION, sessions);
-//		}
-		sessions = vendorRepository.findAll();
+	public void setVendorSession(HttpServletRequest request) {
+		List<VendorDto> sessions = vendorService.getListAll(Constant.DELETE_FLAG_ACTIVE);
 		request.getSession().setAttribute(Constant.VENDOR_SESSION, sessions);
 	}
 
-	private List<MenuDto> copyMenuToMenuDto(List<Menu> menus, String link) {
+	public List<MenuDto> copyMenuToMenuDto(List<Menu> menus, String link) {
 
 		List<MenuDto> sessionsDto = new ArrayList<>();
 		for (Menu menu : menus) {
@@ -239,23 +233,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		}
 
 		return sessionsDto;
-	}
-
-	private boolean exitsLinksInMenu(HttpServletRequest request) {
-		List<Menu> menus = menuRepository.findAll();
-		String getServletPath = request.getServletPath();
-		List<String> str = new ArrayList<>();
-		if (menus != null) {
-			for (Menu dto : menus) {
-				str.add(dto.getLink());
-			}
-		}
-
-		if (getServletPath.contains(getServletPath)) {
-			return true;
-		}
-
-		return false;
 	}
 
 }
