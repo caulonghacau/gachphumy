@@ -195,13 +195,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
 		request.getSession().setAttribute(Constant.SLICE_SESSION, sliceLeft);
 		if (sessions != null && sliceRightAbove.size() > 0) {
-			request.getSession().setAttribute(Constant.SLICE_SESSION_ABOVE, sessions.get(0));
+			request.getSession().setAttribute(Constant.SLICE_SESSION_ABOVE, sliceRightAbove.get(0));
 		} else {
 			request.getSession().setAttribute(Constant.SLICE_SESSION_ABOVE, new SliceDto());
 		}
 
 		if (sessions != null && sliceRightBelow.size() > 0) {
-			request.getSession().setAttribute(Constant.SLICE_SESSION_BELOW, sessions.get(0));
+			request.getSession().setAttribute(Constant.SLICE_SESSION_BELOW, sliceRightBelow.get(0));
 		} else {
 			request.getSession().setAttribute(Constant.SLICE_SESSION_BELOW, new SliceDto());
 		}
