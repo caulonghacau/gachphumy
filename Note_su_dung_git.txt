@@ -1,0 +1,70 @@
+Note hay dùng;
+
+https://nhatky.dev/2019/06/08/xoa-file-da-ton-tai-trong-git-va-cap-nhat-gitignore-giua-chung-du-an/
+
+	- Xem đường dẫn của remote: git remote -v
+	- git --help: xem gợi ý các lệnh dùng trong git
+	- xem trạng thái nhánh: git status
+	- xem vị trị nhánh đang đứng: git branch
+	- Xem log: git log
+	- nhấn tab để hiển thị gợi ý tên nhánh
+	- kiểm tra xem git đã cấu hình user và password chưa: git config --list
+	- git là quản lý phiên bản
+	- github là server lưu trữ code. la repo
+	- Khi muốn lấy một nhánh của người khác code về reop local của mình sử dụng : git fetch origin ten_nhánh.
+	
+	- Taoj git tại local: git init
+	- kết nối với git remote: git remote add gh path_repository
+1. Cấu hình user và password. email
+	- set username: git config --global user.username name_user (global tức là tất cả mọi người đều nhìn thấy)
+		username muốn đặt là gì cũng đc, nhưng mail và password phải đúng
+	- set email: git config --global user.email name_email
+	- Set password: git config --global user.password value_password
+	- kiểm tra config: git config --list
+2. Xóa bỏ các config:
+	- B1 kiểm tra: git config --list
+	- VD muốn xóa bỏ password: git config --global --unset user.password
+3. Clone một git repository
+	- git clone path_repository
+	- nếu muốn đổi tên khác với trên trên repo: git clone path_repository name_change
+4. Tạo một repo trên git hub.
+	- click vào dấu + chọn new repo
+5. tạo quản lý git (theo dõi lịch sử cho git.
+	- git init (tạo ra một thư mục con .git, git tạo ra sự theo dõi. có thể nó ko hiển thị phải mở file ẩn)
+	- .git là file quản lý file, hay file cấu hình.
+6. Trạng thái của các file trong repo
+https://www.youtube.com/watch?v=wDF7k5qTo_o&list=PLE1qPKuGSJaCGalY_6vhlswzLnTufdWIV&index=13
+
+1. Đổi tên trên git:
+	- TH1 đang đứng trên nhánh hiện tại: git branch -m "tên nhánh mới"
+	- TH2: đổi tến nhánh khác nhánh không phải nhánh đang đứng: git brnach -m "Tên nhánh muốn đổi" "Tên nhánh mới"
+	- VD: TH1: git brnach -m new_name_change, TH2: git branch -m branch_curent new_name_change.
+2. Checkout branch
+	VD git checkout branch name_branch
+	- tạo nhánh đồng thời chuyển sang nhánh đó luôn:
+		git checkout -b branch_name
+3. Git amend:
+	- Git amend: dùng để thay đổi nội dung comit trc đó  mà không tại ra commit mới
+	- B1 sửa các file 
+	- B2: git add them_file_thay_doi
+	- B3: git commit --amend
+	- Sửa nội dung message commit
+4. Xem log
+	1. git log --oneline: xem lịch sử commit
+	2. git log -p : xem chi tiết commit
+5. Reset HEAD
+	- Reset HEAD: dùng để loại bỏ những file khi đã sử dụng lệnh git add file_name
+	- VD: git reset HEAD -- file_name
+6. Xem số lượng commit cuối cùng:
+	- VD xem lịch sử 3 commit cuối cùng: git log -3
+7. MuỐn phục hồi file vừa xóa:
+	- git restore name_file 
+8. Muốn phục hồi lại một file nào đó ở những lần commit trước:
+	- git checkout mã_commit -- tên file (hoặc . đại diện cho tất cả các file)
+	- file đó đã đc lưu vào vùng staged. muôn lưu lại thì commit nếu ko sử dụng lệnh restore
+	- nếu muốn phục hồi về commit cuối thì không cần mã commit
+9. Khi muốn commit thêm file vào commit cuối mà không tao ra lich sử 
+	- git adđ
+	- git commit --amend -m "Message"
+10. Muốn xem 2 commit khác nhau gì:
+	git deff ma_comit1 ma_comit2																																	 
