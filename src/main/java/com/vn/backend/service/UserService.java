@@ -13,12 +13,14 @@ public interface UserService {
 
 	UserDto add(UserDto userDto);
 
-	UserResponse addVaildate(UserDto dto);
+	UserResponse addVaildate(UserDto dto) throws Exception;
 
 	UserDto update(UserDto userDto) throws Exception;
 
 	boolean delete(Long id) throws Exception;
 	
 	UserResponse changePassword(UserDto dto);
+	
+	UserDto findByUsername(String username) throws Exception;
 
 }

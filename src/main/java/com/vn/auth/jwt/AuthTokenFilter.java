@@ -19,21 +19,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.vn.auth.service.UserDetailsServiceImpl;
 import com.vn.backend.dto.CategoryDto;
 import com.vn.backend.dto.ContactDto;
+import com.vn.backend.dto.LogoDto;
 import com.vn.backend.dto.MenuDto;
 import com.vn.backend.dto.SliceDto;
+import com.vn.backend.dto.UserDto;
 import com.vn.backend.dto.VendorDto;
 import com.vn.backend.model.Menu;
 import com.vn.backend.service.CategoryService;
 import com.vn.backend.service.ContactService;
+import com.vn.backend.service.LogoService;
 import com.vn.backend.service.MenuService;
 import com.vn.backend.service.SliceService;
+import com.vn.backend.service.UserService;
 import com.vn.backend.service.VendorService;
 import com.vn.utils.Constant;
+import com.vn.utils.UserUtils;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
 	@Autowired
@@ -56,6 +60,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private VendorService vendorService;
+
+	@Autowired
+	private LogoService logoService;
+
+	@Autowired
+	private UserService userService;
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
@@ -87,14 +97,10 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 				setSliceSession(request);
 				setCategorySession(request);
 				setVendorSession(request);
+				setSessionLogo(request);
 			}
 
-			String baseUrl = ServletUriComponentsBuilder.fromRequestUri(request).replacePath(null).build()
-					.toUriString();
-
-//			if (getServletPath.contains("/admin") && jwt == null && !jwtUtils.validateJwtToken(jwt)) {
-//				response.sendRedirect("/login");
-//			}
+			setSessionUserLogin(request);
 
 			// String jwt = parseJwt(request);
 			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
@@ -233,6 +239,32 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		}
 
 		return sessionsDto;
+	}
+
+	public void setSessionLogo(HttpServletRequest request) {
+
+		List<LogoDto> sessions = logoService.getListAll(Constant.DELETE_FLAG_ACTIVE);
+		for (LogoDto logoDto : sessions) {
+			if (logoDto.getPosition() == 1) {
+				request.getSession().setAttribute(Constant.LOGO_HEADER_SESSION, logoDto);
+			}
+
+			if (logoDto.getPosition() == 2) {
+				request.getSession().setAttribute(Constant.LOGO_FOOTER_SESSION, logoDto);
+			}
+		}
+
+	}
+
+	public void setSessionUserLogin(HttpServletRequest request) throws Exception {
+
+		@SuppressWarnings("unchecked")
+		UserDto userDto = (UserDto) request.getSession().getAttribute(Constant.USER_LOGIN);
+		if (userDto == null) {
+			UserDto dto = userService.findByUsername(UserUtils.getUserLogin());
+			request.getSession().setAttribute(Constant.USER_LOGIN, dto);
+		}
+
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.vn.backend.serviceimpl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -7,13 +9,13 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.vn.auth.model.ERole;
 import com.vn.auth.model.Role;
@@ -24,6 +26,7 @@ import com.vn.backend.dto.UserDto;
 import com.vn.backend.response.UserResponse;
 import com.vn.backend.service.UserService;
 import com.vn.utils.Constant;
+import com.vn.utils.FileUploadUtil;
 import com.vn.utils.Message;
 import com.vn.utils.UserUtils;
 
@@ -38,6 +41,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Value("${image.system}")
+	private String images;
 
 	@Override
 	public UserResponse getPaggingUser(int deleteFlag, Pageable pagging) {
@@ -90,7 +96,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserResponse addVaildate(UserDto dto) {
+	public UserResponse addVaildate(UserDto dto) throws Exception {
 
 		UserResponse result = vailidate(dto);
 
@@ -107,6 +113,17 @@ public class UserServiceImpl implements UserService {
 		roles.add(roleAdmin);
 		entity.setRoles(roles);
 
+		MultipartFile multipartFile = dto.getImageUpload();
+		String fileName = multipartFile.getOriginalFilename();
+		try {
+			FileUploadUtil.saveFile(this.images, fileName, multipartFile);
+		} catch (IOException e) {
+			throw new Exception();
+		}
+		if (StringUtils.hasText(fileName)) {
+			String url = File.separator + this.images + File.separator + fileName;
+			entity.setImage(url);
+		}
 		User dataAfterSave = userRepository.save(entity);
 		BeanUtils.copyProperties(dataAfterSave, dto);
 		result.setStatus(Constant.STATUS_SUCCSESS);
@@ -117,18 +134,32 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto update(UserDto userDto) throws Exception {
-		Optional<User> option = userRepository.findById(userDto.getId());
+	public UserDto update(UserDto dto) throws Exception {
+		Optional<User> option = userRepository.findById(dto.getId());
 
 		if (option.isPresent()) {
 			User dataDb = option.get();
-			if (StringUtils.hasText(userDto.getEmail())) {
-				dataDb.setEmail(userDto.getEmail());
+			if (StringUtils.hasText(dto.getEmail())) {
+				dataDb.setEmail(dto.getEmail());
+			}
+
+			MultipartFile multipartFile = dto.getImageUpload();
+			String fileName = multipartFile.getOriginalFilename();
+			if (StringUtils.hasText(fileName)) {
+				try {
+					FileUploadUtil.saveFile(this.images, fileName, multipartFile);
+				} catch (IOException e) {
+					throw new Exception();
+				}
+				String url = File.separator + this.images + File.separator + fileName;
+				dataDb.setImage(url);
+			} else {
+				dataDb.setImage(dto.getImage());
 			}
 
 			User result = userRepository.save(dataDb);
-			BeanUtils.copyProperties(userDto, result);
-			return userDto;
+			BeanUtils.copyProperties(dto, result);
+			return dto;
 		} else {
 			throw new Exception(Message.UPDATE_FAILURE);
 		}
@@ -259,5 +290,17 @@ public class UserServiceImpl implements UserService {
 		result.setMessage(Message.UPDATE_SUCCESS);
 		result.setUser(dto);
 		return result;
+	}
+
+	public UserDto findByUsername(String username) throws Exception {
+		Optional<User> optional = userRepository.findByUsername(username);
+		if (optional.isPresent()) {
+			UserDto dto = new UserDto();
+			BeanUtils.copyProperties(optional.get(), dto);
+			return dto;
+		} else {
+			throw new Exception("Username khong toi tai !!!!");
+		}
+
 	}
 }

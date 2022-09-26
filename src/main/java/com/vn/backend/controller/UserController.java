@@ -42,7 +42,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
-	public String doAdd(UserDto userDto, Model model, RedirectAttributes redirect) {
+	public String doAdd(UserDto userDto, Model model, RedirectAttributes redirect) throws Exception {
 
 		UserResponse resutl = userService.addVaildate(userDto);
 		if (Constant.STATUS_SUCCSESS != resutl.getStatus()) {

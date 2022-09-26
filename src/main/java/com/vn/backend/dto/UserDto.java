@@ -3,6 +3,8 @@ package com.vn.backend.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.vn.auth.model.Role;
 
 import lombok.AllArgsConstructor;
@@ -21,5 +23,8 @@ public class UserDto {
 	private String password;
 	private String confirmPassword;
 	private String passwordOld;
+
+	private String image;
+	private MultipartFile imageUpload;
 	private List<Role> roles = new ArrayList<>();
 }

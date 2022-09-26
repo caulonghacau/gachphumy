@@ -9,6 +9,10 @@ public class Constant {
 	public static String SLICE_SESSION_ABOVE = "sliceSessionAbove";
 	public static String SLICE_SESSION_BELOW = "sliceSessionBelow";
 
+	public static String LOGO_HEADER_SESSION = "logoHeaderSession";
+
+	public static String LOGO_FOOTER_SESSION = "logoFooterSession";
+	public static String USER_LOGIN = "userLogin";
 	public static String CATEGORY_SESSION = "categorySession";
 
 	public static String VENDOR_SESSION = "vendorSession";

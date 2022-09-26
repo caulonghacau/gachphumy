@@ -28,10 +28,10 @@
 
 				</div>
 				<div>
-					<a class="navbar-brand brand-logo" th:href="@{/home}">
+					<a class="navbar-brand brand-logo" th:href="@{/}">
 						<img th:src="@{/img/logo-full.jpg}" alt="logo" />
 					</a>
-					<a class="navbar-brand brand-logo-mini" th:href="@{/home}">
+					<a class="navbar-brand brand-logo-mini" th:href="@{/}">
 						<img th:src="@{/img/logo-full.jpg}" alt="logo" />
 					</a>
 				</div>
@@ -96,11 +96,11 @@
 					</li>
 					<li class="nav-item dropdown d-none d-lg-block user-dropdown">
 						<a class="nav-link" id="UserDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-							<img class="img-xs rounded-circle" th:src="@{/backend/images/faces/face8.jpg}"
+							<img class="img-xs rounded-circle" th:src="@{${session.userLogin.image}}"
 								alt="Profile image"> </a>
 						<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
 							<div class="dropdown-header text-center">
-								<img class="img-md rounded-circle" th:src="@{/backend/images/faces/face8.jpg}"
+								<img class="img-md rounded-circle" th:src="@{${session.userLogin.image}}"
 									alt="Profile image">
 								<p class="mb-1 mt-3 font-weight-semibold"><span sec:authentication="name"></span></p>
 							</div>
@@ -108,11 +108,13 @@
 									class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i> Thông tin
 								tài khoản
 								<span class="badge badge-pill badge-danger">1</span></a>
-							<a class="dropdown-item" th:href="@{/admin/user/change-password}">Thay đổi password</a>
+
+							<a class="dropdown-item" th:href="@{/admin/user/change-password}">
+								<i class="dropdown-item-icon mdi mdi mdi-account-card-details text-primary me-2"></i>
+								<span>Thay đổi password</span>
+							</a>
 							<a class="dropdown-item" th:href="@{/logout}"><i
 									class="dropdown-item-icon mdi mdi-power text-primary me-2"></i>Đăng xuất</a>
-							<a class="dropdown-item" th:href="@{/admin/remove/session}">Load dữ liệu trang
-								chủ</a>
 						</div>
 					</li>
 				</ul>
@@ -152,11 +154,13 @@
 			<ul class="nav">
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/admin}">
+						<i class="mdi mdi-grid-large menu-icon"></i>
 						<span class="menu-title" style="font-size: 12pt;">Quản Trị</span>
 					</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" th:href="@{/admin/product}">
+						<i class="menu-icon mdi mdi-card-text-outline"></i>
 						<span class="menu-title" style="font-size: 12pt;">Sản Phẩm</span>
 					</a>
 				</li>

@@ -25,7 +25,7 @@
 									<h4 class=" card-title">Cập nhật Tài Khoản
 									</h4>
 									<form class="forms-sample" th:object="${user}" th:action="@{/admin/user/update}"
-										method="post">
+										method="post" enctype="multipart/form-data">
 										<div class="form-group">
 											<label for="exampleInputUsername1">Tài khoản</label>
 											<input type="hidden" th:field="*{id}">
@@ -48,6 +48,13 @@
 											<input type="text" class="form-control" th:field="*{email}"
 												placeholder="Nhập email" required maxlength="50"
 												title="Email không được để trống hoăc dài nhập dài hơn 50 kí tự">
+										</div>
+										<div class="form-group">
+											<div>Hình ảnh (Avata)</div>
+											<input type="hidden" th:field="*{image}">
+											<input type="file" class="form-control" th:field="*{imageUpload}"
+												placeholder="Chọn đường dẫn"
+												accept="image/png, image/jpeg, image/jpg" />
 										</div>
 										<button type="submit" class="btn btn-success me-2">Lưu</button>
 										<a class="btn btn-info me-2" th:href="@{/admin/user}">Hủy</a>

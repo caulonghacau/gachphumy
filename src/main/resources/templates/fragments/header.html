@@ -18,6 +18,13 @@
 		<link th:href="@{/frontend/css/style.css}" rel="stylesheet">
 		<link th:href="@{/frontend/css/custom.css}" rel="stylesheet">
 		<meta name="google-site-verification" content="HyncdWA_TaNIUYyGIqSKOqFTk9SiTxJ07XYpPk94Gqg" />
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-56RN7T2Z05"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-56RN7T2Z05');
+		</script>
 	</head>
 </head>
 
@@ -29,7 +36,7 @@
 					<a th:href="@{/}" class="text-decoration-none" style="position: relative; left: -12px;">
 						<img class="h1 text-uppercase text-primary px-2"
 							style="height: 48px; position: relative; top: 1px; left: 16px;"
-							th:src="@{/images/logo-no-text.jpg}" />
+							th:src="@{${session.logoHeaderSession.image}}" />
 						<span class="h1 text-uppercase text-primary bg-dark px-2">Gạch</span>
 						<span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1"
 							style="position: relative; left: -7px;">Phú Mỹ</span>
